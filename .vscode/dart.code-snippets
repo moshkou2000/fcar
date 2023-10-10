@@ -1,0 +1,297 @@
+{
+  // https://snippet-generator.app
+  // Place your snippets for dart here. Each snippet is defined under a snippet name and has a prefix, body and
+  // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+  // same ids are connected.
+  // Example:
+  // "Print to console": {
+  // 	"prefix": "log",
+  // 	"body": [
+  // 		"console.log('$1');",
+  // 		"$2"
+  // 	],
+  // 	"description": "Log output to console"
+  // }
+  "navigate to": {
+    "prefix": "navigate to",
+    "body": [
+      "void _navigateToAbc() {",
+      "_navigationService.navigateTo(ConstantNav.abcRoute);",
+      "}"
+    ],
+    "description": "navigate to a route"
+  },
+  "log event": {
+    "prefix": "log event",
+    "body": [
+      "Future<void> _logEvent() async {",
+      "await _analytics.logEvent(",
+      "eventName: ConstantAnalytics.whatEventName,",
+      "data: {",
+      "ConstantAnalytics.leadID: 'what value',",
+      "},",
+      ");",
+      "}"
+    ],
+    "description": "log event by analytics service"
+  },
+  "list tile widget": {
+    "prefix": "list tile widget",
+    "body": [
+      "ListTileWidget(",
+      "leadingText: 'title',",
+      "trailingText: 'subtitle',",
+      "trailingIcon: Icons.navigateNext,",
+      "verticalPadding: 4.0,",
+      "onTap: () {},",
+      ");"
+    ],
+    "description": "list tile widget for a ListView"
+  },
+  "bottom dialog component": {
+    "prefix": "bottom dialog component",
+    "body": [
+      "showBottomDialogComponent(",
+      "barrierDismissible: false,",
+      "context: context,",
+      "title: 'title',",
+      "primaryActionText: 'OK',",
+      "subtitle: 'subtitle',",
+      "onPrimaryActionPressed: (observer) async {",
+      "observer.showLoading();",
+      "// action",
+      "Navigator.of(context).pop();",
+      "observer.hideLoading();",
+      "});"
+    ],
+    "description": "info or error bottom dialog"
+  },
+  "main": {
+    "prefix": "main",
+    "body": [
+      "void main() {",
+      "runZonedGuarded(() async {",
+      "// setup the app",
+      "// await App.setup(env: AppEnvironment.uat);",
+      "runApp(const ProviderScope(child: MyApp()));",
+      "}, (Object e, StackTrace s) {",
+      "FirebaseCrashlytics.instance.recordError(e, s, fatal: true);",
+      "});",
+      "FlutterError.onError = (FlutterErrorDetails e) {",
+      "FirebaseCrashlytics.instance.recordError(e.exception, e.stack, fatal: true);",
+      "};",
+      "PlatformDispatcher.instance.onError = (Object e, StackTrace s) {",
+      "FirebaseCrashlytics.instance.recordError(e, s, fatal: true);",
+      "return true;",
+      "};",
+      "}"
+    ],
+    "description": "main"
+  }
+}
+/*
+
+>>> Widget _buildDateTimeInput({
+    required String name,
+    required String nameKey,
+    required bool required,
+    required bool editable,
+    required GeneralInfo generalInfo,
+    required TextEditingController controller,
+    required FocusNode focusNode,
+  }) {
+    return DropdownWidget(
+      hasAsterisk: false,
+      title: name,
+      placeholder: name,
+      controller: controller,
+      isDisabled: !editable,
+      onPressed: () async {
+        DatePicker.showDatePicker(
+          context,
+          pickerTheme: DateTimePickerTheme(
+            showTitle: true,
+            itemTextStyle:
+                RobotoStyle.label500Medium.copyWith(color: ThemeColor.black),
+            title: Text(name, style: RobotoStyle.label500Medium),
+            confirm: Icon(Icons.done, color: ThemeColor.lightBlue),
+            cancel: Icon(
+              Icons.close,
+              color: ThemeColor.gray500,
+            ),
+          ),
+          dateFormat: 'dd MMM yyyy',
+          locale: Usecase.calendarTH
+              ? DateTimePickerLocale.th
+              : DATETIME_PICKER_LOCALE_DEFAULT,
+          initialDateTime: DateTime.now(),
+          minDateTime: Usecase.calendarTH
+              ? generalInfo.min?.toBuddhistDate()
+              : generalInfo.min?.toWorldDate(),
+          maxDateTime: Usecase.calendarTH
+              ? generalInfo.min?.toBuddhistDate()
+              : generalInfo.max?.toWorldDate(),
+          onConfirm: (DateTime dateTime, List<int> index) {
+            if (Usecase.calendarTH) {
+              // final DateTime? date = dateTime.toBuddhistDate();
+              controller.value = controller.value
+                  .copyWith(text: dateTime.buddhistCalendarFormat());
+            } else {
+              // final DateTime? date = dateTime;
+              controller.value = controller.value
+                  .copyWith(text: dateTime.dateFormat(format: 'dd/MM/yyyy'));
+            }
+            _submit(nameKey, generalInfo, controller.value.text);
+          },
+        );
+      },
+    );
+  }
+
+
+  >>>   Widget _buildInput({
+    required String name,
+    required String nameKey,
+    required bool required,
+    required bool editable,
+    required GeneralInfo generalInfo,
+    required TextEditingController controller,
+    required FocusNode focusNode,
+    TextCapitalization? textCapitalization,
+    TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 16, left: 16, bottom: 16),
+      child: TextFieldComponent(
+        errorBuilder: const SizedBox(),
+        errorBorderColor: editable ? ThemeColor.gray300 : ThemeColor.gray50,
+        enabled: editable,
+        controller: controller,
+        isRequired: false, //required,
+        labelText: name,
+        hintText: name,
+        textCapitalization: textCapitalization,
+        textInputAction: TextInputAction.next,
+        keyboardType: keyboardType,
+        focusNode: focusNode,
+        inputFormatters: inputFormatters,
+        onFieldSubmitted: (value) => _submit(nameKey, generalInfo, value ?? ''),
+        validation: (String? text) =>
+            _validation(required, controller.value.text, text),
+      ),
+    );
+  }
+
+
+
+
+>>>>>>> 
+abstract class BaseControllerAutoDispose
+    extends AutoDisposeNotifier<ViewState> {
+  String? errorMsg;
+
+  @override
+  ViewState build() {
+    return ViewState.initial;
+  }
+
+  bool get isDeleting => state == ViewState.deleting;
+
+  bool get isError => state == ViewState.error;
+
+  bool get inAsyncCall => state == ViewState.inAsyncCall;
+
+  bool get isInitial => state == ViewState.initial;
+
+  bool get isLoaded => state == ViewState.loaded;
+
+  bool get isLoading => state == ViewState.loading;
+
+  bool get isSubmitting => state == ViewState.submitting;
+
+  void setError(
+    dynamic error,
+    dynamic stacktrace, {
+    FutureOr? action,
+    String? title,
+    String? subtitle,
+    bool noPopup = false,
+  }) {
+    if (kDebugMode) {
+      AppLog.print(error, level: Level.error);
+      AppLog.print(stacktrace, level: Level.info);
+    }
+    if (state != ViewState.error) {
+      if (error is NetworkException) {
+        if (error.isKickout) {
+          ref.read(service).cancelApiRequests();
+          showErrorDialog(
+            title: title ?? error.title,
+            subtitle: subtitle ?? error.message,
+            action: ref.read(service).logout(),
+          );
+        } else {
+          state = ViewState.error;
+          errorMsg = error.message;
+          if (!noPopup) {
+            showErrorDialog(
+              title: title ?? error.title,
+              subtitle: subtitle ?? errorMsg,
+              action: action,
+            );
+          }
+        }
+      } else {
+        state = ViewState.error;
+        errorMsg = error?.toString();
+        if (!noPopup) {
+          showErrorDialog(
+            title: title ?? getLocalization.error,
+            subtitle: subtitle ?? errorMsg,
+            action: action,
+          );
+        }
+      }
+    }
+  }
+
+  void setDeleting() {
+    if (state != ViewState.deleting) {
+      state = ViewState.deleting;
+    }
+  }
+
+  void setInAsyncCall() {
+    if (state != ViewState.inAsyncCall) {
+      state = ViewState.inAsyncCall;
+    }
+  }
+
+  void setInitial() {
+    if (state != ViewState.initial) {
+      state = ViewState.initial;
+    }
+  }
+
+  void setLoaded() {
+    if (state != ViewState.loaded) {
+      state = ViewState.loaded;
+    }
+  }
+
+  void setLoading() {
+    if (state != ViewState.loading) {
+      state = ViewState.loading;
+    }
+  }
+
+  void setSubmitting() {
+    if (state != ViewState.submitting) {
+      state = ViewState.submitting;
+    }
+  }
+}
+
+  */

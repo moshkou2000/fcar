@@ -1,0 +1,374 @@
+import 'package:animations/animations.dart';
+import 'package:flutter/material.dart';
+
+import '../../../config/style/roboto_style.dart';
+import '../../../config/style/theme_color.dart';
+import 'dialog.enum.dart';
+import 'dialog_observer.dart';
+
+typedef DialogObserverCallback = void Function(DialogObserver);
+
+const int _dialogEaseInDuration = 200;
+const int _dialogEaseOutDuration = 250;
+
+void showDialogAt({
+  required BuildContext context,
+
+  /// to set posittion of the dialog,
+  /// bottomSheetDialog position is at the center bottom
+  AlignmentGeometry? position,
+
+  /// dismissible when user click at dialog scrim
+  bool? barrierDismissible,
+
+  /// dialog scrim color
+  Color? barrierColor,
+
+  /// animation duration FadeScale when show the dialog
+  Duration? openDialogTransitionDuration,
+
+  /// animation duration FadeScale when close the dialog
+  Duration closeDialogTransitionDuration =
+      const Duration(milliseconds: _dialogEaseOutDuration),
+
+  /// loading indicator background color
+  Color? circularLoaderBackgroundColor,
+
+  /// loading indicator value color
+  Color? circularArcColor,
+  String? primaryActionText,
+  String? title,
+  TextStyle? titleStyle,
+  String? subtitle,
+  List<InlineSpan>? subtitleChildren,
+  TextStyle? subtitleStyle,
+  String? secondaryActionText,
+  Widget? illustration,
+  DialogObserverCallback? onPrimaryActionPressed,
+  DialogObserverCallback? onSecondaryActionPressed,
+  Color? primaryActionColor,
+  Color? primaryActionTextColor,
+  Color? secondaryActionColor,
+  Color? secondaryActionTextColor,
+}) {
+  showModal<void>(
+    context: context,
+    configuration: FadeScaleTransitionConfiguration(
+        barrierColor: barrierColor ?? Colors.black54,
+        barrierDismissible: barrierDismissible ?? true,
+        transitionDuration: openDialogTransitionDuration ??
+            const Duration(milliseconds: _dialogEaseInDuration),
+        reverseTransitionDuration: closeDialogTransitionDuration),
+    builder: (BuildContext context) {
+      return WillPopScope(
+        onWillPop: () async => barrierDismissible ?? true,
+        child: _PositionedDialog(
+          position: position ?? Alignment.bottomCenter,
+          title: title,
+          titleStyle: titleStyle,
+          subtitle: subtitle,
+          subtitleChildren: subtitleChildren,
+          subtitleStyle: subtitleStyle,
+          primaryActionText: primaryActionText,
+          secondaryActionText: secondaryActionText,
+          illustration: illustration,
+          onPrimaryActionPressed: onPrimaryActionPressed,
+          onSecondaryActionPressed: onSecondaryActionPressed,
+          primaryActionColor: primaryActionColor,
+          primaryActionTextColor: primaryActionTextColor,
+          secondaryActionColor: secondaryActionColor,
+          secondaryActionTextColor: secondaryActionTextColor,
+          circularArcLoadingIndicatorColor: circularArcColor,
+          circularBackgroundLoadingIndicatorColor:
+              circularLoaderBackgroundColor,
+        ),
+      );
+    },
+  );
+}
+
+class _PositionedDialog extends StatefulWidget {
+  /// to set posittion of the dialog,
+  /// bottomSheetDialog position is at the center bottom
+  final AlignmentGeometry position;
+
+  /// dialog header title
+  final String? title;
+
+  /// dialog header title style
+  final TextStyle? titleStyle;
+
+  /// sub message
+  final String? subtitle;
+
+  /// sub message with different text style
+  final List<InlineSpan>? subtitleChildren;
+
+  /// sub message text style
+  final TextStyle? subtitleStyle;
+
+  /// primary CTA button text (right)
+  final String? primaryActionText;
+
+  /// secondary CTA button text (left)
+  final String? secondaryActionText;
+
+  /// will fixed [illustration] to 72x64
+  final Widget? illustration;
+
+  /// primary CTA button callback (right)
+  final DialogObserverCallback? onPrimaryActionPressed;
+
+  /// secondary CTA button callback (left)
+  final DialogObserverCallback? onSecondaryActionPressed;
+
+  /// primary CTA button background color (right)
+  final Color? primaryActionColor;
+
+  /// primary CTA button text color (right)
+  final Color? primaryActionTextColor;
+
+  //  secondary CTA button background color (left)
+  final Color? secondaryActionColor;
+
+  /// secondary CTA button text color (left)
+  final Color? secondaryActionTextColor;
+
+  /// circular arc color
+  final Color? circularArcLoadingIndicatorColor;
+
+  /// circular background color for [CircularProgressIndicator]
+  final Color? circularBackgroundLoadingIndicatorColor;
+
+  const _PositionedDialog({
+    required this.position,
+    this.subtitleChildren,
+    this.subtitleStyle,
+    this.secondaryActionColor,
+    this.secondaryActionTextColor,
+    this.circularArcLoadingIndicatorColor = ThemeColor.informationB500,
+    this.circularBackgroundLoadingIndicatorColor,
+    this.primaryActionTextColor,
+    this.primaryActionColor,
+    this.illustration,
+    this.title,
+    this.subtitle,
+    this.titleStyle,
+    this.primaryActionText,
+    this.secondaryActionText,
+    this.onPrimaryActionPressed,
+    this.onSecondaryActionPressed,
+  });
+
+  @override
+  _PositionedDialogState createState() => _PositionedDialogState();
+}
+
+class _PositionedDialogState extends State<_PositionedDialog> {
+  late final DialogObserver _dialogStateObserver;
+
+  @override
+  void initState() {
+    _dialogStateObserver = DialogObserver();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _dialogStateObserver.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: widget.position,
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+          decoration: BoxDecoration(
+            color: ThemeColor.shadeWhite,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildIllustration(),
+              _buildTitle(),
+              _buildSubtitle(),
+              _buildActionButtons(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildIllustration() {
+    return Visibility(
+      maintainState: false,
+      maintainSize: false,
+      visible: widget.illustration != null,
+      replacement: const SizedBox.shrink(),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 24),
+        child: SizedBox(
+          width: 72,
+          height: 64,
+          child: widget.illustration,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTitle() {
+    return Visibility(
+      visible: widget.title != null,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: Text(
+          widget.title ?? '',
+          style: widget.titleStyle ??
+              RobotoStyle.subtitle.copyWith(color: ThemeColor.shadeBlack),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSubtitle() {
+    return Visibility(
+      visible: widget.subtitle != null || widget.subtitleChildren != null,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: RichText(
+          text: TextSpan(
+              text: widget.subtitle ?? '',
+              style: widget.subtitleStyle ??
+                  RobotoStyle.body2.copyWith(color: ThemeColor.shade80),
+
+              /// sub text with different text style
+              children: widget.subtitleChildren),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return Flex(
+      direction: Axis.horizontal,
+      children: [
+        /// secondary action button
+        Visibility(
+          visible: widget.secondaryActionText?.isNotEmpty == true,
+          replacement: const SizedBox.shrink(),
+          child: Expanded(
+            child: ValueListenableBuilder<DialogState>(
+              valueListenable: _dialogStateObserver,
+              builder: (context, dialogState, child) {
+                return MaterialButton(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(8),
+                    ),
+                  ),
+                  highlightElevation: 0,
+                  focusElevation: 0,
+                  disabledElevation: 0,
+                  hoverElevation: 0,
+                  color: widget.secondaryActionColor ?? ThemeColor.shade05,
+                  height: 40,
+                  elevation: 0,
+                  minWidth: MediaQuery.of(context).size.width,
+                  onPressed: dialogState == DialogState.loading
+                      ? null
+                      : () {
+                          if (widget.onSecondaryActionPressed != null) {
+                            widget.onSecondaryActionPressed!(
+                                _dialogStateObserver);
+                          }
+                        },
+                  child: dialogState != DialogState.loading
+                      ? Text(
+                          widget.secondaryActionText ?? '',
+                          textAlign: TextAlign.center,
+                          style: RobotoStyle.button.copyWith(
+                              color: widget.secondaryActionTextColor ??
+                                  ThemeColor.shadeWhite),
+                        )
+                      : _buildActionButtonLoading(),
+                );
+              },
+            ),
+          ),
+        ),
+
+        Visibility(
+          visible: widget.secondaryActionText?.isNotEmpty == true,
+          replacement: const SizedBox.shrink(),
+          child: const SizedBox(width: 16),
+        ),
+
+        /// primary action button
+        Expanded(
+          child: ValueListenableBuilder<DialogState>(
+            valueListenable: _dialogStateObserver,
+            builder: (context, dialogState, child) {
+              return MaterialButton(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                ),
+                highlightElevation: 0,
+                focusElevation: 0,
+                disabledElevation: 0,
+                hoverElevation: 0,
+                color: widget.primaryActionColor ?? ThemeColor.informationB500,
+                height: 40,
+                elevation: 0,
+                minWidth: MediaQuery.of(context).size.width,
+                disabledColor:
+                    widget.primaryActionColor ?? ThemeColor.informationB500,
+                onPressed: dialogState == DialogState.loading
+                    ? null
+                    : () {
+                        if (widget.onPrimaryActionPressed != null) {
+                          widget.onPrimaryActionPressed!(_dialogStateObserver);
+                        }
+                      },
+                child: dialogState != DialogState.loading
+                    ? Text(
+                        widget.primaryActionText ?? '',
+                        textAlign: TextAlign.center,
+                        style: RobotoStyle.button.copyWith(
+                            color: widget.primaryActionTextColor ??
+                                ThemeColor.shadeWhite),
+                      )
+                    : _buildActionButtonLoading(),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButtonLoading() {
+    return SizedBox(
+      height: 20,
+      width: 20,
+      child: CircularProgressIndicator(
+        strokeWidth: 1,
+        backgroundColor: widget.circularBackgroundLoadingIndicatorColor ??
+            (widget.primaryActionColor ?? ThemeColor.informationB500),
+        valueColor: AlwaysStoppedAnimation<Color>(
+            widget.circularArcLoadingIndicatorColor ??
+                ThemeColor.informationB500),
+      ),
+    );
+  }
+}

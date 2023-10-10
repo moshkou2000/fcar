@@ -1,0 +1,42 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.0.0",
+  "configurations": [
+    {
+      "name": "Dev Debug iOS",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "program": "lib/main.dart",
+      "args": [
+        "--flavor",
+        "Debug-Dev",
+        "--dart-define",
+        "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
+        "--dart-define",
+        "AUTH_USERNAME=admin",
+        "--dart-define",
+        "AUTH_PASSWORD=admin123"
+      ]
+    },
+    {
+      "name": "Dev Debug Android",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "program": "lib/main.dart",
+      "args": [
+        "--flavor",
+        "dev",
+        "--dart-define",
+        "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
+        "--dart-define",
+        "AUTH_USERNAME=admin",
+        "--dart-define",
+        "AUTH_PASSWORD=admin123"
+      ]
+    }
+  ]
+}
