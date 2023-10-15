@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../crashlytics.dart';
+import '../service/crashlytics/crashlytics.dart';
 import '../service/remote_config.service.dart';
 import '../../config/enum/app_env.dart';
 

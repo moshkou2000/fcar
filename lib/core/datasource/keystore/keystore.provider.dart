@@ -2,7 +2,7 @@ import 'keystore.dart';
 import 'keystore.enum.dart';
 import 'secure_storage/secure_storage.dart';
 
-abstract class KeystoreProvider {
+class KeystoreProvider {
   late final IKeystore keystore;
 
   KeystoreProvider() {

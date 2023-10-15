@@ -30,20 +30,18 @@ enum NetworkExceptionType {
   ///It occurs when receiving timeout.
   receiveTimeout,
 
-  /// Caused by an incorrect certificate as configured by [ValidateCertificate].
+  /// Caused by an incorrect certificate
   badCertificate,
 
-  /// The [DioException] was caused by an incorrect status code as configured by
-  /// [ValidateStatus].
+  /// It was caused by an incorrect status code
   badResponse,
 
-  /// When the request is cancelled, dio will throw a error with this type.
+  /// When the request is cancelled will throw a error with this type.
   cancel,
 
-  /// Caused for example by a `xhr.onError` or SocketExceptions.
+  /// Caused for example by a `xhr.onError` or Socket Exceptions.
   connectionError,
 
-  /// Default error type, Some other [Error]. In this case, you can use the
-  /// [DioException.error] if it is not null.
+  /// Default error type, Some other [Error].
   unknown,
 }

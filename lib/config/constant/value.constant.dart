@@ -8,6 +8,7 @@ class ValueConstant {
   static const int hideTextLength = 100;
   static const int imageGalleryPageSize = 0;
   static const int maxConcurrentTasks = 3;
+  static const int maxFileSize = 10485760;
   static const int receiveTimeout = 120000;
   static const int sendTimeout = 9000;
   static const int snackbarDurationWithAction = 3500;

@@ -11,7 +11,7 @@ final Provider<DeviceInfoService> deviceInfoService =
 
 class DeviceInfoService {
   static Future<Map<String, String>> getPackageInfo() async {
-    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final packageInfo = await PackageInfo.fromPlatform();
     return {
       'APP_ID': packageInfo.packageName,
       'APP_VERSION': packageInfo.version,
@@ -22,20 +22,20 @@ class DeviceInfoService {
   }
 
   Future<AndroidDeviceInfo> getAndroidInfo() async {
-    final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    final deviceInfo = DeviceInfoPlugin();
     return await deviceInfo.androidInfo;
   }
 
   Future<IosDeviceInfo> getIosInfo() async {
-    final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    final deviceInfo = DeviceInfoPlugin();
     return await deviceInfo.iosInfo;
   }
 
   Future<Map<String, dynamic>> getDeviceInfo() async {
-    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final packageInfo = await PackageInfo.fromPlatform();
 
     if (Platform.isIOS) {
-      final IosDeviceInfo info = await getIosInfo();
+      final info = await getIosInfo();
       return <String, dynamic>{
         'App Version': '${packageInfo.version} (${packageInfo.buildNumber})',
         'identifierForVendor': info.identifierForVendor,
@@ -53,7 +53,7 @@ class DeviceInfoService {
       };
     }
 
-    final AndroidDeviceInfo info = await getAndroidInfo();
+    final info = await getAndroidInfo();
     return <String, dynamic>{
       'App Version': '${packageInfo.version} (${packageInfo.buildNumber})',
       'board': info.board,

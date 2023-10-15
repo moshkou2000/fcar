@@ -20,6 +20,21 @@ class DatabaseProvider {
     });
   }
 
+  static void closeDatabase({
+    required DatabaseType databaseType,
+    required DatabaseName databaseName,
+  }) {
+    switch (databaseType) {
+      case DatabaseType.objectbox:
+        objectboxStore.closeDatabase(databaseName: databaseName);
+
+      // case DatabaseType.sqlite:
+      // // TODO: Handle this case.
+      // case DatabaseType.hive:
+      // // TODO: Handle this case.
+    }
+  }
+
   static Future<bool> dropDatabase({
     required DatabaseType databaseType,
     required DatabaseName databaseName,
@@ -36,7 +51,7 @@ class DatabaseProvider {
     }
   }
 
-  static ICollection? getCollection<T>({
+  static ICollection<T>? getCollection<T>({
     required DatabaseType databaseType,
     required DatabaseName databaseName,
   }) {

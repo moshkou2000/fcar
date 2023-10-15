@@ -12,6 +12,7 @@ abstract class IDatabase {
   IDatabase({required this.databaseType});
 
   Future<void> create({required List<DatabaseName> names});
+  void closeDatabase({required DatabaseName databaseName});
   Future<bool> deleteDatabaseFile({
     required DatabaseName databaseName,
     required DatabaseType databaseType,

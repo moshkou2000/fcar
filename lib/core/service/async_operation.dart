@@ -5,8 +5,6 @@ import 'package:flutter/foundation.dart';
 import '../datasource/network/network_exception.dart';
 
 class AsyncOperation {
-  AsyncOperation._();
-
   static Completer<bool?>? _completer;
 
   /// Return true if the initialization is successful, otherwise false

@@ -5,7 +5,10 @@ import 'package:flutter/services.dart';
 
 import '../core/datasource/database/database.enum.dart';
 import '../core/datasource/database/database.provider.dart';
+import '../core/service/navigation.service.dart';
 import '../core/service/notification/remote/firebase_messaging.dart';
+import '../core/service/analytics/analytics.provider.dart';
+import 'constant/nav.constant.dart';
 import 'enum/app_env.dart';
 import '../shared/domain/provider/localization/localization.service.dart';
 import '../core/flavor/flavor.service.dart';
@@ -49,8 +52,12 @@ class App {
   static Future<void> setup({required AppEnvironment env}) async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
+
+    // TODO: setup from the provider
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    FirebaseMessagingService.init();
+
+    // TODO: setup from the provider, like this one
+    FirebaseMessagingService.setup();
 
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -60,6 +67,9 @@ class App {
     await FlavorService.setFlavor();
 
     await localizationService.init();
+
+    // TODO: setup analytics / error tracking / performance monitoring
+    // do it here
 
     DatabaseProvider.createDatabase(names: {
       DatabaseType.objectbox: [DatabaseName.appDb, DatabaseName.networkCache]

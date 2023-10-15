@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../../crashlytics.dart';
+import '../../../service/crashlytics/crashlytics.dart';
 import '../database.dart';
 import '../database.enum.dart';
 
@@ -37,6 +37,12 @@ class ObjectboxStore extends IDatabase {
         }
       }
     }
+  }
+
+  @override
+  void closeDatabase({required DatabaseName databaseName}) {
+    var store = getStore(databaseName: databaseName);
+    store?.close();
   }
 
   Store? getStore({required DatabaseName databaseName}) {

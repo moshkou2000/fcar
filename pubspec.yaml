@@ -30,11 +30,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   animations: ^2.0.8
   camera: ^0.10.5+4
   connectivity_plus: ^4.0.2
   cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
+  datadog_flutter_plugin: ^1.6.2
   device_info_plus: ^8.0.0
   dio: ^5.3.3
   dio_cache_interceptor: ^3.4.4
@@ -43,6 +47,7 @@ dependencies:
   firebase_crashlytics: ^3.3.6
   firebase_messaging: ^14.6.8
   firebase_remote_config: ^4.2.6
+  flutter_image_compress: ^2.0.4
   flutter_local_notifications: ^15.1.2
   flutter_riverpod: ^2.4.0
   flutter_secure_storage: ^8.1.0
@@ -50,10 +55,13 @@ dependencies:
   objectbox: ^2.3.0
   overlay_support: ^2.0.1
   package_info_plus: ^4.1.0
+  path: ^1.8.3
   path_provider: ^2.1.1
   pull_to_refresh: ^2.0.0
   retry: ^3.1.0
+  sentry_flutter: ^7.10.1
   url_launcher: ^6.1.14
+  video_compress: ^3.1.2
 
 dev_dependencies:
   flutter_test:

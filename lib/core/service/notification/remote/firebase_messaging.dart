@@ -8,7 +8,7 @@ import '../notification.dart';
 import '../notification_message.model.dart';
 
 class FirebaseMessagingService implements INotification {
-  Future<void> Function(NotificationMessageModel message)? _handler;
+  static Future<void> Function(NotificationMessageModel message)? _handler;
 
   @override
   Future<String?> get token async =>
@@ -25,6 +25,9 @@ class FirebaseMessagingService implements INotification {
     FirebaseMessaging.onMessage.listen(_onForeground);
     // called when the app is in the background and its opened from the push notification
     FirebaseMessaging.onMessageOpenedApp.listen(_onBackground);
+  }
+
+  static void setup() {
     // Set the background messaging handler early on, as a named top-level function
     FirebaseMessaging.onBackgroundMessage(_onBackground);
   }
@@ -86,14 +89,14 @@ class FirebaseMessagingService implements INotification {
   }
 
   // When the app is in the background and opened directly from the push notification.
-  Future<void> _onBackground(RemoteMessage message) async {
+  static Future<void> _onBackground(RemoteMessage message) async {
     if (kDebugMode) {
       print('_onBackground: ${message.toString()}');
     }
     _handleMessage(message);
   }
 
-  void _handleMessage(RemoteMessage message) {
+  static void _handleMessage(RemoteMessage message) {
     _handler?.call(NotificationMessageModel(
       id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
       title: message.notification?.title,

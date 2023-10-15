@@ -5,6 +5,7 @@ import '../../../shared/domain/provider/localization/localization.dart';
 class NetworkException extends DioException {
   String title;
   bool isUnauthorized;
+  bool skipLogging;
 
   bool get isCanceled => type == DioExceptionType.cancel;
 
@@ -16,17 +17,20 @@ class NetworkException extends DioException {
     super.stackTrace,
     super.type = DioExceptionType.unknown,
     this.isUnauthorized = false,
+    this.skipLogging = false,
     String? title,
   }) : title = title ?? localization.error;
 
   factory NetworkException.fromDioException({
     required DioException error,
     required bool isUnauthorized,
+    required bool skipLogging,
     String? title,
   }) {
     final e = error as NetworkException;
     e.title = title ?? localization.error;
     e.isUnauthorized = isUnauthorized;
+    e.skipLogging = skipLogging;
     return e;
   }
 

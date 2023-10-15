@@ -4,9 +4,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import 'network.extension.dart';
-
-class NetworkLoggerInterceptor extends Interceptor {
+class DioLoggerInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     // if (kDebugMode) _logRequest(options);
@@ -22,18 +20,19 @@ class NetworkLoggerInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (kDebugMode) _logError(err);
-    throw err.networkException;
+    super.onError(err, handler);
   }
 
-  void _logError(DioException err) {
+  /// onRequest
+  void _logRequest(RequestOptions requestOptions) {
     try {
-      log(_getRequest(err.requestOptions), name: 'error', error: err);
-      if (err.response != null) log(_getResponse(err.response!), name: 'error');
+      log(_getRequest(requestOptions), name: 'request');
     } catch (err) {
-      log('unable to create a CURL representation of the error');
+      log('unable to create a CURL representation of the requestOptions');
     }
   }
 
+  /// onResponse
   void _logResponse(Response response) {
     try {
       log(_getResponse(response), name: 'response');
@@ -42,11 +41,13 @@ class NetworkLoggerInterceptor extends Interceptor {
     }
   }
 
-  void _logRequest(RequestOptions requestOptions) {
+  /// onError
+  void _logError(DioException err) {
     try {
-      log(_getRequest(requestOptions), name: 'request');
+      log(_getRequest(err.requestOptions), name: 'error', error: err);
+      if (err.response != null) log(_getResponse(err.response!), name: 'error');
     } catch (err) {
-      log('unable to create a CURL representation of the requestOptions');
+      log('unable to create a CURL representation of the error');
     }
   }
 

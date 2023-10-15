@@ -1,5 +1,11 @@
-import 'package:fcar/feature/landing/landing.view.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'config/constant/nav.constant.dart';
+import 'core/service/navigation.service.dart';
+import 'feature/landing/landing.view.dart';
 import 'package:flutter/material.dart';
+
+import 'shared/domain/provider/localization/localization.service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,21 +39,21 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const LandingView(),
-      // navigatorKey: NavigationService.navigationKey,
-      // initialRoute: ConstantNav.splashRoute,
-      // onGenerateRoute: ConstantNav.generateRoute,
-      // showSemanticsDebugger: false,
-      // debugShowCheckedModeBanner: false,
-      // navigatorObservers: [
-      //   FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
-      //   DatadogNavigationObserver(datadogSdk: DatadogSdk.instance),
-      // ],
-      // localizationsDelegates: const [
-      //   GlobalMaterialLocalizations.delegate,
-      //   GlobalWidgetsLocalizations.delegate,
-      //   GlobalCupertinoLocalizations.delegate,
-      // ],
-      // supportedLocales: localizationService.supportedLocales(),
+      navigatorKey: NavigationService.navigationKey,
+      initialRoute: ConstantNav.landingRoute,
+      onGenerateRoute: ConstantNav.generateRoute,
+      showSemanticsDebugger: false,
+      debugShowCheckedModeBanner: false,
+      navigatorObservers: const [
+        // TODO: after setup the analytics
+        // AnalyticsProvider.analytics.observer,
+      ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: localizationService.supportedLocales(),
     );
   }
 }
