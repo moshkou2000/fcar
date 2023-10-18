@@ -1,4 +1,7 @@
-class AssetConstant {
+import 'package:flutter/material.dart';
+
+@immutable
+abstract final class AssetConstant {
 // path
   static const String assetPath = 'asset';
   static const String iconPath = '$assetPath/icon';

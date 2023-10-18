@@ -1,3 +1,5 @@
+/// Export from [network.provider.dart]
+///
 class Deserialize<T> {
   final List<T> items = [];
   T? item;

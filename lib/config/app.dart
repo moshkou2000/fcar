@@ -7,7 +7,7 @@ import '../core/datasource/database/database.enum.dart';
 import '../core/datasource/database/database.provider.dart';
 import '../core/service/navigation.service.dart';
 import '../core/service/notification/remote/firebase_messaging.dart';
-import '../core/service/analytics/analytics.provider.dart';
+import '../core/service/monitoring/monitoring.provider.dart';
 import 'constant/nav.constant.dart';
 import 'enum/app_env.dart';
 import '../shared/domain/provider/localization/localization.service.dart';

@@ -8,6 +8,18 @@ import '../notification.dart';
 import '../notification_message.model.dart';
 
 class FirebaseMessagingService implements INotification {
+  static final FirebaseMessagingService _singleton =
+      FirebaseMessagingService._internal();
+  factory FirebaseMessagingService() => _singleton;
+  FirebaseMessagingService._internal() {
+    // called when the new FCM token is generated
+    FirebaseMessaging.instance.onTokenRefresh.listen(_onTokenRefresh);
+    // called when the app is in the foreground and we receive a push notification
+    FirebaseMessaging.onMessage.listen(_onForeground);
+    // called when the app is in the background and its opened from the push notification
+    FirebaseMessaging.onMessageOpenedApp.listen(_onBackground);
+  }
+
   static Future<void> Function(NotificationMessageModel message)? _handler;
 
   @override
@@ -17,15 +29,6 @@ class FirebaseMessagingService implements INotification {
               ? await FirebaseMessaging.instance.getAPNSToken()
               : await FirebaseMessaging.instance.getToken()
           : null;
-
-  FirebaseMessagingService() {
-    // called when the new FCM token is generated
-    FirebaseMessaging.instance.onTokenRefresh.listen(_onTokenRefresh);
-    // called when the app is in the foreground and we receive a push notification
-    FirebaseMessaging.onMessage.listen(_onForeground);
-    // called when the app is in the background and its opened from the push notification
-    FirebaseMessaging.onMessageOpenedApp.listen(_onBackground);
-  }
 
   static void setup() {
     // Set the background messaging handler early on, as a named top-level function

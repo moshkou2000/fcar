@@ -36,11 +36,21 @@ class MyApp extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        appBarTheme: const AppBarTheme(
+          color: Colors.deepPurple,
+          elevation: 0,
+          centerTitle: true,
+        ),
         useMaterial3: true,
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: Colors.white,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
       ),
       home: const LandingView(),
       navigatorKey: NavigationService.navigationKey,
-      initialRoute: ConstantNav.landingRoute,
+      initialRoute: ConstantNav.homeRoute,
       onGenerateRoute: ConstantNav.generateRoute,
       showSemanticsDebugger: false,
       debugShowCheckedModeBanner: false,

@@ -31,6 +31,9 @@ class DioNetwork implements INetwork {
   };
 
   @override
+  NetworkCancelToken get newCancelToken => DioCancelToken();
+
+  @override
   Future<model.NetworkResponse<dynamic>> delete(
     String endpoint, {
     dynamic body,

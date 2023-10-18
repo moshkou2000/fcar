@@ -9,6 +9,11 @@ import '../notification_message.model.dart';
 const bool _useDefaultNotificationDetails = false;
 
 class FlutterLocalNotificationService implements ILocalNotification {
+  static final FlutterLocalNotificationService _singleton =
+      FlutterLocalNotificationService._internal();
+  factory FlutterLocalNotificationService() => _singleton;
+  FlutterLocalNotificationService._internal();
+
 // Instance of Flutternotification plugin
   late final FlutterLocalNotificationsPlugin _notificationsPlugin =
       FlutterLocalNotificationsPlugin();

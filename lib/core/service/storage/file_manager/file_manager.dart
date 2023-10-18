@@ -14,6 +14,10 @@ import '../storage.dart';
 
 /// [FileManager] is used in order to manage files & directories
 class FileManager implements IStorage {
+  static final FileManager _singleton = FileManager._internal();
+  factory FileManager() => _singleton;
+  FileManager._internal();
+
   /// compress a file [path] to [targetPath].
   /// generate in catche directory if [isTemporary] otherwise app directory.
   /// return [File]

@@ -6,154 +6,81 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
-class CacheResponseModel extends CacheResponse {
+class CacheResponseModel {
   @Id()
   late int id = 0;
-  String cachekey = '';
-  String cacheUrl = '';
-  String? cacheETag;
-  String? cacheLastModified;
-  int cachePriority = 0;
+  String key = '';
+  String url = '';
+  String? eTag;
+  String? lastModified;
+  int _priority = 0;
 
   @Property(type: PropertyType.byteVector)
-  List<int>? cacheHeaders;
+  List<int>? headers;
 
   @Property(type: PropertyType.byteVector)
   List<int>? data; // content
 
   @Property(type: PropertyType.date)
-  DateTime? cacheDate;
+  DateTime? date;
 
   @Property(type: PropertyType.date)
-  DateTime? cacheExpires;
+  DateTime? expires;
 
   @Property(type: PropertyType.date)
-  DateTime? cacheMaxStale;
+  DateTime? maxStale;
 
   @Property(type: PropertyType.date)
-  DateTime? cacheResponseDate;
+  DateTime? _responseDate;
 
   @Property(type: PropertyType.date)
-  DateTime? cacheRequestDate;
+  DateTime? _requestDate;
 
   final ToOne<CacheControlModel> _cacheControl = ToOne<CacheControlModel>();
 
-  @override
-  String get key => cachekey;
-
-  @override
-  String get url => cacheUrl;
-
-  @override
-  String? get eTag => cacheETag;
-
-  @override
-  String? get lastModified => cacheLastModified;
-
-  @override
-  CachePriority get priority => CachePriority.values[cachePriority];
-
-  @override
-  List<int>? get headers => cacheHeaders;
-
-  @override
+  CachePriority get priority => CachePriority.values[_priority];
   List<int>? get content => data;
-
-  @override
-  DateTime? get date => cacheDate;
-
-  @override
-  DateTime? get expires => cacheExpires;
-
-  @override
-  DateTime? get maxStale => cacheMaxStale;
-
-  @override
-  DateTime get responseDate => cacheResponseDate ?? DateTime.now();
-
-  @override
+  DateTime get responseDate => _responseDate ?? DateTime.now();
   DateTime get requestDate =>
-      cacheRequestDate ??
+      _requestDate ??
       DateTime.now().subtract(const Duration(milliseconds: 150));
-
-  @override
   CacheControl get cacheControl =>
       _cacheControl.target?.toObject() ?? CacheControl();
 
-  set key(String value) => cachekey = value;
+  Headers get responseHeaders {
+    final checkedHeaders = headers;
+    final h = Headers();
 
-  set url(String value) => cacheUrl = value;
+    if (checkedHeaders != null) {
+      final map = jsonDecode(utf8.decode(checkedHeaders));
+      map.forEach((key, value) => h.set(key, value));
+    }
 
-  set eTag(String? value) => cacheETag = value;
+    return h;
+  }
 
-  set lastModified(String? value) => cacheLastModified = value;
-
-  set priority(CachePriority value) => cachePriority = value.index;
-
-  @override
-  set headers(List<int>? value) => cacheHeaders = value;
-
-  @override
+  set priority(CachePriority value) => _priority = value.index;
   set content(List<int>? value) => data = value;
-
-  set date(DateTime? value) => cacheDate = value;
-
-  set expires(DateTime? value) => cacheExpires = value;
-
-  set maxStale(DateTime? value) => cacheMaxStale = value;
-
-  set responseDate(DateTime value) => cacheResponseDate = value;
-
-  set requestDate(DateTime value) => cacheRequestDate = value;
-
+  set responseDate(DateTime value) => _responseDate = value;
+  set requestDate(DateTime value) => _requestDate = value;
   set cacheControl(CacheControl value) =>
       _cacheControl.target = CacheControlModel.fromObject(value);
 
-  CacheResponseModel({
-    required super.cacheControl,
-    required super.content,
-    required super.date,
-    required super.eTag,
-    required super.expires,
-    required super.headers,
-    required super.key,
-    required super.lastModified,
-    required super.maxStale,
-    required super.priority,
-    required super.requestDate,
-    required super.responseDate,
-    required super.url,
-  });
-
   static CacheResponseModel fromObject(CacheResponse cacheResponse) {
-    var c = CacheResponseModel(
-      cacheControl: cacheResponse.cacheControl,
-      content: cacheResponse.content,
-      date: cacheResponse.date,
-      eTag: cacheResponse.eTag,
-      expires: cacheResponse.expires,
-      headers: cacheResponse.headers,
-      key: cacheResponse.key,
-      lastModified: cacheResponse.lastModified,
-      maxStale: cacheResponse.maxStale,
-      priority: cacheResponse.priority,
-      responseDate: cacheResponse.responseDate,
-      url: cacheResponse.url,
-      requestDate: cacheResponse.requestDate,
-    );
-    // c.cacheControl = cacheResponse.cacheControl;
-    // c.content = cacheResponse.content;
-    // c.date = cacheResponse.date;
-    // c.eTag = cacheResponse.eTag;
-    // c.expires = cacheResponse.expires;
-    // c.headers = cacheResponse.headers;
-    // c.key = cacheResponse.key;
-    // c.lastModified = cacheResponse.lastModified;
-    // c.maxStale = cacheResponse.maxStale;
-    // c.priority = cacheResponse.priority;
-    // c.responseDate = cacheResponse.responseDate;
-    // c.url = cacheResponse.url;
-    // c.requestDate = cacheResponse.requestDate;
+    var c = CacheResponseModel();
+    c.cacheControl = cacheResponse.cacheControl;
+    c.content = cacheResponse.content;
+    c.date = cacheResponse.date;
+    c.eTag = cacheResponse.eTag;
+    c.expires = cacheResponse.expires;
+    c.headers = cacheResponse.headers;
+    c.key = cacheResponse.key;
+    c.lastModified = cacheResponse.lastModified;
+    c.maxStale = cacheResponse.maxStale;
+    c.priority = cacheResponse.priority;
+    c.responseDate = cacheResponse.responseDate;
+    c.url = cacheResponse.url;
+    c.requestDate = cacheResponse.requestDate;
     return c;
   }
 
@@ -172,7 +99,6 @@ class CacheResponseModel extends CacheResponse {
       url: url,
       requestDate: requestDate);
 
-  @override
   Response toResponse(RequestOptions options, {bool fromNetwork = false}) {
     return Response(
       data: _deserializeContent(options.responseType, content),
@@ -180,7 +106,7 @@ class CacheResponseModel extends CacheResponse {
         CacheResponse.cacheKey: key,
         CacheResponse.fromNetwork: fromNetwork
       },
-      headers: getHeaders(),
+      headers: responseHeaders,
       statusCode: HttpStatus.notModified,
       requestOptions: options,
     );
@@ -201,57 +127,17 @@ class CacheResponseModel extends CacheResponse {
 }
 
 @Entity()
-class CacheControlModel extends CacheControl {
+class CacheControlModel {
   @Id()
   late int id = 0;
-  int? cacheMaxAge;
-  String? cachePrivacy;
-  bool? cacheNoCache;
-  bool? cacheNoStore;
-  List<String>? cacheOther;
-  int? cacheMaxStale;
-  int? cacheMinFresh;
-  bool? cacheMustRevalidate;
-
-  @override
-  int get maxAge => cacheMaxAge ?? 0;
-
-  @override
-  String? get privacy => cachePrivacy;
-
-  @override
-  bool get noCache => cacheNoCache ?? true;
-
-  @override
-  bool get noStore => cacheNoStore ?? true;
-
-  @override
-  List<String> get other => cacheOther ?? [];
-
-  @override
-  int get maxStale => cacheMaxStale ?? 0;
-
-  @override
-  int get minFresh => cacheMinFresh ?? 0;
-
-  @override
-  bool get mustRevalidate => cacheMustRevalidate ?? false;
-
-  set maxAge(int? value) => cacheMaxAge = value;
-
-  set privacy(String? value) => cachePrivacy = value;
-
-  set noCache(bool? value) => cacheNoCache = value;
-
-  set noStore(bool? value) => cacheNoStore = value;
-
-  set other(List<String>? value) => cacheOther = value;
-
-  set maxStale(int? value) => cacheMaxStale = value;
-
-  set minFresh(int? value) => cacheMinFresh = value;
-
-  set mustRevalidate(bool? value) => cacheMustRevalidate = value;
+  int? maxAge;
+  String? privacy;
+  bool? noCache;
+  bool? noStore;
+  List<String>? other;
+  int? maxStale;
+  int? minFresh;
+  bool? mustRevalidate;
 
   static CacheControlModel fromObject(CacheControl cacheControl) {
     var c = CacheControlModel();
@@ -269,14 +155,14 @@ class CacheControlModel extends CacheControl {
 
   CacheControl toObject() {
     return CacheControl(
-      maxAge: maxAge,
+      maxAge: maxAge ?? -1,
       privacy: privacy,
-      noCache: noCache,
-      noStore: noStore,
-      other: other,
-      maxStale: maxStale,
-      minFresh: minFresh,
-      mustRevalidate: mustRevalidate,
+      noCache: noCache ?? false,
+      noStore: noStore ?? false,
+      other: other ?? const [],
+      maxStale: maxStale ?? -1,
+      minFresh: minFresh ?? -1,
+      mustRevalidate: mustRevalidate ?? false,
     );
   }
 }

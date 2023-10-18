@@ -42,7 +42,7 @@ abstract class ICollection<T> {
   /// Returns true if the object did exist and was removed, otherwise false.
   Future<bool> removeById(int id);
 
-  /// Removes (deletes) objects with the given [queryBuilder] if they exist.
+  /// Removes (deletes) objects of type T
   /// Returns true if the object did exist and was removed, otherwise false.
   Future<bool> remove({required dynamic condition});
 
@@ -50,11 +50,11 @@ abstract class ICollection<T> {
   /// Returns the number of removed objects.
   Future<int> removeManyByIds(List<int> ids);
 
-  /// Removes (deletes) objects with the given [queryBuilder] if they exist.
+  /// Removes (deletes) objects of type T
   /// Returns the number of removed objects.
   Future<int> removeMany({required dynamic condition});
 
-  /// Removes (deletes) all objects.
+  /// Removes (deletes) all objects of type T
   /// Returns the number of removed objects.
   Future<int> removeAll();
 

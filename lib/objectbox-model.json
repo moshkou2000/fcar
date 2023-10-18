@@ -1,0 +1,166 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:8664683768033854703",
+      "lastPropertyId": "17:7656315151250230401",
+      "name": "CacheControlModel",
+      "properties": [
+        {
+          "id": "1:3297420068208542037",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "10:6330258075200319495",
+          "name": "maxAge",
+          "type": 6
+        },
+        {
+          "id": "11:5970389401713999105",
+          "name": "privacy",
+          "type": 9
+        },
+        {
+          "id": "12:2668054403094859480",
+          "name": "noCache",
+          "type": 1
+        },
+        {
+          "id": "13:4027432476080357248",
+          "name": "noStore",
+          "type": 1
+        },
+        {
+          "id": "14:6646321955115321896",
+          "name": "other",
+          "type": 30
+        },
+        {
+          "id": "15:8714912528830973379",
+          "name": "maxStale",
+          "type": 6
+        },
+        {
+          "id": "16:1727332978743205770",
+          "name": "minFresh",
+          "type": 6
+        },
+        {
+          "id": "17:7656315151250230401",
+          "name": "mustRevalidate",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:1985224559232822902",
+      "lastPropertyId": "24:8417590285244966023",
+      "name": "CacheResponseModel",
+      "properties": [
+        {
+          "id": "1:3057539949658184639",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "8:404049124804983934",
+          "name": "data",
+          "type": 23
+        },
+        {
+          "id": "14:4942699779215742082",
+          "name": "key",
+          "type": 9
+        },
+        {
+          "id": "15:7544173203681451253",
+          "name": "url",
+          "type": 9
+        },
+        {
+          "id": "16:3878590240988197668",
+          "name": "eTag",
+          "type": 9
+        },
+        {
+          "id": "17:6689038165101560248",
+          "name": "lastModified",
+          "type": 9
+        },
+        {
+          "id": "18:2866023695724199395",
+          "name": "headers",
+          "type": 23
+        },
+        {
+          "id": "19:3411613860087392224",
+          "name": "content",
+          "type": 27
+        },
+        {
+          "id": "20:2577852731522089511",
+          "name": "date",
+          "type": 10
+        },
+        {
+          "id": "21:7219379816616753381",
+          "name": "expires",
+          "type": 10
+        },
+        {
+          "id": "22:1669317146070183453",
+          "name": "maxStale",
+          "type": 10
+        },
+        {
+          "id": "23:3660722790955198604",
+          "name": "responseDate",
+          "type": 10
+        },
+        {
+          "id": "24:8417590285244966023",
+          "name": "requestDate",
+          "type": 10
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:1985224559232822902",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    3078470433324194335,
+    1204192575710174043,
+    1722665559135320630,
+    4700251110201221023,
+    8853951652129845827,
+    5043652711684489438,
+    6442187466038397838,
+    9155438344603019014,
+    279074078424168085,
+    4399122621212609387,
+    2783671652962721763,
+    5149189156985861262,
+    1913743764605655104,
+    6129531024742211410,
+    3247796034807509794,
+    3170962386902782484,
+    8106282719586990404,
+    4983678701048550576,
+    860647273497819931
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

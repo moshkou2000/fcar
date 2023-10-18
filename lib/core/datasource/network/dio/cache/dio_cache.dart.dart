@@ -25,9 +25,7 @@ class DioCache extends CacheStore {
     CachePriority priorityOrBelow = CachePriority.high,
     bool staleOnly = false,
   }) async {
-    await _cache.removeMany(
-        condition:
-            CacheResponseModel_.priority.lessOrEqual(priorityOrBelow.index));
+    // await _cache.removeMany(condition: CacheResponseModel_.priority.lessOrEqual(priorityOrBelow.index));
   }
 
   @override
@@ -39,7 +37,7 @@ class DioCache extends CacheStore {
 
   @override
   Future<void> delete(String key, {bool staleOnly = false}) async {
-    await _cache.removeMany(condition: CacheResponseModel_.key.equals(key));
+    // await _cache.removeMany(condition: CacheResponseModel_.key.equals(key));
   }
 
   @override
@@ -56,27 +54,29 @@ class DioCache extends CacheStore {
 
   @override
   Future<bool> exists(String key) async {
-    return await _cache.loadOne(
-            condition: CacheResponseModel_.key.equals(key)) !=
-        null;
+    return false;
+    // return await _cache.loadOne(condition: CacheResponseModel_.key.equals(key)) != null;
   }
 
   @override
-  Future<CacheResponseModel?> get(String key) async {
-    return await _cache.loadOne(condition: CacheResponseModel_.key.equals(key));
+  Future<CacheResponse?> get(String key) async {
+    //CacheResponseModel
+    return null;
+    // return await _cache.loadOne(condition: CacheResponseModel_.key.equals(key));
   }
 
+  //CacheResponseModel
   @override
-  Future<List<CacheResponseModel>> getFromPath(
+  Future<List<CacheResponse>> getFromPath(
     RegExp pathPattern, {
     Map<String, String?>? queryParams,
   }) async {
-    final responses = <CacheResponseModel>[];
+    final responses = <CacheResponse>[];
 
-    _getFromPath(
+    await _getFromPath(
       pathPattern,
       queryParams: queryParams,
-      onResponseMatch: (r) => responses.add(r),
+      onResponseMatch: (r) => responses.add(r.toObject()),
     );
 
     return responses;

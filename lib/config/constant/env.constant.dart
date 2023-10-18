@@ -1,4 +1,7 @@
-class EnvConstant {
+import 'package:flutter/material.dart';
+
+@immutable
+abstract final class EnvConstant {
   // TODO: seperate the keys for services by the provider name
 
   static const String abcApiKey = String.fromEnvironment('ABC_API_KEY');

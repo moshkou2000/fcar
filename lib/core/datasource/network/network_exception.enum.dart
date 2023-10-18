@@ -1,3 +1,5 @@
+/// Export from [network.provider.dart]
+///
 enum NetworkExceptionType {
   /// The exception for no internet connection.
   noInternet,

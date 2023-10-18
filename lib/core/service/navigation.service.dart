@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 final NavigationService navigationService = NavigationService();
 
 class NavigationService {
+  static final NavigationService _singleton = NavigationService._internal();
+  factory NavigationService() => _singleton;
+  NavigationService._internal();
+
   static final GlobalKey<NavigatorState> navigationKey =
       GlobalKey<NavigatorState>();
 

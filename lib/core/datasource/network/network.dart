@@ -10,6 +10,8 @@ abstract class INetwork {
   /// baseUrl = FlavorService.baseUrl
   INetwork({required this.baseUrl});
 
+  NetworkCancelToken get newCancelToken;
+
   Future<NetworkResponse<dynamic>> delete(
     String endpoint, {
     dynamic body,

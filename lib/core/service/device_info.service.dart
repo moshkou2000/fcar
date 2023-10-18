@@ -10,7 +10,11 @@ final Provider<DeviceInfoService> deviceInfoService =
     Provider<DeviceInfoService>((_) => DeviceInfoService());
 
 class DeviceInfoService {
-  static Future<Map<String, String>> getPackageInfo() async {
+  static final DeviceInfoService _singleton = DeviceInfoService._internal();
+  factory DeviceInfoService() => _singleton;
+  DeviceInfoService._internal();
+
+  Future<Map<String, String>> getPackageInfo() async {
     final packageInfo = await PackageInfo.fromPlatform();
     return {
       'APP_ID': packageInfo.packageName,

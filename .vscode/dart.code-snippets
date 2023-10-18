@@ -88,6 +88,15 @@
       "}"
     ],
     "description": "main"
+  },
+  "singleton": {
+    "prefix": "singleton",
+    "body": [
+      "static final ${1:MyClass} _singleton = ${1:MyClass}._internal();",
+      "factory ${1:MyClass}() => _singleton;",
+      "${1:MyClass}._internal();"
+    ],
+    "description": "Create Singleton"
   }
 }
 /*
@@ -118,7 +127,7 @@
             confirm: Icon(Icons.done, color: ThemeColor.lightBlue),
             cancel: Icon(
               Icons.close,
-              color: ThemeColor.gray500,
+              color: ThemeColor.grey500,
             ),
           ),
           dateFormat: 'dd MMM yyyy',
@@ -166,7 +175,7 @@
       padding: const EdgeInsets.only(right: 16, left: 16, bottom: 16),
       child: TextFieldComponent(
         errorBuilder: const SizedBox(),
-        errorBorderColor: editable ? ThemeColor.gray300 : ThemeColor.gray50,
+        errorBorderColor: editable ? ThemeColor.grey300 : ThemeColor.grey50,
         enabled: editable,
         controller: controller,
         isRequired: false, //required,

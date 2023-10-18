@@ -1,3 +1,5 @@
+/// Export from [network.provider.dart]
+///
 import 'package:dio/dio.dart';
 
 import '../../../shared/domain/provider/localization/localization.dart';

@@ -1,3 +1,5 @@
+/// Export from [network.provider.dart]
+///
 import 'dart:convert';
 import 'dart:io';
 

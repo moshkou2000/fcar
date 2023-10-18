@@ -3,6 +3,10 @@ import 'localization.service.dart';
 Localization localization = Localization();
 
 class Localization {
+  static final Localization _singleton = Localization._internal();
+  factory Localization() => _singleton;
+  Localization._internal();
+
 // a
   String get all => localizationService.text('all');
   String get apply => localizationService.text('apply');

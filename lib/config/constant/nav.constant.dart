@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../feature/home/home.argument.dart';
 import '../../feature/home/home.view.dart';
 
-class ConstantNav {
+@immutable
+abstract final class ConstantNav {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
   static NavigatorState? get navigatorState => navigatorKey.currentState;

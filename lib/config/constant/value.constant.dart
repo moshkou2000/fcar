@@ -1,4 +1,7 @@
-class ValueConstant {
+import 'package:flutter/material.dart';
+
+@immutable
+abstract final class ValueConstant {
 // int values
   static const int connectTimeout = 9000;
   static const int defaultMaxAttemptsAPI = 2;

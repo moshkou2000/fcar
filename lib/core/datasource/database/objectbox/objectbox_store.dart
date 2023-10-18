@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:objectbox/objectbox.dart';
 
+import '../../../../objectbox.g.dart';
 import '../../../service/crashlytics/crashlytics.dart';
 import '../database.dart';
 import '../database.enum.dart';
@@ -10,9 +10,11 @@ import '../database.enum.dart';
 ObjectboxStore objectboxStore = ObjectboxStore();
 
 class ObjectboxStore extends IDatabase {
-  final Map<DatabaseName, Store> _objectboxStores = {};
+  static final ObjectboxStore _singleton = ObjectboxStore._internal();
+  factory ObjectboxStore() => _singleton;
+  ObjectboxStore._internal() : super(databaseType: DatabaseType.objectbox);
 
-  ObjectboxStore() : super(databaseType: DatabaseType.objectbox);
+  final Map<DatabaseName, Store> _objectboxStores = {};
 
   /// The best time to initialize ObjectBox is when your app starts.
   @override
@@ -69,8 +71,9 @@ class ObjectboxStore extends IDatabase {
         databaseName: databaseName,
         databaseType: DatabaseType.objectbox,
       );
-      return null;
-      // await openStore(directory: directory);
+      // openStore() is defined in the generated objectbox.g.dart
+      return await openStore(directory: directory);
+      // return null;
     } catch (e, s) {
       debugPrint(
           'ObjectboxStore._createStore: database(${databaseName.name}): $e');
