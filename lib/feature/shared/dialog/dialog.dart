@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
+import '../../../config/theme/color/korra_color.dart';
 import '../../../config/theme/font/roboto_style.dart';
 import 'dialog.enum.dart';
 import 'dialog_observer.dart';
@@ -77,7 +78,6 @@ void showDialogAt({
           primaryActionTextColor: primaryActionTextColor,
           secondaryActionColor: secondaryActionColor,
           secondaryActionTextColor: secondaryActionTextColor,
-          circularArcLoadingIndicatorColor: circularArcColor,
           circularBackgroundLoadingIndicatorColor:
               circularLoaderBackgroundColor,
         ),
@@ -133,9 +133,6 @@ class _PositionedDialog extends StatefulWidget {
   /// secondary CTA button text color (left)
   final Color? secondaryActionTextColor;
 
-  /// circular arc color
-  final Color? circularArcLoadingIndicatorColor;
-
   /// circular background color for [CircularProgressIndicator]
   final Color? circularBackgroundLoadingIndicatorColor;
 
@@ -145,7 +142,6 @@ class _PositionedDialog extends StatefulWidget {
     this.subtitleStyle,
     this.secondaryActionColor,
     this.secondaryActionTextColor,
-    this.circularArcLoadingIndicatorColor = Colors.informationB500,
     this.circularBackgroundLoadingIndicatorColor,
     this.primaryActionTextColor,
     this.primaryActionColor,
@@ -230,8 +226,7 @@ class _PositionedDialogState extends State<_PositionedDialog> {
         padding: const EdgeInsets.only(bottom: 16),
         child: Text(
           widget.title ?? '',
-          style: widget.titleStyle ??
-              RobotoStyle.subtitle.copyWith(color: Colors.black),
+          style: ThemeFont.titleStyle.copyWith(color: Colors.black),
           textAlign: TextAlign.center,
         ),
       ),
@@ -246,10 +241,7 @@ class _PositionedDialogState extends State<_PositionedDialog> {
         child: RichText(
           text: TextSpan(
               text: widget.subtitle ?? '',
-              style: widget.subtitleStyle ?? RobotoStyle
-                ..copyWith(color: Colors.grey),
-
-              /// sub text with different text style
+              style: ThemeFont.titleStyle.copyWith(color: Colors.grey),
               children: widget.subtitleChildren),
         ),
       ),
@@ -268,33 +260,20 @@ class _PositionedDialogState extends State<_PositionedDialog> {
             child: ValueListenableBuilder<DialogState>(
               valueListenable: _dialogStateObserver,
               builder: (context, dialogState, child) {
-                return MaterialButton(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8),
-                    ),
-                  ),
-                  highlightElevation: 0,
-                  focusElevation: 0,
-                  disabledElevation: 0,
-                  hoverElevation: 0,
-                  color: widget.secondaryActionColor ?? Colors.grey,
-                  height: 40,
-                  elevation: 0,
-                  minWidth: MediaQuery.of(context).size.width,
+                return FilledButton(
                   onPressed: dialogState == DialogState.loading
                       ? null
                       : () {
-                          if (widget.onSecondaryActionPressed != null) {
-                            widget.onSecondaryActionPressed!(
-                                _dialogStateObserver);
+                          if (widget.onPrimaryActionPressed != null) {
+                            widget
+                                .onPrimaryActionPressed!(_dialogStateObserver);
                           }
                         },
                   child: dialogState != DialogState.loading
                       ? Text(
                           widget.secondaryActionText ?? '',
                           textAlign: TextAlign.center,
-                          style: RobotoStyle.button.copyWith(
+                          style: ThemeFont.titleStyle.copyWith(
                               color: widget.secondaryActionTextColor ??
                                   Colors.white),
                         )
@@ -316,21 +295,7 @@ class _PositionedDialogState extends State<_PositionedDialog> {
           child: ValueListenableBuilder<DialogState>(
             valueListenable: _dialogStateObserver,
             builder: (context, dialogState, child) {
-              return MaterialButton(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                ),
-                highlightElevation: 0,
-                focusElevation: 0,
-                disabledElevation: 0,
-                hoverElevation: 0,
-                color: widget.primaryActionColor ?? Colors.blue[500],
-                height: 40,
-                elevation: 0,
-                minWidth: MediaQuery.of(context).size.width,
-                disabledColor: widget.primaryActionColor ?? Colors.blue[500],
+              return FilledButton(
                 onPressed: dialogState == DialogState.loading
                     ? null
                     : () {
@@ -342,7 +307,7 @@ class _PositionedDialogState extends State<_PositionedDialog> {
                     ? Text(
                         widget.primaryActionText ?? '',
                         textAlign: TextAlign.center,
-                        style: RobotoStyle.button.copyWith(
+                        style: ThemeFont.titleStyle.copyWith(
                             color:
                                 widget.primaryActionTextColor ?? Colors.white),
                       )
@@ -356,15 +321,13 @@ class _PositionedDialogState extends State<_PositionedDialog> {
   }
 
   Widget _buildActionButtonLoading() {
-    return SizedBox(
+    return const SizedBox(
       height: 20,
       width: 20,
       child: CircularProgressIndicator(
         strokeWidth: 1,
-        backgroundColor: widget.circularBackgroundLoadingIndicatorColor ??
-            (widget.primaryActionColor ?? Colors.blue[500]),
-        valueColor: AlwaysStoppedAnimation<Color>(
-            widget.circularArcLoadingIndicatorColor ?? Colors.blue),
+        backgroundColor: ThemeColor.inversePrimary,
+        valueColor: AlwaysStoppedAnimation<Color>(ThemeColor.primary),
       ),
     );
   }

@@ -1,10 +1,16 @@
-import 'collection.dart';
-import 'database.enum.dart';
-import 'objectbox/objectbox.dart';
-import 'objectbox/objectbox_store.dart';
+import 'package:flutter/material.dart';
 
-class DatabaseProvider {
-  static void createDatabase({
+import 'database/collection.dart';
+import 'database/database.enum.dart';
+import 'database/objectbox/objectbox.dart';
+import 'database/objectbox/objectbox_store.dart';
+
+export 'database/collection.dart';
+export 'database/database.enum.dart';
+
+@immutable
+abstract final class DatabaseProvider {
+  static void setup({
     required Map<DatabaseType, List<DatabaseName>> names,
   }) {
     names.forEach((key, value) async {

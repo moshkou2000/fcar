@@ -18,6 +18,7 @@ extension HttpStatusExtension on num? {
       this != null && (this == 304 || (this! >= 200 && this! < 300));
 
   /// skip logging for the folowing condition
+  /// [condition: 4** & 5**]
   bool get skipLogging =>
       this != null && ([4, 5].contains(this! ~/ 100)) ||
       this == HttpStatus.unauthorized;

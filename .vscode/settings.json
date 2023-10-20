@@ -1,15 +1,16 @@
 {
-    "dart.flutterSdkPath": "C:\\fvm\\versions\\3.13.0",
-    // "dart.flutterSdkPath": ".fvm/flutter_sdk",
-    // Remove .fvm files from search
-    "search.exclude": {
-        "**/.fvm": true,
-        ".dart_tool": true,
-        "build": true,
-        "ios/.gems": true
-    },
-    // Remove from file watching
-    "files.watcherExclude": {
-        "**/.fvm": true
-    }
+  "dart.flutterSdkPath": "C:\\fvm\\versions\\3.13.0",
+  // "dart.flutterSdkPath": ".fvm/flutter_sdk",
+  // Remove .fvm files from search
+  "search.exclude": {
+    "**/.fvm": true,
+    ".dart_tool": true,
+    "build": true,
+    "ios/.gems": true
+  },
+  // Remove from file watching
+  "files.watcherExclude": {
+    "**/.fvm": true
+  },
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

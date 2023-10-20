@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import '../../../../objectbox.g.dart';
-import '../../../service/crashlytics/crashlytics.dart';
+import '../../../service/monitoring/error_tracking.module.dart';
 import '../database.dart';
 import '../database.enum.dart';
 
@@ -77,7 +77,7 @@ class ObjectboxStore extends IDatabase {
     } catch (e, s) {
       debugPrint(
           'ObjectboxStore._createStore: database(${databaseName.name}): $e');
-      Crashlytics.recordError(
+      ErrorTracking.recordError(
         e,
         s,
         reason: 'ObjectboxStore._createStore database(${databaseName.name})',

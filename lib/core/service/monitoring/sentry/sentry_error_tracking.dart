@@ -1,16 +1,19 @@
+import 'package:flutter/foundation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart' as package;
 
+import '../../../../config/enum/app_env.dart';
 import '../../../datasource/network/network_exception.dart';
-import '../error_tracking.dart';
 import 'sentry.dart';
 
-class SentryErrorTracking extends Sentry implements IErrorTracking {
-  static final SentryErrorTracking _singleton = SentryErrorTracking._internal();
-  factory SentryErrorTracking() => _singleton;
-  SentryErrorTracking._internal();
+// error tracking and performance monitoring
 
-  @override
-  void recordError(
+@immutable
+abstract final class ErrorTracking {
+  static Future<void> setup({required AppEnvironment env}) async {
+    Sentry.init(env: env);
+  }
+
+  static void recordError(
     dynamic exception,
     StackTrace? stackTrace, {
     dynamic reason,
@@ -20,16 +23,12 @@ class SentryErrorTracking extends Sentry implements IErrorTracking {
     bool filter = true,
   }) {
     if (filter) {
-      if (exception is NetworkException && exception.skipLogging) {
+      if (exception is NetworkException) {
         if (exception.skipLogging) {
           return;
         }
       }
     }
-
-    // TODO: use only one of the following
-
-    // error tracking and performance monitoring
 
     package.Sentry.captureException(
       exception,

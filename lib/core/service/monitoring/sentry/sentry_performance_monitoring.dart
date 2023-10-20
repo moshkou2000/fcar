@@ -1,10 +1,9 @@
-import '../performance_monitoring.dart';
+import 'package:flutter/foundation.dart';
+
+import '../../../../config/enum/app_env.dart';
 import 'sentry.dart';
 
-class SentryPerformanceMonitoring extends Sentry
-    implements IPerformanceMonitoring {
-  static final SentryPerformanceMonitoring _singleton =
-      SentryPerformanceMonitoring._internal();
-  factory SentryPerformanceMonitoring() => _singleton;
-  SentryPerformanceMonitoring._internal();
+@immutable
+abstract final class PerformanceMonitoring {
+  static init({required AppEnvironment env}) => Sentry.init(env: env);
 }

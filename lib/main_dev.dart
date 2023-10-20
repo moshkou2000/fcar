@@ -8,10 +8,10 @@ import 'config/app.dart';
 import 'config/constant/asset.constant.dart';
 import 'config/enum/app_env.dart';
 import 'core/extension/string.extension.dart';
-import 'core/service/crashlytics/crashlytics.dart';
+import 'core/service/monitoring/error_tracking.module.dart';
 import 'feature/shared/empty.view.dart';
 import 'main.dart';
-import 'shared/domain/provider/localization/localization.dart';
+import 'core/service/localization/localization.provider.dart';
 
 void main() {
   runZonedGuarded(() async {
@@ -20,7 +20,7 @@ void main() {
     FlutterError.onError = (details) {
       FlutterError.dumpErrorToConsole(details);
       FlutterError.presentError(details);
-      Crashlytics.recordError(
+      ErrorTracking.recordError(
         details.exception,
         details.stack,
         fatal: true,
@@ -36,7 +36,7 @@ void main() {
       ));
     };
     PlatformDispatcher.instance.onError = (e, s) {
-      Crashlytics.recordError(
+      ErrorTracking.recordError(
         e,
         s,
         fatal: true,
@@ -49,7 +49,7 @@ void main() {
 
     runApp(const ProviderScope(child: MyApp()));
   }, (e, s) {
-    Crashlytics.recordError(
+    ErrorTracking.recordError(
       e,
       s,
       fatal: true,

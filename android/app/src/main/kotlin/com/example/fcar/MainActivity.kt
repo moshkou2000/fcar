@@ -1,4 +1,4 @@
-package com.example.fcar
+package com.moshkou.fcar
 
 import io.flutter.embedding.android.FlutterActivity
 

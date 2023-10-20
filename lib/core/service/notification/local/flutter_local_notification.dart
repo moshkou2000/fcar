@@ -2,28 +2,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import '../notification.dart';
 import '../notification_message.model.dart';
 
 // setup default
 const bool _useDefaultNotificationDetails = false;
 
-class FlutterLocalNotificationService implements ILocalNotification {
-  static final FlutterLocalNotificationService _singleton =
-      FlutterLocalNotificationService._internal();
-  factory FlutterLocalNotificationService() => _singleton;
-  FlutterLocalNotificationService._internal();
-
+@immutable
+abstract final class LocalNotification {
 // Instance of Flutternotification plugin
-  late final FlutterLocalNotificationsPlugin _notificationsPlugin =
+  static final FlutterLocalNotificationsPlugin _notificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  @override
   // TODO: implement token
   Future<String?> get token => throw UnimplementedError();
 
-  @override
-  Future<void> init() async {
+  static Future<void> setup() async {
     // Initialization setting for android
     const initializationSettingsAndroid = InitializationSettings(
         android: AndroidInitializationSettings('@drawable/ic_launcher'));
@@ -40,8 +33,8 @@ class FlutterLocalNotificationService implements ILocalNotification {
   /// String? title, // message.notification?.title,
   /// String? body, // message.notification?.body,
   /// String? payload, // message.data['route'], -> [route] is a random key
-  @override
-  Future<void> show({
+  ///
+  static Future<void> show({
     required NotificationMessageModel notificationMessage,
   }) async {
     // To display the notification in device
@@ -70,13 +63,11 @@ class FlutterLocalNotificationService implements ILocalNotification {
     }
   }
 
-  @override
-  Future<void> cancel(int id, {String? tag}) async {
+  static Future<void> cancel(int id, {String? tag}) async {
     await _notificationsPlugin.cancel(id, tag: tag);
   }
 
-  @override
-  Future<void> cancelAll() async {
+  static Future<void> cancelAll() async {
     await _notificationsPlugin.cancelAll();
   }
 

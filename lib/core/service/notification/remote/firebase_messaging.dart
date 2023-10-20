@@ -4,26 +4,13 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 
-import '../notification.dart';
 import '../notification_message.model.dart';
 
-class FirebaseMessagingService implements INotification {
-  static final FirebaseMessagingService _singleton =
-      FirebaseMessagingService._internal();
-  factory FirebaseMessagingService() => _singleton;
-  FirebaseMessagingService._internal() {
-    // called when the new FCM token is generated
-    FirebaseMessaging.instance.onTokenRefresh.listen(_onTokenRefresh);
-    // called when the app is in the foreground and we receive a push notification
-    FirebaseMessaging.onMessage.listen(_onForeground);
-    // called when the app is in the background and its opened from the push notification
-    FirebaseMessaging.onMessageOpenedApp.listen(_onBackground);
-  }
-
+@immutable
+abstract final class RemoteNotification {
   static Future<void> Function(NotificationMessageModel message)? _handler;
 
-  @override
-  Future<String?> get token async =>
+  static Future<String?> get token async =>
       await FirebaseMessaging.instance.isSupported()
           ? Platform.isIOS
               ? await FirebaseMessaging.instance.getAPNSToken()
@@ -31,29 +18,34 @@ class FirebaseMessagingService implements INotification {
           : null;
 
   static void setup() {
+    // called when the new FCM token is generated
+    FirebaseMessaging.instance.onTokenRefresh.listen(_onTokenRefresh);
+    // called when the app is in the foreground and we receive a push notification
+    FirebaseMessaging.onMessage.listen(_onForeground);
+    // called when the app is in the background and its opened from the push notification
+    FirebaseMessaging.onMessageOpenedApp.listen(_onBackground);
     // Set the background messaging handler early on, as a named top-level function
     FirebaseMessaging.onBackgroundMessage(_onBackground);
   }
 
-  @override
-  Future<void> init() async {
+  static Future<void> init() async {
     try {
       // Prompts the user for notification permissions
       await requestPermission();
       // If the application has been opened from a terminated state via push notification
       await checkInitialMessage();
     } catch (e) {
-      debugPrint('fcmToken onTokenRefresh : ${e.toString}');
+      if (kDebugMode) {
+        print('_onTokenRefresh: ${e.toString}');
+      }
     }
   }
 
-  @override
-  Future<void> deleteToken() async {
+  static Future<void> deleteToken() async {
     await FirebaseMessaging.instance.deleteToken();
   }
 
-  @override
-  Future<void> requestPermission() async {
+  static Future<void> requestPermission() async {
     await FirebaseMessaging.instance.requestPermission(
         alert: true,
         announcement: true,
@@ -66,7 +58,7 @@ class FirebaseMessagingService implements INotification {
 
   /// When the app has been opened from a terminated state via push notification
   /// suggested to call in [initState]
-  Future<void> checkInitialMessage() async {
+  static Future<void> checkInitialMessage() async {
     final message = await FirebaseMessaging.instance.getInitialMessage();
     if (kDebugMode) {
       print('checkInitialMessage: $message');
@@ -76,7 +68,7 @@ class FirebaseMessagingService implements INotification {
     }
   }
 
-  void _onTokenRefresh(String token) {
+  static void _onTokenRefresh(String token) {
     if (kDebugMode) {
       print('_onTokenRefresh: $token');
     }
@@ -84,7 +76,7 @@ class FirebaseMessagingService implements INotification {
   }
 
   // When the app is open and it receives a push notification
-  Future<void> _onForeground(RemoteMessage message) async {
+  static Future<void> _onForeground(RemoteMessage message) async {
     if (kDebugMode) {
       print('_onForeground: ${message.toString()}');
     }
@@ -109,7 +101,6 @@ class FirebaseMessagingService implements INotification {
     ));
   }
 
-  @override
   void handleMessage({
     required Future<void> Function(NotificationMessageModel message) handler,
   }) =>

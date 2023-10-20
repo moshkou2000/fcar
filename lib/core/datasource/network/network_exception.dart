@@ -2,7 +2,7 @@
 ///
 import 'package:dio/dio.dart';
 
-import '../../../shared/domain/provider/localization/localization.dart';
+import '../../service/localization/localization.provider.dart';
 
 class NetworkException extends DioException {
   String title;

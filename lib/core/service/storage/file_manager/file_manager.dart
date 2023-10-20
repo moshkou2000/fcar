@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:video_compress/video_compress.dart';
 
 import '../../../../config/constant/value.constant.dart';
-import '../../crashlytics/crashlytics.dart';
+import '../../monitoring/error_tracking.module.dart';
 import '../file.model.dart';
 import '../storage.dart';
 
@@ -40,7 +40,7 @@ class FileManager implements IStorage {
       if (kDebugMode) {
         print('Storage.compress.error: $e');
       }
-      Crashlytics.recordError(e, s, reason: 'compressPhoto($filePath)');
+      ErrorTracking.recordError(e, s, reason: 'compressPhoto($filePath)');
       return null;
     });
 

@@ -1,12 +1,14 @@
 import 'package:datadog_flutter_plugin/datadog_flutter_plugin.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../../config/constant/env.constant.dart';
 import '../../../../config/enum/app_env.dart';
 
-abstract class Datadog {
+@immutable
+abstract final class Datadog {
   // When the app is in the background and
   //  opened directly from the push notification.
-  Future<void> init({required AppEnvironment env}) async {
+  static Future<void> init({required AppEnvironment env}) async {
     DatadogSdk.instance.sdkVerbosity = Verbosity.verbose;
     await DatadogSdk.instance.initialize(DdSdkConfiguration(
       clientToken: EnvConstant.datadogClientToken,

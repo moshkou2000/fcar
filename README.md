@@ -64,3 +64,11 @@ https://sync.objectbox.io/sync-client
 - GitLenze
 - ESLint
 - Dart Data Class Generator
+
+## How to run
+
+- **Development**:
+
+```plaintext
+flutter run --flavor dev -t lib/main_dev.dart --dart-define=ENVDEFINE_AMPLITUDE_API_KEY=theValue
+```

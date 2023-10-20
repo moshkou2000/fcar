@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../network.extension.dart';
+import '../dio.extension.dart';
 
 class DioValidatorInterceptor extends Interceptor {
   @override

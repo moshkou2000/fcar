@@ -1,8 +1,9 @@
-import '../performance_monitoring.dart';
+import 'package:flutter/foundation.dart';
 
-class FirebasePerformanceMonitoring implements IPerformanceMonitoring {
-  static final FirebasePerformanceMonitoring _singleton =
-      FirebasePerformanceMonitoring._internal();
-  factory FirebasePerformanceMonitoring() => _singleton;
-  FirebasePerformanceMonitoring._internal();
+import '../../../../config/enum/app_env.dart';
+import 'firebase.dart';
+
+@immutable
+abstract final class PerformanceMonitoring {
+  static init({required AppEnvironment env}) => Firebase.init(env: env);
 }

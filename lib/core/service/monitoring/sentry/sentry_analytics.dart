@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:sentry_flutter/sentry_flutter.dart' as package;
 
-import '../analytics.dart';
+import '../../../../config/enum/app_env.dart';
 import '../monitoring.enum.dart';
 import 'sentry.dart';
 
-class SentryAnalytics extends Sentry implements IAnalytics {
-  static final SentryAnalytics _singleton = SentryAnalytics._internal();
-  factory SentryAnalytics() => _singleton;
-  SentryAnalytics._internal();
+@immutable
+abstract final class Analytics {
+  static init({required AppEnvironment env}) => Sentry.init(env: env);
 
-  @override
-  NavigatorObserver observer =
-      package.SentryNavigatorObserver(setRouteNameAsTransaction: true);
-
-  @override
-  Future<void> clear() async {
+  static Future<void> clear() async {
     await setUser(userId: null);
   }
 
-  @override
-  Future<void> logEvent<T>({
+  static Future<void> logEvent<T>({
     required AnalyticsEvent event,
     Map<String, dynamic>? data,
   }) async {
@@ -35,8 +28,7 @@ class SentryAnalytics extends Sentry implements IAnalytics {
     );
   }
 
-  @override
-  Future<void> setUser({String? userId}) async {
+  static Future<void> setUser({String? userId}) async {
     package.Sentry.configureScope(
       (scope) => scope.setUser(package.SentryUser(id: userId)),
     );

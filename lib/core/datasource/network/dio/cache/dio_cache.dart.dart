@@ -2,7 +2,7 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 
 import '../../../database/collection.dart';
 import '../../../database/database.enum.dart';
-import '../../../database/database.provider.dart';
+import '../../../database.provider.dart';
 import 'dio_cache.model.dart.dart';
 
 /// The database must exist

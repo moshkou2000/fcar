@@ -1,5 +1,10 @@
 import 'package:dio/dio.dart';
 
+import '../../../service/localization/localization.provider.dart';
+import '../../../extension/string.extension.dart';
+import '../network.extension.dart';
+import '../network_exception.dart';
+
 extension DioExceptionExtension on DioException {
   /// TODO: set the logic based on your backend config
   /// the logic when [isUnauthorized]

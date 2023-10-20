@@ -8,7 +8,7 @@
 PRODUCT_NAME = fcar
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.fcar
+PRODUCT_BUNDLE_IDENTIFIER = com.moshkou.fcar
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.

@@ -1,38 +1,30 @@
-import 'package:datadog_flutter_plugin/datadog_flutter_plugin.dart';
+import 'package:datadog_flutter_plugin/datadog_flutter_plugin.dart' as package;
 import 'package:flutter/material.dart';
 
-import '../analytics.dart';
+import '../../../../config/enum/app_env.dart';
 import '../monitoring.enum.dart';
 import 'datadog.dart';
 
-class DatadogAnalytics extends Datadog implements IAnalytics {
-  static final DatadogAnalytics _singleton = DatadogAnalytics._internal();
-  factory DatadogAnalytics() => _singleton;
-  DatadogAnalytics._internal();
+@immutable
+abstract final class Analytics {
+  static init({required AppEnvironment env}) => Datadog.init(env: env);
 
-  @override
-  NavigatorObserver observer =
-      DatadogNavigationObserver(datadogSdk: DatadogSdk.instance);
-
-  @override
-  Future<void> clear() async {
+  static Future<void> clear() async {
     await setUser(userId: null);
   }
 
-  @override
-  Future<void> logEvent<T>({
+  static Future<void> logEvent<T>({
     required AnalyticsEvent event,
     Map<String, dynamic>? data,
   }) async {
     // logEvent(eventName: eventName, data: data);
-    DatadogSdk.instance.logs?.info(
+    package.DatadogSdk.instance.logs?.info(
       event.name,
       attributes: data != null ? Map<String, Object?>.from(data) : {},
     );
   }
 
-  @override
-  Future<void> setUser({String? userId}) async {
-    DatadogSdk.instance.setUserInfo(id: userId);
+  static Future<void> setUser({String? userId}) async {
+    package.DatadogSdk.instance.setUserInfo(id: userId);
   }
 }

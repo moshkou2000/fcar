@@ -1,10 +1,9 @@
-import '../performance_monitoring.dart';
+import 'package:flutter/foundation.dart';
+
+import '../../../../config/enum/app_env.dart';
 import 'datadog.dart';
 
-class DatadogPerformanceMonitoring extends Datadog
-    implements IPerformanceMonitoring {
-  static final DatadogPerformanceMonitoring _singleton =
-      DatadogPerformanceMonitoring._internal();
-  factory DatadogPerformanceMonitoring() => _singleton;
-  DatadogPerformanceMonitoring._internal();
+@immutable
+abstract final class PerformanceMonitoring {
+  static init({required AppEnvironment env}) => Datadog.init(env: env);
 }

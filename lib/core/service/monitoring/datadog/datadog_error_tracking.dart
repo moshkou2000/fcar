@@ -1,17 +1,17 @@
 import 'package:datadog_flutter_plugin/datadog_flutter_plugin.dart';
+import 'package:flutter/foundation.dart';
 
+import '../../../../config/enum/app_env.dart';
 import '../../../datasource/network/network_exception.dart';
-import '../error_tracking.dart';
 import 'datadog.dart';
 
-class DatadogErrorTracking extends Datadog implements IErrorTracking {
-  static final DatadogErrorTracking _singleton =
-      DatadogErrorTracking._internal();
-  factory DatadogErrorTracking() => _singleton;
-  DatadogErrorTracking._internal();
+@immutable
+abstract final class ErrorTracking {
+  static Future<void> setup({required AppEnvironment env}) async {
+    Datadog.init(env: env);
+  }
 
-  @override
-  void recordError(
+  static void recordError(
     dynamic exception,
     StackTrace? stackTrace, {
     dynamic reason,
@@ -21,23 +21,23 @@ class DatadogErrorTracking extends Datadog implements IErrorTracking {
     bool filter = true,
   }) {
     if (filter) {
-      if (exception is NetworkException && exception.skipLogging) {
+      if (exception is NetworkException) {
         if (exception.skipLogging) {
           return;
         }
       }
     }
 
-    // TODO: use only one of the following
-
-    // error tracking and performance monitoring
-
-    DatadogSdk.instance.rum?.addError(
-      exception,
-      RumErrorSource.source,
-      stackTrace: stackTrace,
-      errorType: exception.runtimeType.toString(),
-      attributes: information,
-    );
+    if (exception is FlutterErrorDetails) {
+      DatadogSdk.instance.rum?.handleFlutterError(exception);
+    } else {
+      DatadogSdk.instance.rum?.addError(
+        exception,
+        RumErrorSource.source,
+        stackTrace: stackTrace,
+        errorType: exception.runtimeType.toString(),
+        attributes: information,
+      );
+    }
   }
 }
