@@ -52,9 +52,10 @@ class RemoteConfigService {
       if (_isBiggerVersion(currentVersion)) {
         showDialogAt(
             context: context,
-            primaryActionText: buttonText,
             title: title,
             subtitle: message,
+            barrierDismissible: false,
+            primaryActionText: buttonText,
             onPrimaryActionPressed: (_) => _launchUrl(_downloadUrl));
         return true;
       }

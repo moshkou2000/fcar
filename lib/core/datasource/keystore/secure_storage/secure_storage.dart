@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../../../../shared/domain/repository/keystore/keystore.enum.dart';
 import '../keystore.dart';
+import '../keystore.enum.dart';
 
 /// The base methods
 /// to _read & write bool, int, double & string

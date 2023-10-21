@@ -1,4 +1,4 @@
-import '../../../shared/domain/repository/keystore/keystore.enum.dart';
+import 'keystore.enum.dart';
 
 /// All Keystore datasources that used as provider must implement [IKeystore]
 /// modify [IDatabase] based on your need.

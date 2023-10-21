@@ -72,3 +72,8 @@ https://sync.objectbox.io/sync-client
 ```plaintext
 flutter run --flavor dev -t lib/main_dev.dart --dart-define=ENVDEFINE_AMPLITUDE_API_KEY=theValue
 ```
+
+## Coding
+
+use
+final val = StateProvider<bool>((ref) => false);

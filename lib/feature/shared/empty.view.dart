@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../config/theme/font_style.module.dart';
 
+@immutable
 class EmptyView extends StatelessWidget {
   final Widget? elastration;
   final String? title;

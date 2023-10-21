@@ -27,13 +27,14 @@ void main() {
         reason: 'FlutterError',
       );
       originalOnError?.call(details);
-      runApp(EmptyView(
+      runApp(ProviderScope(
+          child: EmptyView(
         elastration: Center(child: Image.asset(AssetConstant.calendarImage)),
         title: localization.error.titleCase,
         subtitle: localization.unauthorized.titleCase,
         primaryButtonText: localization.apply.titleCase,
         secondaryButtonText: localization.cancel.titleCase,
-      ));
+      )));
     };
     PlatformDispatcher.instance.onError = (e, s) {
       ErrorTracking.recordError(
