@@ -5,7 +5,7 @@ import 'color.module.dart';
 /// Toggle the Theme mode
 /// set -> ref.read(themeMode.notifier).state = ThemeMode.light;
 /// get -> final mode = ref.watch(themeMode);
-final themeMode = StateProvider<ThemeMode>((ref) => ThemeMode.dark);
+final themeMode = StateProvider<ThemeMode>((ref) => ThemeMode.light);
 
 final lightThemeData = ThemeData(
   // This is the theme of your application.
@@ -31,7 +31,7 @@ final lightThemeData = ThemeData(
   ),
   useMaterial3: true,
   brightness: Brightness.light,
-  scaffoldBackgroundColor: Colors.white,
+  // scaffoldBackgroundColor: Colors.white,
 );
 
 final darkThemeData = ThemeData(brightness: Brightness.dark);

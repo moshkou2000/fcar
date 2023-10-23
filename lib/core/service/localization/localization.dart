@@ -6,6 +6,13 @@ import 'package:flutter/services.dart';
 import 'localization.enum.dart';
 import 'localization_dictionary.dart';
 
+/// call [setup] at the highest order before [runApp]
+///
+/// Use [text] to get respective text from localization dictionary.
+/// Use [supportedLanguages] in the main (MaterialApp)
+/// get languages as Local [supportedLocales]
+/// get String [language]
+///
 class Localization extends LocalizationDictionary {
   static final Localization _singleton = Localization._internal();
   factory Localization() => _singleton;
@@ -16,12 +23,15 @@ class Localization extends LocalizationDictionary {
     LocalizationLanguage.my,
   ];
 
+  static const List<Locale> supportedLocales = [
+    Locale('en'),
+    Locale('my'),
+  ];
+
   static LocalizationLanguage _language = LocalizationLanguage.en;
-  static const Map<dynamic, dynamic> _localizedValues = {};
+  static final Map<dynamic, dynamic> _localizedValues = {};
 
   static String get language => _language.name;
-  static Iterable<Locale> get supportedLocales =>
-      supportedLanguages.map<Locale>((e) => Locale(e.name, ''));
 
   /// Get the selected language from KeyStore
   static Future<void> setup({

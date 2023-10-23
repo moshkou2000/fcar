@@ -59,12 +59,12 @@ class App {
     // PerformanceMonitoring.setup(env: env);
     // RemoteNotification.setup();
     // LocalNotification.setup();
-    DatabaseProvider.setup(names: {
-      DatabaseType.objectbox: [
-        DatabaseName.appDb,
-        DatabaseName.networkCache,
-      ]
-    });
+    // DatabaseProvider.setup(names: {
+    //   DatabaseType.objectbox: [
+    //     DatabaseName.appDb,
+    //     DatabaseName.networkCache,
+    //   ]
+    // });
     await Flavor.setup(env: env);
     await Localization.setup();
   }

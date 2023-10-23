@@ -16,7 +16,6 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mode = ref.watch(themeMode);
-    print(mode);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: lightThemeData,
@@ -27,9 +26,7 @@ class MyApp extends ConsumerWidget {
       onGenerateRoute: ConstantNav.generateRoute,
       showSemanticsDebugger: false,
       debugShowCheckedModeBanner: false,
-      navigatorObservers: const [
-        // NavigationObserver()
-      ],
+      navigatorObservers: [NavigationObserver()],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

@@ -29,7 +29,7 @@ void main() {
       originalOnError?.call(details);
       runApp(ProviderScope(
           child: EmptyView(
-        elastration: Center(child: Image.asset(AssetConstant.calendarImage)),
+        elastration: Image.asset(AssetConstant.calendarImage),
         title: localization.error.titleCase,
         subtitle: localization.unauthorized.titleCase,
         primaryButtonText: localization.apply.titleCase,

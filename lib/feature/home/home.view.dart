@@ -28,9 +28,14 @@ class _HomePageState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return EmptyView(
-      elastration: Center(child: Image.asset(AssetConstant.calendarImage)),
+      elastration: Image.asset(
+        AssetConstant.calendarImage,
+        fit: BoxFit.fitHeight,
+        alignment: Alignment.center,
+      ),
       title: widget.arguments.title.titleCase,
-      subtitle: localization.noInternet.titleCase,
+      subtitle:
+          'localization.noInternet.titleCase localization.noInternet.titleCase localizations ',
       primaryButtonText: localization.ok.titleCase,
       secondaryButtonText: localization.cancel.titleCase,
     );

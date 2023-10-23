@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../config/theme/color.module.dart';
 import '../../shared/base.controller.dart';
 
 final landingController =
@@ -10,38 +9,43 @@ final landingController =
 });
 
 /// 0: first index is initial
-final indexController = StateProvider<int>((ref) => 0);
+final _indexController = StateProvider<int>((ref) => 0);
 
 class LandingController extends BaseController<bool> {
   @override
   bool build() {
     ref.onDispose(() {
-      ref.read(indexController.notifier).dispose();
+      ref.read(_indexController.notifier).dispose();
     });
     return false;
   }
 
-  BottomNavigationBar get bottomNavigationBar => BottomNavigationBar(
-        selectedItemColor: ThemeColor.primary,
-        currentIndex: ref.read(indexController.notifier).state,
-        iconSize: 50,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
-          ),
-        ],
-        onTap: (int index) {
-          ref.read(indexController.notifier).state = index;
-          toggleState();
-        },
-      );
+  int get currentIndex => ref.read(_indexController.notifier).state;
+
+  List<Widget> bottomNavigationBarItems() {
+    return [
+      IconButton(
+        icon: const Icon(Icons.menu, color: Colors.white),
+        onPressed: () {},
+      ),
+      IconButton(
+        icon: const Icon(Icons.people, color: Colors.white),
+        onPressed: () {},
+      ),
+      const SizedBox(width: 60),
+      IconButton(
+        icon: const Icon(Icons.search, color: Colors.white),
+        onPressed: () {},
+      ),
+      IconButton(
+        icon: const Icon(Icons.print, color: Colors.white),
+        onPressed: () {},
+      ),
+    ];
+  }
+
+  void onTapBottomNavigationBar(int index) {
+    ref.read(_indexController.notifier).state = index;
+    toggleState();
+  }
 }

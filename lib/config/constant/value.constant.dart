@@ -17,11 +17,9 @@ abstract final class ValueConstant {
   static const int snackbarDurationWithAction = 3500;
 
 // double values
+  static const double minButtonWidth = 100;
   static const double statusBarHeight = 28;
   static const double toolbarHeight = 84.0;
-  static const double mileageMin = 0;
-  static const double mileageMax = 500000;
-  static const double mileageThreshold = 100;
 
 // string values
   static const String all = 'All';

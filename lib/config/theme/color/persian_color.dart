@@ -23,8 +23,8 @@ abstract final class ThemeColor {
   static const onError = Color(0xFFBB2020);
   static const errorContainer = Color(0xFFECF3F9);
 
-  static const background = Color(0xff191b1f);
-  static const onBackground = Color(0xff191b1f);
+  static const background = Color(0xffffffff);
+  static const onBackground = Color(0xffffffff);
 
   static const surface = Color(0xff141617);
   static const onSurface = Color(0xff141617);
