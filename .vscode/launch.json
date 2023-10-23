@@ -9,7 +9,7 @@
       "request": "launch",
       "type": "dart",
       "flutterMode": "debug",
-      "program": "lib/main.dart",
+      "program": "lib/main_dev.dart",
       "args": [
         "--flavor",
         "Debug-Dev",
@@ -26,7 +26,7 @@
       "request": "launch",
       "type": "dart",
       "flutterMode": "debug",
-      "program": "lib/main.dart",
+      "program": "lib/main_dev.dart",
       "args": [
         "--flavor",
         "dev",

@@ -31,5 +31,6 @@ export 'color/korra_color.dart';
 ///   static const outline = Color(...);
 ///   static const background = Color(...);
 ///   static const shadow = Color(...);
+///   static const brightness = Color(...);
 ///   static const overlay = Color(...);
 /// }

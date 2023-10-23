@@ -7,17 +7,9 @@ abstract final class ThemeFont {
   static const fontFamily = 'Roboto';
   static const textStyle = TextStyle(fontFamily: fontFamily);
 
-  static final titleStyle = textStyle
-    ..copyWith(fontSize: 16, fontWeight: FontWeight.w500);
-
-  static final subtitleStyle = textStyle
-    ..copyWith(fontSize: 14, fontWeight: FontWeight.w400);
-
-  static final buttonTextStyle = textStyle
-    ..copyWith(fontSize: 16, fontWeight: FontWeight.w400);
-
-  /// TODO: you can remove them [after this line] later
-  ///
+  static final titleStyle = label500Medium;
+  static final subtitleStyle = paragraph400Small;
+  static final buttonTextStyle = paragraph400Medium;
 
   static final displayLarge =
       textStyle.copyWith(fontSize: 96, fontWeight: FontWeight.w700);

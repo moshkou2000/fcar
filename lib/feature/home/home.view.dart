@@ -1,3 +1,5 @@
+import '../../config/constant/asset.constant.dart';
+import '../../core/extension/string.extension.dart';
 import '../../core/service/localization/localization.provider.dart';
 import 'home.argument.dart';
 import 'package:flutter/material.dart';
@@ -26,10 +28,16 @@ class _HomePageState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return EmptyView(
-      title: widget.arguments.title,
-      subtitle: localization.noInternet,
-      primaryButtonText: 'OK',
-      secondaryButtonText: 'Cancel',
+      elastration: Image.asset(
+        AssetConstant.calendarImage,
+        fit: BoxFit.fitHeight,
+        alignment: Alignment.center,
+      ),
+      title: widget.arguments.title.titleCase,
+      subtitle:
+          'localization.noInternet.titleCase localization.noInternet.titleCase localizations ',
+      primaryButtonText: localization.ok.titleCase,
+      secondaryButtonText: localization.cancel.titleCase,
     );
   }
 }

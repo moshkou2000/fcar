@@ -14,6 +14,9 @@ abstract class LocalizationDictionary {
 // e
   String get error => Localization.text('error');
 
+// o
+  String get ok => Localization.text('ok');
+
 // n
   String get noInternet => Localization.text('noInternet');
 

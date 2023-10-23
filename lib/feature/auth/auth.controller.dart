@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final generalInfoController =
-    AutoDisposeNotifierProvider<AuthController, bool>(() {
+final authController = AutoDisposeNotifierProvider<AuthController, bool>(() {
   return AuthController();
 });
 

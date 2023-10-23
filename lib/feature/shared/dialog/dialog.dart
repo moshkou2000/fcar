@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/theme/color/korra_color.dart';
 import '../../../config/theme/font/roboto_style.dart';
+import '../../../core/service/localization/localization.provider.dart';
+import '../../../core/service/navigation.service.dart';
 import 'dialog.enum.dart';
 import 'dialog_observer.dart';
 
@@ -10,13 +14,51 @@ typedef DialogObserverCallback = void Function(DialogObserver);
 
 const int _dialogEaseInDuration = 200;
 const int _dialogEaseOutDuration = 250;
+const AlignmentGeometry _defaultPosition = Alignment.bottomCenter;
 
+/// primaryActionText: localization.ok
+/// action: Future<dynamic> or void function()
+///   default: navigationService.pop();
+///
+void showErrorDialog({
+  String? title,
+  String? subtitle,
+  String? primaryActionText,
+  FutureOr? action,
+  AlignmentGeometry position = _defaultPosition,
+}) {
+  final context = navigationService.context;
+  if (context != null) {
+    showDialogAt(
+        context: context,
+        position: position,
+        title: title,
+        subtitle: subtitle,
+        barrierDismissible: false,
+        primaryActionText: primaryActionText ?? localization.ok,
+        onPrimaryActionPressed: (observer) async {
+          observer.showLoading();
+          if (action != null) {
+            if (action is Future<dynamic>) {
+              await action;
+            } else {
+              action.call();
+            }
+          }
+          navigationService.pop();
+          observer.hideLoading();
+        });
+  }
+}
+
+/// to set posittion of the dialog,
+/// bottomSheetDialog position is at the center bottom
 void showDialogAt({
   required BuildContext context,
 
   /// to set posittion of the dialog,
   /// bottomSheetDialog position is at the center bottom
-  AlignmentGeometry position = Alignment.bottomCenter,
+  AlignmentGeometry position = _defaultPosition,
 
   /// dismissible when user click at dialog scrim
   bool barrierDismissible = true,

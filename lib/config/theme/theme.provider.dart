@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'color.module.dart';
 
-final themeData = ThemeData(
+/// Toggle the Theme mode
+/// set -> ref.read(themeMode.notifier).state = ThemeMode.light;
+/// get -> final mode = ref.watch(themeMode);
+final themeMode = StateProvider<ThemeMode>((ref) => ThemeMode.light);
+
+final lightThemeData = ThemeData(
   // This is the theme of your application.
   //
   // TRY THIS: Try running your application with "flutter run". You'll see
@@ -25,7 +31,44 @@ final themeData = ThemeData(
   ),
   useMaterial3: true,
   brightness: Brightness.light,
-  scaffoldBackgroundColor: Colors.white,
+  // scaffoldBackgroundColor: Colors.white,
 );
 
 final darkThemeData = ThemeData(brightness: Brightness.dark);
+
+final colorScheme = ColorScheme.fromSeed(seedColor: ThemeColor.primary);
+
+// const colorScheme = ColorScheme(
+//   brightness: Brightness.light,
+//   primary: ThemeColor.primary,
+//   onPrimary: ThemeColor.onPrimary,
+//   secondary: ThemeColor.secondary,
+//   onSecondary: ThemeColor.onSecondary,
+//   error: ThemeColor.error,
+//   onError: ThemeColor.onError,
+//   background: ThemeColor.background,
+//   onBackground: ThemeColor.onBackground,
+//   surface: ThemeColor.surface,
+//   onSurface: ThemeColor.onSurface,
+// );
+
+    // Color? primaryContainer,
+    // Color? onPrimaryContainer,
+    // Color? secondaryContainer,
+    // Color? onSecondaryContainer,
+    // Color? tertiary,
+    // Color? onTertiary,
+    // Color? tertiaryContainer,
+    // Color? onTertiaryContainer,
+    // Color? errorContainer,
+    // Color? onErrorContainer,
+    // Color? surfaceVariant,
+    // Color? onSurfaceVariant,
+    // Color? outline,
+    // Color? outlineVariant,
+    // Color? shadow,
+    // Color? scrim,
+    // Color? inverseSurface,
+    // Color? onInverseSurface,
+    // Color? inversePrimary,
+    // Color? surfaceTint,
