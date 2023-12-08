@@ -97,6 +97,13 @@
       "${1:MyClass}._internal();"
     ],
     "description": "Create Singleton"
+  },
+  "state provider": {
+    "prefix": "state provider",
+    "body": [
+      "final ${1:internal}Controller = StateProvider<${2:int}>((ref) => ${3:0});"
+    ],
+    "description": "Create StateProvider"
   }
 }
 /*

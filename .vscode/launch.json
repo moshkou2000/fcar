@@ -5,6 +5,44 @@
   "version": "0.0.0",
   "configurations": [
     {
+      "name": "Dev Profile Android",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile",
+      "program": "lib/main_dev.dart",
+      "args": [
+        "--cache-sksl",
+        "--purge-persistent-cache",
+        "--flavor",
+        "dev",
+        "--dart-define",
+        "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
+        "--dart-define",
+        "AUTH_USERNAME=admin",
+        "--dart-define",
+        "AUTH_PASSWORD=admin123"
+      ]
+    },
+    {
+      "name": "Dev Profile iOS",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile",
+      "program": "lib/main_dev.dart",
+      "args": [
+        "--cache-sksl",
+        "--purge-persistent-cache",
+        "--flavor",
+        "Debug-Dev",
+        "--dart-define",
+        "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
+        "--dart-define",
+        "AUTH_USERNAME=admin",
+        "--dart-define",
+        "AUTH_PASSWORD=admin123"
+      ]
+    },
+    {
       "name": "Dev Debug iOS",
       "request": "launch",
       "type": "dart",

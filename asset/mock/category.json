@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "title": "Men",
+      "imageUrl": "https://flutter-ui.s3.us-east-2.amazonaws.com/ecommerce/man-look-right.jpg",
+      "selections": [
+        "Shirts",
+        "Jeans",
+        "Shorts"
+      ]
+    },
+    {
+      "title": "Women",
+      "imageUrl": "https://flutter-ui.s3.us-east-2.amazonaws.com/ecommerce/woman-look-left.jpg",
+      "selections": [
+        "Shirts",
+        "Jeans"
+      ]
+    },
+    {
+      "title": "Pets",
+      "imageUrl": "https://flutter-ui.s3.us-east-2.amazonaws.com/ecommerce/pet.jpg",
+      "selections": [
+        "Toys",
+        "Treats"
+      ]
+    },
+    {
+      "title": "AM",
+      "imageUrl": "https://flutter-ui.s3.us-east-2.amazonaws.com/ecommerce/man-look-right.jpg",
+      "selections": [
+        "Toys",
+        "Helelious"
+      ]
+    }
+  ]
+}

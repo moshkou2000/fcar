@@ -1,13 +1,12 @@
+import 'package:fcar_lib/core/service/localization/localization.provider.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fcar_lib/core/service/navigation/navigation.dart';
+import 'package:fcar_lib/core/service/monitoring/navigation_observer/sentry_navigator_observer.dart';
 
-import 'core/service/localization/localization.dart';
-import 'core/service/monitoring/navigation_observer.module.dart';
-
-import 'config/constant/nav.constant.dart';
 import 'config/theme/theme.provider.dart';
-import 'core/service/navigation.service.dart';
-import 'package:flutter/material.dart';
+import 'core/service/navigation/navigation_route.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
@@ -21,18 +20,18 @@ class MyApp extends ConsumerWidget {
       theme: lightThemeData,
       darkTheme: darkThemeData,
       themeMode: mode,
-      navigatorKey: NavigationService.navigationKey,
-      initialRoute: ConstantNav.landingRoute,
-      onGenerateRoute: ConstantNav.generateRoute,
+      navigatorKey: Navigation.navigationKey,
+      initialRoute: NavigationRoute.splashscreenRoute,
+      onGenerateRoute: NavigationRoute.generateRoute,
       showSemanticsDebugger: false,
       debugShowCheckedModeBanner: false,
-      navigatorObservers: [NavigationObserver()],
+      navigatorObservers: [SentryNavigatorObservers()],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: Localization.supportedLocales,
+      supportedLocales: LocalizationProvider.supportedLocales,
     );
   }
 }

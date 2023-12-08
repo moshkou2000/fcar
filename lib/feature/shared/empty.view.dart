@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:fcar_lib/config/constant/value.constant.dart';
 
-import '../../config/constant/value.constant.dart';
-import '../../config/theme/color.module.dart';
-import '../../config/theme/font_style.module.dart';
+import '../../config/theme/theme_font.dart';
 
 @immutable
 class EmptyView extends StatelessWidget {
-  final Image? elastration;
+  final Color? color;
+  final Widget? illustration;
   final String? title;
   final String? subtitle;
   final String? primaryButtonText;
   final String? secondaryButtonText;
-  final Function()? primaryButtonOnPressed;
-  final Function()? secondaryButtonOnPressed;
+  final void Function()? primaryButtonOnPressed;
+  final void Function()? secondaryButtonOnPressed;
 
   const EmptyView({
-    this.elastration,
+    this.color,
+    this.illustration,
     this.title,
     this.subtitle,
     this.primaryButtonText,
@@ -27,48 +28,55 @@ class EmptyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(),
-                  if (elastration != null)
-                    _elastrationWidget(
-                        elastration: elastration!,
-                        height: constraints.maxHeight / 2),
-                  if (title != null) _titleWidget(title: title!),
-                  if (subtitle != null) _subtitleWidget(subtitle: subtitle!),
-                  if (primaryButtonText != null)
-                    _primaryButtonWidget(text: primaryButtonText!),
-                  if (secondaryButtonText != null)
-                    _secondaryButtonWidget(text: secondaryButtonText!),
-                ],
+    return Container(
+      color: color ?? Colors.white,
+      child: SafeArea(
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: constraints.maxHeight,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Container(),
+                    if (illustration != null)
+                      _illustrationWidget(
+                          illustration: illustration!,
+                          height: constraints.maxHeight != double.infinity
+                              ? constraints.maxHeight * 0.4
+                              : 200), // resolve the image
+                    if (title != null) _titleWidget(title: title!),
+                    if (subtitle != null) _subtitleWidget(subtitle: subtitle!),
+                    if (primaryButtonText != null)
+                      _primaryButtonWidget(text: primaryButtonText!),
+                    if (secondaryButtonText != null)
+                      _secondaryButtonWidget(text: secondaryButtonText!),
+                  ],
+                ),
               ),
-            ),
-          ],
-        );
-      },
+            );
+          },
+        ),
+      ),
     );
   }
 
-  Widget _elastrationWidget({
-    required Image elastration,
+  Widget _illustrationWidget({
+    required Widget illustration,
     required double height,
   }) {
     return Container(
-      color: ThemeColor.background,
       height: height,
-      child: elastration,
+      alignment: Alignment.bottomCenter,
+      child: illustration,
     );
   }
 
   Widget _titleWidget({required String title}) {
     return Container(
-      margin: const EdgeInsets.only(top: 24, left: 16, right: 16),
+      margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
       child: Text(
         title,
         style: ThemeFont.titleStyle,
@@ -95,8 +103,8 @@ class EmptyView extends StatelessWidget {
         constraints:
             const BoxConstraints(minWidth: ValueConstant.minButtonWidth),
         child: ElevatedButton(
+          onPressed: primaryButtonOnPressed,
           child: Text(text),
-          onPressed: () => {},
         ),
       ),
     );
@@ -106,8 +114,8 @@ class EmptyView extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(left: 16, right: 16),
       child: TextButton(
+        onPressed: secondaryButtonOnPressed,
         child: Text(text),
-        onPressed: () => {},
       ),
     );
   }

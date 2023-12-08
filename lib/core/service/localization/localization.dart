@@ -1,52 +1,28 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'localization.enum.dart';
-import 'localization_dictionary.dart';
+import 'package:fcar_lib/core/service/localization/localization.provider.dart';
 
-/// call [setup] at the highest order before [runApp]
-///
-/// Use [text] to get respective text from localization dictionary.
-/// Use [supportedLanguages] in the main (MaterialApp)
-/// get languages as Local [supportedLocales]
-/// get String [language]
-///
-class Localization extends LocalizationDictionary {
-  static final Localization _singleton = Localization._internal();
-  factory Localization() => _singleton;
-  Localization._internal();
+@immutable
+abstract final class Localization {
+// a
+  static String get all => LocalizationProvider.text('all');
+  static String get apply => LocalizationProvider.text('apply');
+  static String get are => LocalizationProvider.text('are');
+  static String get assign => LocalizationProvider.text('assign');
 
-  static const List<LocalizationLanguage> supportedLanguages = [
-    LocalizationLanguage.en,
-    LocalizationLanguage.my,
-  ];
+// c
+  static String get camera => LocalizationProvider.text('camera');
+  static String get cancel => LocalizationProvider.text('cancel');
 
-  static const List<Locale> supportedLocales = [
-    Locale('en'),
-    Locale('my'),
-  ];
+// e
+  static String get error => LocalizationProvider.text('error');
 
-  static LocalizationLanguage _language = LocalizationLanguage.en;
-  static final Map<dynamic, dynamic> _localizedValues = {};
+// o
+  static String get ok => LocalizationProvider.text('ok');
 
-  static String get language => _language.name;
+// n
+  static String get noInternet => LocalizationProvider.text('noInternet');
 
-  /// Get the selected language from KeyStore
-  static Future<void> setup({
-    LocalizationLanguage language = LocalizationLanguage.en,
-  }) async {
-    _language = language;
-    await _loadLocalizations(language.name);
-  }
-
-  static String text(String key) =>
-      (_localizedValues[key] == null) ? '' : _localizedValues[key];
-
-  static Future<void> _loadLocalizations(String language) async {
-    final jsonContent =
-        await rootBundle.loadString('asset/locale/$language.json');
-    _localizedValues.addAll(json.decode(jsonContent));
-  }
+// u
+  static String get unauthorized => LocalizationProvider.text('unauthorized');
 }

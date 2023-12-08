@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -7,28 +6,21 @@ import 'package:flutter/foundation.dart';
 class AuthModel {
   final int id;
   final String name;
+  final String token;
 
   const AuthModel({
     required this.id,
     required this.name,
+    required this.token,
   });
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-    };
-  }
+  bool get hasToken => token.trim().isNotEmpty;
 
   factory AuthModel.fromMap(Map<String, dynamic> map) {
     return AuthModel(
       id: map['id'] as int,
       name: map['name'] as String,
+      token: map['token'] as String,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory AuthModel.fromJson(String source) =>
-      AuthModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

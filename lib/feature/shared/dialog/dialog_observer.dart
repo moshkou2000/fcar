@@ -1,27 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
-import 'dialog.enum.dart';
+class DialogObserver extends ValueNotifier<bool> {
+  DialogObserver({bool isLoading = false}) : super(isLoading);
 
-/// handle [_DialogComponent] state which is [DialogState.loading] and [DialogState.idle]
-/// [DialogState.loading] will replace primary CTA button text to circular progress indicator
-/// and disable the button
-class DialogObserver extends ValueNotifier<DialogState> {
-  DialogObserver({DialogState? value}) : super(value ?? DialogState.idle);
-
-  void _changeState(DialogState state) {
+  void _changeState(bool state) {
     if (value != state) {
       value = state;
     }
   }
 
-  /// change the dialog state to [loading]
+  /// it's loading
   void showLoading() {
-    _changeState(DialogState.loading);
+    _changeState(true);
   }
 
-  /// change the dialog state to [idle]
+  /// it's idle
   void hideLoading() {
-    _changeState(DialogState.idle);
+    _changeState(false);
   }
 }

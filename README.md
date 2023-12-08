@@ -77,3 +77,17 @@ flutter run --flavor dev -t lib/main_dev.dart --dart-define=ENVDEFINE_AMPLITUDE_
 
 use
 final val = StateProvider<bool>((ref) => false);
+
+### Socket.io
+
+If the socket connection is failing, then you might have to add the following property to your `AndroidManifest.xml` file application tag:
+
+```
+<application
+     .....
+     android:usesCleartextTraffic="true">
+```
+
+# TODO
+
+implement iOS splashxcreen -> https://medium.com/swlh/native-splash-screen-in-flutter-using-lottie-121ce2b9b0a4

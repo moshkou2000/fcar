@@ -1,74 +1,112 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'color.module.dart';
+
+import 'theme_color.dart';
+import 'theme_font.dart';
+
+/// Example Usage
+/// Text('Hello, Flutter!',
+///   style: Theme.of(context).textTheme.headlineMedium);
+///
 
 /// Toggle the Theme mode
 /// set -> ref.read(themeMode.notifier).state = ThemeMode.light;
 /// get -> final mode = ref.watch(themeMode);
 final themeMode = StateProvider<ThemeMode>((ref) => ThemeMode.light);
 
-final lightThemeData = ThemeData(
-  // This is the theme of your application.
-  //
-  // TRY THIS: Try running your application with "flutter run". You'll see
-  // the application has a blue toolbar. Then, without quitting the app,
-  // try changing the seedColor in the colorScheme below to Colors.green
-  // and then invoke "hot reload" (save your changes or press the "hot
-  // reload" button in a Flutter-supported IDE, or press "r" if you used
-  // the command line to start the app).
-  //
-  // Notice that the counter didn't reset back to zero; the application
-  // state is not lost during the reload. To reset the state, use hot
-  // restart instead.
-  //
-  // This works for code too, not just values: Most code changes can be
-  // tested with just a hot reload.
-  colorScheme: ColorScheme.fromSeed(seedColor: ThemeColor.primary),
-  appBarTheme: const AppBarTheme(
-    color: ThemeColor.primary,
-    elevation: 0,
-    centerTitle: true,
-  ),
-  useMaterial3: true,
-  brightness: Brightness.light,
-  // scaffoldBackgroundColor: Colors.white,
-);
+ThemeData get darkThemeData => ThemeData(brightness: Brightness.dark);
+ThemeData get lightThemeData => ThemeData(
+      colorScheme: colorScheme,
+      useMaterial3: true,
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: Colors.white, //ThemeColor.blue300
+      appBarTheme: const AppBarTheme(
+        color: ThemeColor.statusBarColor,
+        elevation: 0,
+        centerTitle: true,
+      ),
+      // floatingActionButtonTheme: FloatingActionButtonThemeData(
+      //   backgroundColor: isLight ? Colors.yellow : colorOrange,
+      // ),
+      snackBarTheme: const SnackBarThemeData(
+        actionTextColor: Colors.white,
+        backgroundColor: ThemeColor.surface,
+      ),
+      textTheme: TextTheme(
+        displayLarge: ThemeFont.displayLarge,
+        displayMedium: ThemeFont.displayMedium,
+        displaySmall: ThemeFont.displaySmall,
 
-final darkThemeData = ThemeData(brightness: Brightness.dark);
+        headlineLarge: ThemeFont.headingLarge,
+        headlineMedium: ThemeFont.headingMedium,
+        headlineSmall: ThemeFont.headingSmall,
 
-final colorScheme = ColorScheme.fromSeed(seedColor: ThemeColor.primary);
+        // titleLarge: ThemeFont.tit,
+        // titleMedium: ThemeFont.headingLarge,
+        // titleSmall: ThemeFont.headingLarge,
 
-// const colorScheme = ColorScheme(
-//   brightness: Brightness.light,
-//   primary: ThemeColor.primary,
-//   onPrimary: ThemeColor.onPrimary,
-//   secondary: ThemeColor.secondary,
-//   onSecondary: ThemeColor.onSecondary,
-//   error: ThemeColor.error,
-//   onError: ThemeColor.onError,
-//   background: ThemeColor.background,
-//   onBackground: ThemeColor.onBackground,
-//   surface: ThemeColor.surface,
-//   onSurface: ThemeColor.onSurface,
-// );
+        // bodyLarge: ThemeFont.headingLarge,
+        // bodyMedium: ThemeFont.headingLarge,
+        // bodySmall: ThemeFont.headingLarge,
 
-    // Color? primaryContainer,
-    // Color? onPrimaryContainer,
-    // Color? secondaryContainer,
-    // Color? onSecondaryContainer,
-    // Color? tertiary,
-    // Color? onTertiary,
-    // Color? tertiaryContainer,
-    // Color? onTertiaryContainer,
-    // Color? errorContainer,
-    // Color? onErrorContainer,
-    // Color? surfaceVariant,
-    // Color? onSurfaceVariant,
-    // Color? outline,
-    // Color? outlineVariant,
-    // Color? shadow,
-    // Color? scrim,
-    // Color? inverseSurface,
-    // Color? onInverseSurface,
-    // Color? inversePrimary,
-    // Color? surfaceTint,
+        // labelLarge: ThemeFont.label,
+        // labelMedium: ThemeFont.headingLarge,
+        // labelSmall: ThemeFont.lab,
+      ),
+    );
+
+ColorScheme get colorScheme => const ColorScheme(
+      brightness: Brightness.light,
+      primary: ThemeColor.primary,
+      onPrimary: ThemeColor.onPrimary,
+      secondary: ThemeColor.secondary,
+      onSecondary: ThemeColor.onSecondary,
+      error: ThemeColor.error,
+      onError: ThemeColor.onError,
+      background: ThemeColor.background,
+      onBackground: ThemeColor.onBackground,
+      surface: ThemeColor.surface,
+      onSurface: ThemeColor.onSurface,
+      // optional
+      // primaryContainer: ThemeColor.primaryContainer,
+      // onPrimaryContainer: ThemeColor.onPrimaryContainer,
+      // secondaryContainer: ThemeColor.secondaryContainer,
+      // onSecondaryContainer: ThemeColor.onSecondaryContainer,
+      // tertiary: ThemeColor.tertiary,
+      // onTertiary: ThemeColor.onTertiary,
+      // tertiaryContainer: ThemeColor.tertiaryContainer,
+      // onTertiaryContainer: ThemeColor.onTertiaryContainer,
+      // errorContainer: ThemeColor.errorContainer,
+      // onErrorContainer: ThemeColor.onErrorContainer,
+      // surfaceVariant: ThemeColor.surfaceVariant,
+      // onSurfaceVariant: ThemeColor.onSurfaceVariant,
+      // outline: ThemeColor.outline,
+      // outlineVariant: ThemeColor.outlineVariant,
+      // shadow: ThemeColor.shadow,
+      // scrim: ThemeColor.scrim,
+      // inverseSurface: ThemeColor.inverseSurface,
+      // onInverseSurface: ThemeColor.onInverseSurface,
+      // inversePrimary: ThemeColor.inversePrimary,
+      // surfaceTint: ThemeColor.surfaceTint,
+    );
+
+void themeSetSystemUIOverlayStyle() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: ThemeColor.statusBarColor,
+    systemNavigationBarColor: ThemeColor.navigationBarColor,
+    statusBarBrightness: Brightness.dark,
+    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
+}
+
+void themeInitSystemUIOverlayStyle({Color? navigationBarColor}) {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    systemNavigationBarColor: navigationBarColor ?? Colors.white,
+    statusBarBrightness: Brightness.light,
+    statusBarIconBrightness: Brightness.light,
+    systemNavigationBarIconBrightness: Brightness.light,
+  ));
+}

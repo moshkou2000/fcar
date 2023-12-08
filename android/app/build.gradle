@@ -30,7 +30,7 @@ if (flutterCompileSdkVersion == null) {
 
 def flutterMinSdkVersion = localProperties.getProperty('flutter.minSdkVersion')
 if (flutterMinSdkVersion == null) {
-    flutterMinSdkVersion = '21'
+    flutterMinSdkVersion = '23'
 }
 
 def flutterTargetSdkVersion = localProperties.getProperty('flutter.targetSdkVersion')
@@ -85,10 +85,44 @@ android {
             versionNameSuffix "-dev"
         }
     }
+
+    // signingConfigs {
+    //     file(rootProject.file('key.properties')).with { prop ->  
+    //         if (prop.canRead()) {  
+    //             release {
+    //                 keyAlias prop['keyAlias']  
+    //                 keyPassword prop['keyPassword']  
+    //                 storeFile prop['storeFile'] ? file(prop['storeFile']) : null
+    //                 storePassword prop['storePassword']  
+    //             }
+    //         }  
+    //         else {  
+    //             print('not signed')  
+    //         }  
+    //     }
+    // }
 }
 
 flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "com.airbnb.android:lottie:3.5.0"
+    implementation "com.android.support.constraint:constraint-layout:2.0.4"
+    
+    /// google services
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:32.4.1')
+    // Declare the dependencies for the Crashlytics NDK and others firebase libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    // implementation 'com.google.firebase:firebase-crashlytics-ndk'
+    // implementation 'com.google.firebase:firebase-crashlytics'
+    // implementation 'com.google.firebase:firebase-analytics'
+    // implementation 'com.google.firebase:firebase-messaging'
+
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test:runner:1.5.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}

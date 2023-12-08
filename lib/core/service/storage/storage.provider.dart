@@ -1,4 +1,3 @@
-import 'file_manager/file_manager.dart';
-import 'storage.dart';
+import 'package:fcar_lib/core/service/storage/storage.module.dart';
 
 final IStorage storage = FileManager();

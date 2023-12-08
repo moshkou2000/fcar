@@ -1,51 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../shared/base.controller.dart';
+import '../../core/base.controller.dart';
+import 'landing_item_type.dart';
 
 final landingController =
     AutoDisposeNotifierProvider<LandingController, bool>(() {
   return LandingController();
 });
 
-/// 0: first index is initial
-final _indexController = StateProvider<int>((ref) => 0);
+final _itemController =
+    StateProvider<LandingItemType>((ref) => LandingItemType.home);
 
 class LandingController extends BaseController<bool> {
   @override
   bool build() {
     ref.onDispose(() {
-      ref.read(_indexController.notifier).dispose();
+      ref.read(_itemController.notifier).dispose();
     });
     return false;
   }
 
-  int get currentIndex => ref.read(_indexController.notifier).state;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<Widget> bottomNavigationBarItems() {
-    return [
-      IconButton(
-        icon: const Icon(Icons.menu, color: Colors.white),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: const Icon(Icons.people, color: Colors.white),
-        onPressed: () {},
-      ),
-      const SizedBox(width: 60),
-      IconButton(
-        icon: const Icon(Icons.search, color: Colors.white),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: const Icon(Icons.print, color: Colors.white),
-        onPressed: () {},
-      ),
-    ];
+  LandingItemType get currentItem => ref.read(_itemController.notifier).state;
+
+  void onTapFloatingActionButton() {
+    ref.read(_itemController.notifier).state = LandingItemType.home;
+    toggleState();
   }
 
-  void onTapBottomNavigationBar(int index) {
-    ref.read(_indexController.notifier).state = index;
+  void onTapBottomNavigationBar(LandingItemType item) {
+    ref.read(_itemController.notifier).state = item;
     toggleState();
   }
 }

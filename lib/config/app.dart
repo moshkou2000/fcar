@@ -1,15 +1,12 @@
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:fcar_lib/config/enum/app_env.enum.dart';
+import 'package:fcar_lib/core/service/localization/localization.provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../core/datasource/database/database.enum.dart';
-import '../core/datasource/database.provider.dart';
-import '../core/service/localization/localization.dart';
-import '../core/service/monitoring/error_tracking.module.dart';
-import '../core/service/notification/notification.module.dart';
-import '../core/service/notification/remote/firebase_messaging.dart';
-import 'enum/app_env.dart';
-import '../core/service/localization/localization_dictionary.dart';
 import 'flavor.dart';
+import 'theme/theme.provider.dart';
 
 class App {
   static String os = '';
@@ -47,25 +44,65 @@ class App {
   //   buildNumber = packageInfo['APP_BUILD_NUMBER'] ?? '';
   // }
 
-  static Future<void> setup({required AppEnvironment env}) async {
-    WidgetsFlutterBinding.ensureInitialized();
+  /// call in the [initState] of the screen of initialRoute
+  /// This is where you can initialize the resources needed by your app while
+  /// the splash screen is displayed.
+  static Future<void> init() async {
+    // do add the your code here
 
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    // TODO: remove it later, just for a demo
+    // ignore_for_file: avoid_print
+    print('ready in 2...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 1...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('go!');
+  }
+
+  /// call before [runApp]
+  static Future<void> setup({required AppEnvironment env}) async {
+    FlutterNativeSplash.preserve(widgetsBinding: WidgetsBinding.instance);
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-    // ErrorTracking.setup(env: env);
-    // Analytics.setup(env: env);
-    // PerformanceMonitoring.setup(env: env);
-    // RemoteNotification.setup();
-    // LocalNotification.setup();
+    themeInitSystemUIOverlayStyle();
+
+    /// setup Analytics
+    ///
+    // DatadogAnalytics.setup(env: env);
+    // FirebaseAnalytics.setup(env: env);
+    // SentryAnalytics.setup(env: env);
+
+    /// setup ErrorTracking
+    ///
+    // DatadogErrorTracking.setup(env: env);
+    // FirebaseErrorTracking.setup(env: env);
+    // SentryErrorTracking.setup(env: env);
+
+    /// setup PerformanceMonitoring
+    ///
+    // DatadogPerformanceMonitoring.setup(env: env);
+    // FirebasePerformanceMonitoring.setup(env: env);
+    // SentryPerformanceMonitoring.setup(env: env);
+
+    /// setup RemoteConfig
+    ///
+    // FirebaseRemoteConfig.setup(env: AppEnvironment.dev);zzz
+
+    /// setup Notification
+    ///
+    // RemoteNotification.setup();zzz
+    // LocalNotification.setup();zzz
+
+    /// setup Database
+    ///
     // DatabaseProvider.setup(names: {
     //   DatabaseType.objectbox: [
     //     DatabaseName.appDb,
     //     DatabaseName.networkCache,
     //   ]
     // });
+
     await Flavor.setup(env: env);
-    await Localization.setup();
+    await LocalizationProvider.setup();
   }
 }

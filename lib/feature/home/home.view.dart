@@ -1,22 +1,16 @@
-import '../../config/constant/asset.constant.dart';
-import '../../core/extension/string.extension.dart';
-import '../../core/service/localization/localization.provider.dart';
-import 'home.argument.dart';
+import 'package:fcar_lib/core/service/navigation/navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:fcar_lib/config/extension/string.extension.dart';
 
-import '../shared/empty.view.dart';
+import '../../config/constant/asset.constant.dart';
+import '../../core/service/localization/localization.dart';
+import '../../core/service/navigation/navigation_route.dart';
+import '../shared/shared.module.dart';
+import 'home.argument.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({required this.arguments, super.key});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final HomeArgument arguments;
 
@@ -28,16 +22,19 @@ class _HomePageState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return EmptyView(
-      elastration: Image.asset(
-        AssetConstant.calendarImage,
+      illustration: SvgPicture.asset(
+        AssetConstant.emptyStates,
         fit: BoxFit.fitHeight,
         alignment: Alignment.center,
+        width: 200,
       ),
       title: widget.arguments.title.titleCase,
       subtitle:
           'localization.noInternet.titleCase localization.noInternet.titleCase localizations ',
-      primaryButtonText: localization.ok.titleCase,
-      secondaryButtonText: localization.cancel.titleCase,
+      primaryButtonText: Localization.ok.titleCase,
+      secondaryButtonText: Localization.cancel.titleCase,
+      primaryButtonOnPressed: () =>
+          Navigation.navigateTo(NavigationRoute.ecommerceRoute),
     );
   }
 }

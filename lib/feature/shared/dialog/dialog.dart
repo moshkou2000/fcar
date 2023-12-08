@@ -1,16 +1,16 @@
 import 'dart:async';
 
 import 'package:animations/animations.dart';
+import 'package:fcar_lib/core/datasource/network/network_exception.dart';
+import 'package:fcar_lib/core/service/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 
-import '../../../config/theme/color/korra_color.dart';
-import '../../../config/theme/font/roboto_style.dart';
-import '../../../core/service/localization/localization.provider.dart';
-import '../../../core/service/navigation.service.dart';
-import 'dialog.enum.dart';
-import 'dialog_observer.dart';
+import '../../../config/theme/theme_color.dart';
+import '../../../config/theme/theme_font.dart';
+import '../../../core/service/localization/localization.dart';
+import '../shared.module.dart';
 
-typedef DialogObserverCallback = void Function(DialogObserver);
+typedef DialogObserverCallback = void Function(ButtonObserver);
 
 const int _dialogEaseInDuration = 200;
 const int _dialogEaseOutDuration = 250;
@@ -21,23 +21,29 @@ const AlignmentGeometry _defaultPosition = Alignment.bottomCenter;
 ///   default: navigationService.pop();
 ///
 void showErrorDialog({
+  dynamic error,
+  dynamic stacktrace,
   String? title,
   String? subtitle,
   String? primaryActionText,
   FutureOr? action,
   AlignmentGeometry position = _defaultPosition,
 }) {
-  final context = navigationService.context;
+  final context = Navigation.context;
   if (context != null) {
+    final t = title ?? (error is NetworkException ? error.title : null);
+    final s = subtitle ??
+        (error is NetworkException ? error.message : null) ??
+        error.toString();
     showDialogAt(
         context: context,
         position: position,
-        title: title,
-        subtitle: subtitle,
+        title: t,
+        subtitle: s,
         barrierDismissible: false,
-        primaryActionText: primaryActionText ?? localization.ok,
+        primaryActionText: primaryActionText ?? Localization.ok,
         onPrimaryActionPressed: (observer) async {
-          observer.showLoading();
+          observer.setLoading();
           if (action != null) {
             if (action is Future<dynamic>) {
               await action;
@@ -45,8 +51,8 @@ void showErrorDialog({
               action.call();
             }
           }
-          navigationService.pop();
-          observer.hideLoading();
+          Navigation.pop();
+          observer.setIdle();
         });
   }
 }
@@ -198,10 +204,10 @@ class _PositionedDialog extends StatefulWidget {
   });
 
   @override
-  _PositionedDialogState createState() => _PositionedDialogState();
+  _Positionedbool createState() => _Positionedbool();
 }
 
-class _PositionedDialogState extends State<_PositionedDialog> {
+class _Positionedbool extends State<_PositionedDialog> {
   late final DialogObserver _dialogStateObserver;
 
   @override
@@ -236,7 +242,7 @@ class _PositionedDialogState extends State<_PositionedDialog> {
               _buildIllustration(),
               _buildTitle(),
               _buildSubtitle(),
-              _buildActionButtons(),
+              _buildButtons(),
             ],
           ),
         ),
@@ -283,46 +289,23 @@ class _PositionedDialogState extends State<_PositionedDialog> {
         child: RichText(
           text: TextSpan(
               text: widget.subtitle ?? '',
-              style: ThemeFont.titleStyle.copyWith(color: Colors.grey),
+              style: ThemeFont.subtitleStyle.copyWith(color: Colors.grey),
               children: widget.subtitleChildren),
         ),
       ),
     );
   }
 
-  Widget _buildActionButtons() {
+  Widget _buildButtons() {
     return Flex(
       direction: Axis.horizontal,
       children: [
-        /// secondary action button
+        /// primary button
         Visibility(
-          visible: widget.secondaryActionText?.isNotEmpty == true,
+          visible: widget.primaryActionText?.isNotEmpty == true,
           replacement: const SizedBox.shrink(),
           child: Expanded(
-            child: ValueListenableBuilder<DialogState>(
-              valueListenable: _dialogStateObserver,
-              builder: (context, dialogState, child) {
-                return FilledButton(
-                  onPressed: dialogState == DialogState.loading
-                      ? null
-                      : () {
-                          if (widget.onPrimaryActionPressed != null) {
-                            widget
-                                .onPrimaryActionPressed!(_dialogStateObserver);
-                          }
-                        },
-                  child: dialogState != DialogState.loading
-                      ? Text(
-                          widget.secondaryActionText ?? '',
-                          textAlign: TextAlign.center,
-                          style: ThemeFont.titleStyle.copyWith(
-                              color: widget.secondaryActionTextColor ??
-                                  Colors.white),
-                        )
-                      : _buildActionButtonLoading(),
-                );
-              },
-            ),
+            child: _buildPrimaryButton(),
           ),
         ),
 
@@ -332,45 +315,49 @@ class _PositionedDialogState extends State<_PositionedDialog> {
           child: const SizedBox(width: 16),
         ),
 
-        /// primary action button
-        Expanded(
-          child: ValueListenableBuilder<DialogState>(
-            valueListenable: _dialogStateObserver,
-            builder: (context, dialogState, child) {
-              return FilledButton(
-                onPressed: dialogState == DialogState.loading
-                    ? null
-                    : () {
-                        if (widget.onPrimaryActionPressed != null) {
-                          widget.onPrimaryActionPressed!(_dialogStateObserver);
-                        }
-                      },
-                child: dialogState != DialogState.loading
-                    ? Text(
-                        widget.primaryActionText ?? '',
-                        textAlign: TextAlign.center,
-                        style: ThemeFont.titleStyle.copyWith(
-                            color:
-                                widget.primaryActionTextColor ?? Colors.white),
-                      )
-                    : _buildActionButtonLoading(),
-              );
-            },
+        /// secondary button
+        Visibility(
+          visible: widget.secondaryActionText?.isNotEmpty == true,
+          replacement: const SizedBox.shrink(),
+          child: Expanded(
+            child: _buildSecondaryButton(),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildActionButtonLoading() {
-    return const SizedBox(
-      height: 20,
-      width: 20,
-      child: CircularProgressIndicator(
-        strokeWidth: 1,
-        backgroundColor: ThemeColor.inversePrimary,
-        valueColor: AlwaysStoppedAnimation<Color>(ThemeColor.primary),
-      ),
+  Widget _buildPrimaryButton() {
+    return ObserverButton(
+      buttonType: ButtonType.outlinedButton,
+      onPressed: (observer) {
+        if (widget.onPrimaryActionPressed != null) {
+          observer.setLoading();
+          widget.onPrimaryActionPressed!(observer);
+          observer.setIdle();
+        }
+      },
+      width: double.infinity,
+      title: widget.primaryActionText,
+      color: ThemeColor.error,
+      alignment: CrossAxisAlignment.center,
+    );
+  }
+
+  Widget _buildSecondaryButton() {
+    return ObserverButton(
+      buttonType: ButtonType.textButton,
+      onPressed: (observer) {
+        if (widget.onSecondaryActionPressed != null) {
+          observer.setLoading();
+          widget.onSecondaryActionPressed!(observer);
+          observer.setIdle();
+        }
+      },
+      width: double.infinity,
+      title: widget.secondaryActionText,
+      color: ThemeColor.button,
+      alignment: CrossAxisAlignment.center,
     );
   }
 }
