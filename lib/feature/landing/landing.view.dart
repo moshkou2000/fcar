@@ -8,6 +8,8 @@ import '../about/about.argument.dart';
 import '../about/about.view.dart';
 import '../home/home.argument.dart';
 import '../home/home.view.dart';
+import '../record/record.argument.dart';
+import '../record/record.view.dart';
 import '../setting/setting.argument.dart';
 import '../setting/setting.view.dart';
 import '../shared/shared.module.dart';
@@ -87,6 +89,9 @@ class _LandingViewState extends ConsumerState<LandingView>
           ),
         LandingItemType.setting => SettingView(
             arguments: SettingArgument(title: 'Setting Title'),
+          ),
+        LandingItemType.record => RecordView(
+            arguments: RecordArgument(title: 'Record Title'),
           ),
       },
     );

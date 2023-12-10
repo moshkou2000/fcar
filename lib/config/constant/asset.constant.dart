@@ -13,6 +13,7 @@ abstract final class AssetConstant {
 
 // image
   static const String calendarImage = '$imagePath/calendar.png';
+  static const String cuteEyeImage = '$imagePath/cute_eye.png';
 
 // illustration
   static const String emptyStates = '$illustrationPath/empty_states.svg';

@@ -1,6 +1,8 @@
+import 'package:fcar_lib/core/service/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/service/navigation/navigation_route.dart';
 import '../../shared/shared.module.dart';
 import '../auth.repository.dart';
 
@@ -36,6 +38,10 @@ class RegisterController extends AutoDisposeNotifier<bool> {
       showErrorDialog(error: e);
       // ErrorTracking.recordError(e, s);
     });
+  }
+
+  void navigateToLanding() {
+    Navigation.pushAndRemoveUntil(NavigationRoute.landingRoute);
   }
 
   Future<void> _saveUser({required Object user}) async {

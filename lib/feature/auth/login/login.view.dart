@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fcar_lib/config/extension/string.extension.dart';
 
+import '../../../config/constant/env.constant.dart';
 import '../../../config/theme/theme_color.dart';
 import '../../../config/theme/theme_font.dart';
 import '../../../core/service/navigation/navigation_route.dart';
@@ -19,12 +20,21 @@ class LoginView extends ConsumerStatefulWidget {
 class _SimpleLoginScreenState extends ConsumerState<LoginView> {
   final Color _backgroundColor = Colors.white;
 
-  late String _username, _password;
+  String _username = '';
+  String _password = '';
+
+  bool get isValid =>
+      _username.isNotEmpty &&
+      _password.isNotEmpty &&
+      ref.watch(loginController.notifier).formKey.currentState?.validate() ==
+          true;
 
   @override
   void initState() {
-    _username = '';
-    _password = '';
+    if (kDebugMode) {
+      _username = EnvConstant.username;
+      _password = EnvConstant.password;
+    }
 
     super.initState();
   }
@@ -99,6 +109,7 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
     return SizedBox(
       height: 99,
       child: inputField(
+        initialValue: _username,
         labelText: 'Email',
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
@@ -118,13 +129,14 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
         SizedBox(
           height: 104,
           child: inputField(
+            initialValue: _password,
             labelText: 'Password',
             obscureText: true,
             textInputAction: TextInputAction.next,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             onChanged: (value) => setState(() => _password = value),
             validator: (value) =>
-                value?.isNotEmpty == true && value?.isValidPassword != true
+                value?.isNotEmpty == true && value!.isValidPassword != true
                     ? 'Enter a valid password.'
                     : null,
             onSubmitted: (value) => _login(),
@@ -140,7 +152,7 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
                 print('::onPressed Forgot Password');
               }
             },
-            color: Colors.yellow,
+            color: Colors.black,
           ),
         ),
       ],
@@ -155,9 +167,7 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
       title: 'Sign In',
       color: ThemeColor.button,
       alignment: CrossAxisAlignment.center,
-      buttonState: ref.read(loginController.notifier).isValid
-          ? ButtonState.idle
-          : ButtonState.disabled,
+      buttonState: isValid ? ButtonState.idle : ButtonState.disabled,
     );
   }
 
@@ -183,13 +193,14 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
     );
   }
 
-  void _login({ButtonObserver? observer}) {
+  Future<void> _login({ButtonObserver? observer}) async {
     observer?.setLoading();
-    final isValid = ref.read(loginController.notifier).isValid;
     if (isValid) {
-      ref
+      await ref
           .read(loginController.notifier)
           .login(username: _username, password: _password);
+      await ref.read(loginController.notifier).profile();
+      ref.read(loginController.notifier).navigateToLanding();
     }
     observer?.setIdle();
   }

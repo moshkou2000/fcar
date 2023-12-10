@@ -21,8 +21,6 @@ class AuthController extends AutoDisposeNotifier<bool> {
 
   final formKey = GlobalKey<FormState>();
 
-  bool get isValid => formKey.currentState?.validate() ?? false;
-
   Future<void> login({
     required String username,
     required String password,
@@ -34,10 +32,30 @@ class AuthController extends AutoDisposeNotifier<bool> {
         }
       },
     ).catchError((e) {
-      // TODO: remove this one :D
-      Navigation.pushAndRemoveUntil(NavigationRoute.landingRoute);
-
       showErrorDialog(title: 'Error', error: e);
+      // ErrorTracking.recordError(e, s);
+    });
+  }
+
+  Future<void> profile() async {
+    await _authRepository.profile().then(
+      (profile) async {
+        if (profile != null) {
+          await _saveProfile(profile: profile);
+        }
+      },
+    ).catchError((e) {
+      showErrorDialog(title: 'Error', error: e);
+      // ErrorTracking.recordError(e, s);
+    });
+  }
+
+  void navigateToLanding() {
+    Navigation.pushAndRemoveUntil(NavigationRoute.landingRoute);
+  }
+
+  Future<void> _saveProfile({required Object profile}) async {
+    _authRepository.saveProfile(profile: profile).catchError((e, s) {
       // ErrorTracking.recordError(e, s);
     });
   }

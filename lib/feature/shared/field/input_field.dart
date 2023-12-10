@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
 
+/// Example
+///
+/// inputField(
+///   labelText: 'Email',
+///   keyboardType: TextInputType.emailAddress,
+///   textInputAction: TextInputAction.next,
+///   autovalidateMode: AutovalidateMode.onUserInteraction,
+///   onChanged: (value) => setState(() => _username = value),
+///   validator: (value) =>
+///     value?.isNotEmpty == true && value?.isValidEmail != true
+///       ? 'Enter a valid email.' : null,),
+///
 TextFormField inputField({
+  Key? key,
+  TextEditingController? controller,
+  String? initialValue,
   String? labelText,
   void Function(String)? onChanged,
   void Function(String?)? onSubmitted,
@@ -16,6 +31,9 @@ TextFormField inputField({
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
 }) {
   return TextFormField(
+    key: key,
+    controller: controller,
+    initialValue: initialValue,
     autovalidateMode: autovalidateMode,
     focusNode: focusNode,
     autofocus: autoFocus,

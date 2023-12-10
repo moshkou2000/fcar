@@ -1,12 +1,7 @@
-import 'package:fcar_lib/core/service/navigation/navigation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fcar_lib/config/extension/string.extension.dart';
 
-import '../../config/constant/asset.constant.dart';
-import '../../core/service/localization/localization.dart';
-import '../../core/service/navigation/navigation_route.dart';
-import '../shared/shared.module.dart';
+import '../shared/player/player.widget.dart';
+import '../shared/shape/player_painter.dart';
 import 'home.argument.dart';
 
 class HomeView extends StatefulWidget {
@@ -21,20 +16,15 @@ class HomeView extends StatefulWidget {
 class _HomePageState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return EmptyView(
-      illustration: SvgPicture.asset(
-        AssetConstant.emptyStates,
-        fit: BoxFit.fitHeight,
-        alignment: Alignment.center,
-        width: 200,
+    return Container(
+      color: const Color.fromARGB(255, 35, 141, 155),
+      child: const Stack(
+        children: [
+          // PlayerWidget(
+          //   arguments: null,
+          // ),
+        ],
       ),
-      title: widget.arguments.title.titleCase,
-      subtitle:
-          'localization.noInternet.titleCase localization.noInternet.titleCase localizations ',
-      primaryButtonText: Localization.ok.titleCase,
-      secondaryButtonText: Localization.cancel.titleCase,
-      primaryButtonOnPressed: () =>
-          Navigation.navigateTo(NavigationRoute.ecommerceRoute),
     );
   }
 }

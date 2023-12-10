@@ -1,6 +1,7 @@
 enum LandingItemType {
   home,
   about,
+  record,
   setting;
 
   static LandingItemType fromString(String name) {

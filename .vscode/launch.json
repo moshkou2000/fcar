@@ -18,9 +18,9 @@
         "--dart-define",
         "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
         "--dart-define",
-        "AUTH_USERNAME=admin",
+        "AUTH_USERNAME=admin@admin.admin",
         "--dart-define",
-        "AUTH_PASSWORD=admin123"
+        "AUTH_PASSWORD=Admin123@@@"
       ]
     },
     {
@@ -37,9 +37,9 @@
         "--dart-define",
         "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
         "--dart-define",
-        "AUTH_USERNAME=admin",
+        "AUTH_USERNAME=admin@admin.admin",
         "--dart-define",
-        "AUTH_PASSWORD=admin123"
+        "AUTH_PASSWORD=Admin123@@@"
       ]
     },
     {
@@ -54,9 +54,9 @@
         "--dart-define",
         "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
         "--dart-define",
-        "AUTH_USERNAME=admin",
+        "AUTH_USERNAME=admin@admin.admin",
         "--dart-define",
-        "AUTH_PASSWORD=admin123"
+        "AUTH_PASSWORD=Admin123@@@"
       ]
     },
     {
@@ -71,9 +71,9 @@
         "--dart-define",
         "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
         "--dart-define",
-        "AUTH_USERNAME=admin",
+        "AUTH_USERNAME=admin@admin.admin",
         "--dart-define",
-        "AUTH_PASSWORD=admin123"
+        "AUTH_PASSWORD=Admin123@@@"
       ]
     }
   ]

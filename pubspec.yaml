@@ -44,6 +44,7 @@ dependencies:
   camera: ^0.10.5+4
   connectivity_plus: ^4.0.2
   cupertino_icons: ^1.0.2
+  custom_refresh_indicator: ^3.0.0
   dartz: ^0.10.1
   datadog_flutter_plugin: ^1.6.2
   device_info_plus: ^8.0.0
