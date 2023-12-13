@@ -1,4 +1,5 @@
 import 'package:fcar_lib/core/service/navigation/navigation.dart';
+import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,11 +28,13 @@ class AuthController extends AutoDisposeNotifier<bool> {
   }) async {
     await _authRepository.login(username: username, password: password).then(
       (user) async {
+        logger.info(user);
         if (user != null) {
           await _saveUser(user: user);
         }
       },
-    ).catchError((e) {
+    ).catchError((e, s) {
+      logger.error('login', e: e, s: s);
       showErrorDialog(title: 'Error', error: e);
       // ErrorTracking.recordError(e, s);
     });
@@ -40,13 +43,15 @@ class AuthController extends AutoDisposeNotifier<bool> {
   Future<void> profile() async {
     await _authRepository.profile().then(
       (profile) async {
+        logger.info(profile);
         if (profile != null) {
           await _saveProfile(profile: profile);
         }
       },
-    ).catchError((e) {
+    ).catchError((e, s) {
+      logger.error('profile', e: e, s: s);
       showErrorDialog(title: 'Error', error: e);
-      // ErrorTracking.recordError(e, s);
+      // FirebaseErrorTracking.recordError(e, s);
     });
   }
 

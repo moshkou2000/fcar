@@ -1,4 +1,5 @@
 import 'package:fcar_lib/core/service/navigation/navigation.dart';
+import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -148,9 +149,7 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
           child: textButton(
             title: 'Forgot Password?',
             onPressed: () {
-              if (kDebugMode) {
-                print('::onPressed Forgot Password');
-              }
+              logger.info('Pressed Forgot Password');
             },
             color: Colors.black,
           ),
