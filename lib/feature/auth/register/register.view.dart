@@ -19,13 +19,22 @@ class RegisterView extends ConsumerStatefulWidget {
 class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
   final Color _backgroundColor = Colors.white;
 
-  late String email, password, confirmPassword;
+  String _email = '';
+  String _password = '';
+  String _confirmPassword = '';
+
+  bool get isValid =>
+      _email.isNotEmpty &&
+      _password.isNotEmpty &&
+      _confirmPassword.isNotEmpty &&
+      ref.watch(registerController.notifier).formKey.currentState?.validate() ==
+          true;
 
   @override
   void initState() {
-    email = '';
-    password = '';
-    confirmPassword = '';
+    _email = '';
+    _password = '';
+    _confirmPassword = '';
 
     super.initState();
   }
@@ -105,16 +114,11 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        onChanged: (value) {
-          setState(() {
-            email = value;
-          });
-        },
-        validator: (value) {
-          return value?.isNotEmpty == true && value?.isValidEmail != true
-              ? 'Enter a valid email.'
-              : null;
-        },
+        onChanged: (value) => setState(() => _email = value),
+        validator: (value) =>
+            value?.isNotEmpty == true && value?.isValidEmail != true
+                ? 'Enter a valid email.'
+                : null,
       ),
     );
   }
@@ -127,16 +131,11 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
         obscureText: true,
         textInputAction: TextInputAction.next,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        onChanged: (value) {
-          setState(() {
-            password = value;
-          });
-        },
-        validator: (value) {
-          return value?.isNotEmpty == true && value?.isValidPassword != true
-              ? 'Enter a valid password.'
-              : null;
-        },
+        onChanged: (value) => setState(() => _password = value),
+        validator: (value) =>
+            value?.isNotEmpty == true && value?.isValidPassword != true
+                ? 'Enter a valid password.'
+                : null,
       ),
     );
   }
@@ -149,17 +148,11 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
         obscureText: true,
         textInputAction: TextInputAction.done,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        onChanged: (value) {
-          setState(() {
-            confirmPassword = value;
-          });
-        },
-        validator: (value) {
-          return value?.isNotEmpty == true &&
-                  (value?.isValidPassword != true || value != password)
-              ? 'Enter same password.'
-              : null;
-        },
+        onChanged: (value) => setState(() => _confirmPassword = value),
+        validator: (value) => value?.isNotEmpty == true &&
+                (value?.isValidPassword != true || value != _password)
+            ? 'Enter same password.'
+            : null,
         onSubmitted: (val) => _register(),
       ),
     );
@@ -173,6 +166,7 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
       title: 'Sign Up',
       color: ThemeColor.button,
       alignment: CrossAxisAlignment.center,
+      buttonState: isValid ? ButtonState.idle : ButtonState.disabled,
     );
   }
 
@@ -204,7 +198,7 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
     if (isValid) {
       ref
           .read(registerController.notifier)
-          .register(email: email, password: password);
+          .register(email: _email, password: _password);
     }
     observer?.setIdle();
   }

@@ -1,3 +1,4 @@
+import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -65,7 +66,8 @@ class EcommerceController extends BaseController<bool> {
   Future<void> getCart() async {
     try {
       _itemsInCart.addAll(await _ecommerceRepository.getCart());
-    } catch (e) {
+    } catch (e, s) {
+      logger.error('get cards', e: e, s: s);
       showErrorDialog(error: e);
       // ErrorTracking.recordError(e, s);
       _itemsInCart.clear();
@@ -75,7 +77,8 @@ class EcommerceController extends BaseController<bool> {
   Future<List<CategoryModel>> getCategories({String? categoryName}) async {
     try {
       return _ecommerceRepository.getCategories(categoryName: categoryName);
-    } catch (e) {
+    } catch (e, s) {
+      logger.error('get categories', e: e, s: s);
       showErrorDialog(title: 'Error', error: e);
       return [];
     }
@@ -84,7 +87,8 @@ class EcommerceController extends BaseController<bool> {
   Future<List<ProductModel>> getProducts({String? productName}) async {
     try {
       return _ecommerceRepository.getProducts(productName: productName);
-    } catch (e) {
+    } catch (e, s) {
+      logger.error('get products', e: e, s: s);
       showErrorDialog(title: 'Error', error: e);
       return [];
     }

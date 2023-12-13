@@ -9,6 +9,7 @@ import 'flavor.dart';
 import 'theme/theme.provider.dart';
 
 class App {
+  static String name = 'FCAR';
   static String os = '';
   static String osVersion = '';
   static String id = '';
@@ -16,6 +17,7 @@ class App {
   static String buildNumber = '';
 
   static void clear() {
+    name = '';
     os = '';
     osVersion = '';
     id = '';
@@ -49,14 +51,6 @@ class App {
   /// the splash screen is displayed.
   static Future<void> init() async {
     // do add the your code here
-
-    // TODO: remove it later, just for a demo
-    // ignore_for_file: avoid_print
-    print('ready in 2...');
-    await Future.delayed(const Duration(seconds: 1));
-    print('ready in 1...');
-    await Future.delayed(const Duration(seconds: 1));
-    print('go!');
   }
 
   /// call before [runApp]

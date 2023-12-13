@@ -1,15 +1,22 @@
+import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../auth/player.model.dart';
 import '../shape/player_painter.dart';
-import 'player.argument.dart';
+import 'player.controller.dart';
 
-class PlayerWidget extends StatelessWidget {
-  final PlayerArgument arguments;
-
-  const PlayerWidget({required this.arguments, super.key});
+class PlayerWidget extends ConsumerWidget {
+  final PlayerModel? playerInfo;
+  const PlayerWidget({this.playerInfo, super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(playerController);
+    final _ = state ?? playerInfo;
+
+    logger.info(_);
+
     return Stack(
       children: [
         Positioned(
