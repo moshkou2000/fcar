@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../config/constant/asset.constant.dart';
 import '../../shared/empty.view.dart';
-import '../ecommerce.controller.dart';
 import '../model/product.model.dart';
 import '../product_title.widget.dart';
 import 'category.argument.dart';

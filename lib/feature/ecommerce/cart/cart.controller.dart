@@ -1,3 +1,4 @@
+import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -32,7 +33,8 @@ class CartController extends BaseController<int> {
     try {
       itemsInCart.addAll(await _ecommerceRepository.getCart());
       state = itemsInCart.length;
-    } catch (e) {
+    } catch (e, s) {
+      logger.error('get cart', e: e, s: s);
       showErrorDialog(error: e);
       // ErrorTracking.recordError(e, s);
       itemsInCart.clear();
@@ -47,7 +49,8 @@ class CartController extends BaseController<int> {
       // or return data from the backend or call getCart()
       itemsInCart.add(item);
       state = itemsInCart.length;
-    } catch (e) {
+    } catch (e, s) {
+      logger.error('add cart', e: e, s: s);
       showErrorDialog(error: e);
       // ErrorTracking.recordError(e, s);
     }
@@ -60,7 +63,8 @@ class CartController extends BaseController<int> {
       // or return data from the backend or call getCart()
       itemsInCart.remove(item);
       state = itemsInCart.length;
-    } catch (e) {
+    } catch (e, s) {
+      logger.error('remove from cart', e: e, s: s);
       showErrorDialog(error: e);
       // ErrorTracking.recordError(e, s);
     }

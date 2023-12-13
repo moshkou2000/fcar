@@ -1,4 +1,5 @@
 import 'package:fcar_lib/core/service/navigation/navigation.dart';
+import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -34,7 +35,8 @@ class RegisterController extends AutoDisposeNotifier<bool> {
           await _saveUser(user: user);
         }
       },
-    ).catchError((e) {
+    ).catchError((e, s) {
+      logger.error('register', e: e, s: s);
       showErrorDialog(error: e);
       // ErrorTracking.recordError(e, s);
     });
@@ -46,6 +48,7 @@ class RegisterController extends AutoDisposeNotifier<bool> {
 
   Future<void> _saveUser({required Object user}) async {
     _authRepository.saveUser(user: user).catchError((e, s) {
+      logger.error('save user', e: e, s: s);
       // ErrorTracking.recordError(e, s);
     });
   }
