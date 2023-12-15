@@ -7,7 +7,7 @@ import '../shared/image/image.widget.dart';
 import 'model/product.model.dart';
 
 class ProductTile extends StatelessWidget {
-  const ProductTile({required this.product, Key? key}) : super(key: key);
+  const ProductTile({required this.product, super.key});
 
   final ProductModel product;
 

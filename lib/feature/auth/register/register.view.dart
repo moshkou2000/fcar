@@ -1,8 +1,10 @@
 import 'package:fcar_lib/core/service/navigation/navigation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fcar_lib/config/extension/string.extension.dart';
 
+import '../../../config/constant/env.constant.dart';
 import '../../../config/theme/theme_color.dart';
 import '../../../config/theme/theme_font.dart';
 import '../../../core/service/navigation/navigation_route.dart';
@@ -10,7 +12,7 @@ import '../../shared/shared.module.dart';
 import 'register.controller.dart';
 
 class RegisterView extends ConsumerStatefulWidget {
-  const RegisterView({Key? key}) : super(key: key);
+  const RegisterView({super.key});
 
   @override
   ConsumerState<RegisterView> createState() => _SimpleRegisterScreenState();
@@ -18,7 +20,7 @@ class RegisterView extends ConsumerStatefulWidget {
 
 class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
   final Color _backgroundColor = Colors.white;
-
+  final _formKey = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
   String _confirmPassword = '';
@@ -27,14 +29,17 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
       _email.isNotEmpty &&
       _password.isNotEmpty &&
       _confirmPassword.isNotEmpty &&
-      ref.watch(registerController.notifier).formKey.currentState?.validate() ==
-          true;
+      _formKey.currentState?.validate() == true;
 
   @override
   void initState() {
-    _email = '';
-    _password = '';
-    _confirmPassword = '';
+    if (kDebugMode) {
+      setState(() {
+        _email = EnvConstant.username;
+        _password = EnvConstant.password;
+        _confirmPassword = EnvConstant.password;
+      });
+    }
 
     super.initState();
   }
@@ -56,7 +61,7 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Form(
-                    key: ref.watch(registerController.notifier).formKey,
+                    key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
@@ -110,6 +115,7 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
     return SizedBox(
       height: 99,
       child: inputField(
+        initialValue: _email,
         labelText: 'Email',
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
@@ -127,6 +133,7 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
     return SizedBox(
       height: 99,
       child: inputField(
+        initialValue: _password,
         labelText: 'Password',
         obscureText: true,
         textInputAction: TextInputAction.next,
@@ -144,6 +151,7 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
     return SizedBox(
       height: 99,
       child: inputField(
+        initialValue: _confirmPassword,
         labelText: 'Confirm Password',
         obscureText: true,
         textInputAction: TextInputAction.done,
@@ -172,8 +180,8 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
 
   Widget _buildSignInButton() {
     return textButton(
-      onPressed: () =>
-          Navigation.pushAndRemoveUntil(NavigationRoute.loginRoute),
+      onPressed: () => WidgetsBinding.instance.addPostFrameCallback(
+          (_) => Navigation.pushAndRemoveUntil(NavigationRoute.loginRoute)),
       child: RichText(
         text: TextSpan(
           text: 'You have an account? ',
@@ -194,11 +202,10 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
 
   void _register({ButtonObserver? observer}) {
     observer?.setLoading();
-    final isValid = ref.read(registerController.notifier).isValid;
     if (isValid) {
       ref
           .read(registerController.notifier)
-          .register(email: _email, password: _password);
+          .onPressedSignUp(email: _email, password: _password);
     }
     observer?.setIdle();
   }

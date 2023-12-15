@@ -1,6 +1,6 @@
 enum LandingItemType {
-  home,
   about,
+  home,
   record,
   setting;
 

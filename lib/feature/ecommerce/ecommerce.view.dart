@@ -19,14 +19,16 @@ class EcommerceView extends ConsumerStatefulWidget {
 }
 
 class _EcommerceViewState extends ConsumerState<EcommerceView> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     final _ = ref.watch(ecommerceController);
 
-    return WillPopScope(
-      onWillPop: () => Future.value(true),
+    return PopScope(
+      canPop: true,
       child: Scaffold(
-        key: ref.read(ecommerceController.notifier).scaffoldKey,
+        key: _scaffoldKey,
         appBar: _buildAppBar(),
         body: _buildBody(),
       ),

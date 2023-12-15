@@ -13,14 +13,16 @@ class SplashscreenView extends ConsumerStatefulWidget {
 /// Empty screen that prevent user from closing the app
 ///   until the logic decide where to navigate
 class _SplashscreenViewState extends ConsumerState<SplashscreenView> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     final _ = ref.watch(splashscreenController);
 
-    return WillPopScope(
-      onWillPop: () => Future.value(false),
+    return PopScope(
+      canPop: false,
       child: Scaffold(
-        key: ref.read(splashscreenController.notifier).scaffoldKey,
+        key: _scaffoldKey,
         body: Container(),
       ),
     );

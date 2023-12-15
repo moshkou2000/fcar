@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SearchBar extends ConsumerStatefulWidget {
-  const SearchBar({required this.onChanged, Key? key}) : super(key: key);
+  const SearchBar({required this.onChanged, super.key});
 
   final Function(String) onChanged;
 

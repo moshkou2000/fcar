@@ -11,10 +11,12 @@ import 'category.argument.dart';
 /// products.where((p) => p.category == category).toList();
 class CategoryView extends ConsumerWidget {
   final CategoryArgument arguments;
-  const CategoryView({
+  CategoryView({
     required this.arguments,
     super.key,
   });
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,10 +30,10 @@ class CategoryView extends ConsumerWidget {
             ))
         .toList();
 
-    return WillPopScope(
-      onWillPop: () => Future.value(true),
+    return PopScope(
+      canPop: true,
       child: Scaffold(
-        key: GlobalKey<ScaffoldState>(),
+        key: _scaffoldKey,
         appBar: _buildAppBar(title: arguments.category.title),
         body: _buildBody(categoryProducts: categoryProducts),
       ),

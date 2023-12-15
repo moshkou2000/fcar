@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 
 @immutable
@@ -26,5 +28,26 @@ class AuthModel {
       token: map['token'] as String,
       refreshToken: map['refreshToken'] as String,
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'displayname': displayname,
+      'username': username,
+      'token': token,
+      'refreshToken': refreshToken,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory AuthModel.fromJson(String source) =>
+      AuthModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'AuthModel(id: $id, displayname: $displayname, '
+        'username: $username, token: $token, refreshToken: $refreshToken)';
   }
 }

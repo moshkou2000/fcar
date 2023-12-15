@@ -1,3 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+
+@immutable
 class PlayerModel {
   final String username;
   final String displayname;
@@ -9,7 +15,7 @@ class PlayerModel {
   final int coin;
   final int point;
 
-  PlayerModel({
+  const PlayerModel({
     required this.username,
     required this.displayname,
     required this.avatar,
@@ -33,5 +39,31 @@ class PlayerModel {
       coin: map['coin'] as int,
       point: map['point'] as int,
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'username': username,
+      'displayname': displayname,
+      'avatar': avatar,
+      'group': group,
+      'score': score,
+      'rank': rank,
+      'level': level,
+      'coin': coin,
+      'point': point,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory PlayerModel.fromJson(String source) =>
+      PlayerModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'PlayerModel(username: $username, displayname: $displayname, '
+        'avatar: $avatar, group: $group, score: $score, rank: $rank, '
+        'level: $level, coin: $coin, point: $point)';
   }
 }

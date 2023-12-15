@@ -15,10 +15,10 @@ class RecordView extends StatefulWidget {
   final RecordArgument arguments;
 
   @override
-  State<RecordView> createState() => _HomePageState();
+  State<RecordView> createState() => _RecordPageState();
 }
 
-class _HomePageState extends State<RecordView> {
+class _RecordPageState extends State<RecordView> {
   @override
   Widget build(BuildContext context) {
     return EmptyView(
