@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class ImageWidget extends StatelessWidget {
   const ImageWidget({
     required this.url,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String url;
 

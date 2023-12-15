@@ -1,6 +1,5 @@
 import 'package:fcar_lib/core/service/navigation/navigation.dart';
 import 'package:fcar_lib/core/utility/logger.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/service/navigation/navigation_route.dart';
@@ -21,35 +20,37 @@ class RegisterController extends AutoDisposeNotifier<bool> {
     return false;
   }
 
-  final formKey = GlobalKey<FormState>();
-
-  bool get isValid => formKey.currentState?.validate() ?? false;
-
-  Future<void> register({
+  Future<void> onPressedSignUp({
     required String email,
     required String password,
   }) async {
-    await _authRepository.register(email: email, password: password).then(
-      (user) async {
-        if (user != null) {
-          await _saveUser(user: user);
-        }
-      },
-    ).catchError((e, s) {
-      logger.error('register', e: e, s: s);
-      showErrorDialog(error: e);
+    try {
+      await _register(email: email, password: password);
+      _navigateToLanding();
+    } catch (e, s) {
+      logger.error('onPressedSignUp', e: e, s: s);
+      showErrorDialog(title: 'Error', error: e);
       // ErrorTracking.recordError(e, s);
-    });
+    }
   }
 
-  void navigateToLanding() {
+  Future<void> _register({
+    required String email,
+    required String password,
+  }) async {
+    final result =
+        await _authRepository.register(email: email, password: password);
+
+    if (result != null) {
+      await _saveUser(user: result.toJson());
+    }
+  }
+
+  Future<void> _saveUser({required String user}) async {
+    _authRepository.saveUser(user: user);
+  }
+
+  void _navigateToLanding() {
     Navigation.pushAndRemoveUntil(NavigationRoute.landingRoute);
-  }
-
-  Future<void> _saveUser({required Object user}) async {
-    _authRepository.saveUser(user: user).catchError((e, s) {
-      logger.error('save user', e: e, s: s);
-      // ErrorTracking.recordError(e, s);
-    });
   }
 }

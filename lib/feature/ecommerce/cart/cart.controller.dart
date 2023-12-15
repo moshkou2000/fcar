@@ -1,5 +1,4 @@
 import 'package:fcar_lib/core/utility/logger.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/base.controller.dart';
@@ -19,8 +18,6 @@ class CartController extends BaseController<int> {
     _ecommerceRepository = ref.read(ecommerceRepository);
     return 0;
   }
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final List<OrderItemModel> itemsInCart = [];
 

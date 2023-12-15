@@ -11,6 +11,8 @@ import '../../../feature/ecommerce/product/product.view.dart';
 import '../../../feature/home/home.argument.dart';
 import '../../../feature/home/home.view.dart';
 import '../../../feature/landing/landing.view.dart';
+import '../../../feature/record/record.argument.dart';
+import '../../../feature/record/record.view.dart';
 import '../../../feature/splashscreen/splashscreen.view.dart';
 
 @immutable
@@ -26,6 +28,7 @@ abstract final class NavigationRoute {
   static const String photoPreviewRoute = '/photoViewer';
   static const String previewRoute = '/preview';
   static const String productRoute = '/product';
+  static const String recordRoute = '/record';
   static const String registerRoute = '/register';
   static const String splashscreenRoute = '/splashscreen';
   static const String versionRoute = '/version';
@@ -52,6 +55,9 @@ abstract final class NavigationRoute {
             ProductView(arguments: settings.arguments as ProductArgument));
       case registerRoute:
         return _pageRoute(const RegisterView());
+      case recordRoute:
+        return _pageRoute(
+            RecordView(arguments: settings.arguments as RecordArgument));
       case splashscreenRoute:
         return _pageRoute(const SplashscreenView());
       default:

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/base.controller.dart';
@@ -20,8 +19,6 @@ class LandingController extends BaseController<bool> {
     });
     return false;
   }
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   LandingItemType get currentItem => ref.read(_itemController.notifier).state;
 

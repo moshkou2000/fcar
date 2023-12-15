@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:animations/animations.dart';
+import 'package:fcar_lib/config/extension/string.extension.dart';
 import 'package:fcar_lib/core/datasource/network/network_exception.dart';
 import 'package:fcar_lib/core/service/navigation/navigation.dart';
 import 'package:flutter/material.dart';
@@ -38,8 +39,8 @@ void showErrorDialog({
     showDialogAt(
         context: context,
         position: position,
-        title: t,
-        subtitle: s,
+        title: t?.titleCase,
+        subtitle: s.titleCase,
         barrierDismissible: false,
         primaryActionText: primaryActionText ?? Localization.ok,
         onPrimaryActionPressed: (observer) async {
@@ -108,13 +109,13 @@ void showDialogAt({
             const Duration(milliseconds: _dialogEaseInDuration),
         reverseTransitionDuration: closeDialogTransitionDuration),
     builder: (BuildContext context) {
-      return WillPopScope(
-        onWillPop: () async => barrierDismissible,
+      return PopScope(
+        canPop: barrierDismissible,
         child: _PositionedDialog(
           position: position,
-          title: title,
+          title: title?.titleCase,
           titleStyle: titleStyle,
-          subtitle: subtitle,
+          subtitle: subtitle?.titleCase,
           subtitleChildren: subtitleChildren,
           subtitleStyle: subtitleStyle,
           primaryActionText: primaryActionText,

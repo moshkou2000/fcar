@@ -30,7 +30,7 @@ if (flutterCompileSdkVersion == null) {
 
 def flutterMinSdkVersion = localProperties.getProperty('flutter.minSdkVersion')
 if (flutterMinSdkVersion == null) {
-    flutterMinSdkVersion = '23'
+    flutterMinSdkVersion = '24'
 }
 
 def flutterTargetSdkVersion = localProperties.getProperty('flutter.targetSdkVersion')
@@ -40,12 +40,13 @@ if (flutterTargetSdkVersion == null) {
 
 android {
     namespace "com.moshkou.fcar"
-    compileSdkVersion flutterCompileSdkVersion.toInteger()
+    testNamespace "com.moshkou.fcar.test"
+    compileSdk flutterCompileSdkVersion.toInteger()
     // ndkVersion flutterNdkVersion.toInteger()
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility kotlin_version
+        targetCompatibility kotlin_version
     }
 
     kotlinOptions {
@@ -69,14 +70,22 @@ android {
     }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            debuggable true
+            minifyEnabled false
+        }
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
-    flavorDimensions "flavor-type"
+    flavorDimensions += "flavor-type"
 
     productFlavors {
         dev {
@@ -109,20 +118,21 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "com.airbnb.android:lottie:3.5.0"
-    implementation "com.android.support.constraint:constraint-layout:2.0.4"
+    implementation 'com.airbnb.android:lottie:6.2.0'
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     
     /// google services
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:32.4.1')
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
     // Declare the dependencies for the Crashlytics NDK and others firebase libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
     // implementation 'com.google.firebase:firebase-crashlytics-ndk'
     // implementation 'com.google.firebase:firebase-crashlytics'
     // implementation 'com.google.firebase:firebase-analytics'
     // implementation 'com.google.firebase:firebase-messaging'
+    implementation 'androidx.core:core-splashscreen:1.0.1'
 
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test:runner:1.5.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

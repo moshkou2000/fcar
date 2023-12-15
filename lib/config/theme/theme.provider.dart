@@ -26,12 +26,27 @@ ThemeData get lightThemeData => ThemeData(
         elevation: 0,
         centerTitle: true,
       ),
-      // floatingActionButtonTheme: FloatingActionButtonThemeData(
-      //   backgroundColor: isLight ? Colors.yellow : colorOrange,
-      // ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: ThemeColor.navigationBarColor,
+        foregroundColor: Colors.white,
+      ),
       snackBarTheme: const SnackBarThemeData(
         actionTextColor: Colors.white,
         backgroundColor: ThemeColor.surface,
+        contentTextStyle: TextStyle(color: Colors.white),
+        closeIconColor: Colors.white,
+        insetPadding: EdgeInsets.all(8.0),
+        elevation: 2.0,
+      ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.shifting,
+        elevation: 0.0,
+      ),
+      bottomAppBarTheme: const BottomAppBarTheme(
+        color: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0.0,
+        shape: CircularNotchedRectangle(),
       ),
       textTheme: TextTheme(
         displayLarge: ThemeFont.displayLarge,
@@ -91,6 +106,18 @@ ColorScheme get colorScheme => const ColorScheme(
       // surfaceTint: ThemeColor.surfaceTint,
     );
 
+/// Manage the System Overlay visibility and style,
+/// anywhere in the code.
+///
+/// It's bette to use [PostFrameCallback],
+/// If you are seting the System Overlay in the widget
+/// Example: call in the [initState] of [LandingView]
+/// WidgetsBinding.instance.addPostFrameCallback((_) {
+///   hideOverlays();
+///   themeSetSystemUIOverlayStyle();});
+///
+
+/// System Overlay style
 void themeSetSystemUIOverlayStyle() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: ThemeColor.statusBarColor,
@@ -101,6 +128,7 @@ void themeSetSystemUIOverlayStyle() {
   ));
 }
 
+/// System Overlay style
 void themeInitSystemUIOverlayStyle({Color? navigationBarColor}) {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -109,4 +137,30 @@ void themeInitSystemUIOverlayStyle({Color? navigationBarColor}) {
     statusBarIconBrightness: Brightness.light,
     systemNavigationBarIconBrightness: Brightness.light,
   ));
+}
+
+/// System Overlay visibility [hide]
+/// both StatusBar & NavigationBar
+///
+/// Games are usually run on fullscreen mode.
+///
+/// Android project
+/// Notch Area might be blank when StatusBar is disabled.
+/// To remove the blank area, add the following attribute in the resources style,
+/// that can be found at android/app/src/main/res/values/styles.
+/// <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+void hideOverlays() {
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: [
+    SystemUiOverlay.bottom,
+    SystemUiOverlay.top,
+  ]);
+}
+
+/// System Overlay visibility [show]
+/// both StatusBar & NavigationBar
+void showOverlays() {
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [
+    SystemUiOverlay.bottom,
+    SystemUiOverlay.top,
+  ]);
 }

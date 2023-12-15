@@ -13,28 +13,29 @@ import '../../shared/shared.module.dart';
 import 'login.controller.dart';
 
 class LoginView extends ConsumerStatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+  const LoginView({super.key});
   @override
   ConsumerState<LoginView> createState() => _SimpleLoginScreenState();
 }
 
 class _SimpleLoginScreenState extends ConsumerState<LoginView> {
   final Color _backgroundColor = Colors.white;
-
+  final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
 
   bool get isValid =>
       _username.isNotEmpty &&
       _password.isNotEmpty &&
-      ref.watch(loginController.notifier).formKey.currentState?.validate() ==
-          true;
+      _formKey.currentState?.validate() == true;
 
   @override
   void initState() {
     if (kDebugMode) {
-      _username = EnvConstant.username;
-      _password = EnvConstant.password;
+      setState(() {
+        _username = EnvConstant.username;
+        _password = EnvConstant.password;
+      });
     }
 
     super.initState();
@@ -57,7 +58,7 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Form(
-                    key: ref.watch(loginController.notifier).formKey,
+                    key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
@@ -197,9 +198,7 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
     if (isValid) {
       await ref
           .read(loginController.notifier)
-          .login(username: _username, password: _password);
-      await ref.read(loginController.notifier).profile();
-      ref.read(loginController.notifier).navigateToLanding();
+          .onPressedSignIn(username: _username, password: _password);
     }
     observer?.setIdle();
   }

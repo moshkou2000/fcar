@@ -18,14 +18,16 @@ class CartView extends ConsumerStatefulWidget {
 }
 
 class _CartViewState extends ConsumerState<CartView> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     final cartSize = ref.watch(cartController);
 
-    return WillPopScope(
-      onWillPop: () => Future.value(true),
+    return PopScope(
+      canPop: true,
       child: Scaffold(
-        key: ref.read(cartController.notifier).scaffoldKey,
+        key: _scaffoldKey,
         appBar: _buildAppBar(title: '$cartSize items'),
         body: _buildBody(cartSize: cartSize),
         bottomNavigationBar: _bottomNavigationAppBar(),

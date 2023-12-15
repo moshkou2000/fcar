@@ -11,6 +11,10 @@ class PlayerRepository {
   Future<PlayerModel?> get profile async {
     final _ = await keystore.read(key: KeystoreKey.profile);
     logger.info(_);
-    return await keystore.read<PlayerModel>(key: KeystoreKey.profile);
+    final result =
+        await keystore.read(key: KeystoreKey.profile).catchError((e, s) {
+      logger.error('player', e: e, s: s);
+    });
+    return result != null ? PlayerModel.fromJson(result) : null;
   }
 }

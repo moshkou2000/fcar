@@ -98,12 +98,43 @@
     ],
     "description": "Create Singleton"
   },
+  "singleton with argument": {
+    "prefix": "singleton with argument",
+    "body": [
+      "static ${1:MyClass}? _singleton;",
+      "factory ${1:MyClass}({required ${2:DataType} ${3:Argument}}) {",
+      "_singleton ??= ${1:MyClass}._internal(${3:Argument}: ${3:Argument});"
+      "return _singleton!;}"
+      "${1:MyClass}._internal({required ${2:DataType} ${3:Argument}});"
+    ],
+    "description": "Create Singleton with argument"
+  },
   "state provider": {
     "prefix": "state provider",
     "body": [
       "final ${1:internal}Controller = StateProvider<${2:int}>((ref) => ${3:0});"
     ],
     "description": "Create StateProvider"
+  },
+  "Async POST Request": {
+    "prefix": "post",
+    "body": [
+      "Future<${1:ReturnType}?> post({",
+      "\trequired String ${2:param1},",
+      "}) async {",
+      "\tfinal url = NetworkUrl.register;",
+      "\tfinal body = <String, dynamic>{'${2:param1}': ${2:param1}};",
+      "\tfinal json = await network.post(url, body: body);",
+      "\tfinal result = Deserialize<${1:ReturnType}>(",
+      "\t  json,",
+      "\t  requiredFields: ['field1'],",
+      "\t  fromJson: (e, {callback}) => ${1:ReturnType}.fromMap(e),",
+      "\t  callback: (missingKeys) => throw Exception(missingKeys),",
+      "\t).item; // item | items",
+      "\treturn result;",
+      "}"
+    ],
+    "description": "Async POST request with deserialization"
   }
 }
 /*

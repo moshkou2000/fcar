@@ -23,8 +23,8 @@ class EmptyView extends StatelessWidget {
     this.secondaryButtonText,
     this.primaryButtonOnPressed,
     this.secondaryButtonOnPressed,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

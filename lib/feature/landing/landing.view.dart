@@ -1,8 +1,7 @@
-import 'package:fcar_lib/core/utility/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fcar_lib/core/utility/will_pop.dart';
 
-import '../../config/theme/theme.provider.dart';
 import '../../config/theme/theme_color.dart';
 import '../about/about.argument.dart';
 import '../about/about.view.dart';
@@ -25,27 +24,27 @@ class LandingView extends ConsumerStatefulWidget {
 
 class _LandingViewState extends ConsumerState<LandingView>
     with SingleTickerProviderStateMixin {
-  late final TabController controller;
+  // late final TabController _controller;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
-    // controller = TabController(length: 4, vsync: this);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      themeSetSystemUIOverlayStyle();
-    });
+    // _controller = TabController(length: 4, vsync: this);
     super.initState();
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     final state = ref.watch(landingController);
 
-    return WillPopScope(
-      onWillPop: () => onWillPopExit(context: context),
+    // TODO: state.toString() is for test, set the page title
+    return WillPop(
+      attemptToPop: true,
       child: Scaffold(
-        key: ref.read(landingController.notifier).scaffoldKey,
+        key: _scaffoldKey,
         extendBody: true,
+        extendBodyBehindAppBar: false,
+        resizeToAvoidBottomInset: false,
         appBar: _appBar(title: state.toString()),
         body: _body(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -79,22 +78,20 @@ class _LandingViewState extends ConsumerState<LandingView>
   }
 
   Widget _body() {
-    return Center(
-      child: switch (ref.read(landingController.notifier).currentItem) {
-        LandingItemType.home => HomeView(
-            arguments: HomeArgument(title: 'Home Title'),
-          ),
-        LandingItemType.about => AboutView(
-            arguments: AboutArgument(title: 'About Title'),
-          ),
-        LandingItemType.setting => SettingView(
-            arguments: SettingArgument(title: 'Setting Title'),
-          ),
-        LandingItemType.record => RecordView(
-            arguments: RecordArgument(title: 'Record Title'),
-          ),
-      },
-    );
+    return switch (ref.read(landingController.notifier).currentItem) {
+      LandingItemType.home => HomeView(
+          arguments: HomeArgument(title: 'Home Title'),
+        ),
+      LandingItemType.about => AboutView(
+          arguments: AboutArgument(title: 'About Title'),
+        ),
+      LandingItemType.setting => SettingView(
+          arguments: SettingArgument(title: 'Setting Title'),
+        ),
+      LandingItemType.record => RecordView(
+          arguments: RecordArgument(title: 'Record Title'),
+        ),
+    };
   }
 
   Widget _floatingActionButton() {
@@ -110,7 +107,7 @@ class _LandingViewState extends ConsumerState<LandingView>
   /// The BottomNavigationBar can be a TabBar
   // Widget _bottomNavigationTabBar() {
   //   return TabBar(
-  //     controller: controller,
+  //     controller: _controller,
   //     unselectedLabelColor: Colors.grey,
   //     labelColor: Colors.blue,
   //     onTap: (index) {},
@@ -131,7 +128,6 @@ class _LandingViewState extends ConsumerState<LandingView>
       notchMargin: 9,
       padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
       shape: const CircularNotchedRectangle(),
-      color: ThemeColor.navigationBarColor,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,8 +137,8 @@ class _LandingViewState extends ConsumerState<LandingView>
             icon: Icons.menu,
           ),
           _bottomNavigationBarItem(
-            item: LandingItemType.about,
-            icon: Icons.people,
+            item: LandingItemType.record,
+            icon: Icons.record_voice_over,
           ),
           const SizedBox(width: 60), // notch
           _bottomNavigationBarItem(
@@ -164,7 +160,8 @@ class _LandingViewState extends ConsumerState<LandingView>
   }) {
     final isSelected = ref.read(landingController.notifier).currentItem == item;
     return IconButton(
-      icon: Icon(icon, color: isSelected ? Colors.blue[300] : Colors.white),
+      icon: Icon(icon,
+          color: isSelected ? ThemeColor.onButton : ThemeColor.buttonContainer),
       onPressed: () =>
           ref.read(landingController.notifier).onTapBottomNavigationBar(item),
     );
