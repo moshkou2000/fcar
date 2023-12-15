@@ -46,7 +46,8 @@ class App {
   //   buildNumber = packageInfo['APP_BUILD_NUMBER'] ?? '';
   // }
 
-  /// call in the [initState] of the screen of initialRoute
+  /// It's better to call in the [initState] of the screen of initialRoute.
+  ///
   /// This is where you can initialize the resources needed by your app while
   /// the splash screen is displayed.
   static Future<void> init() async {
@@ -58,7 +59,10 @@ class App {
     FlutterNativeSplash.preserve(widgetsBinding: WidgetsBinding.instance);
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-    themeInitSystemUIOverlayStyle();
+    /// setup the System Overlay
+    ///
+    // themeInitSystemUIOverlayStyle();
+    hideOverlays();
 
     /// setup Analytics
     ///

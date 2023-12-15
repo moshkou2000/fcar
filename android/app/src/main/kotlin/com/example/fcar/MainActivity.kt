@@ -1,19 +1,11 @@
 package com.moshkou.fcar
 
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.Window
-import android.view.WindowInsets
-import android.view.WindowInsetsController
-import android.view.WindowManager
 import androidx.core.view.WindowCompat
 import io.flutter.embedding.android.FlutterActivity
-import io.flutter.embedding.android.SplashScreen
 
 class MainActivity : FlutterActivity() {
-  override fun provideSplashScreen(): SplashScreen? = SplashView()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     // Aligns the Flutter view vertically with the window.;
@@ -26,8 +18,5 @@ class MainActivity : FlutterActivity() {
     }
 
     super.onCreate(savedInstanceState)
-
-    window.navigationBarColor = Color.WHITE
-    window.statusBarColor= Color.WHITE
   }
 }

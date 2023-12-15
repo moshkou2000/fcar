@@ -32,8 +32,9 @@ class AuthRepository {
 
     final result = Deserialize<AuthModel>(
       json,
-      requiredFields: ['token', 'refreshToken', 'id', 'name'],
+      requiredFields: ['token', 'refreshToken', 'username', 'displayname'],
       fromJson: (e, {callback}) => AuthModel.fromMap(e),
+      callback: (missingKeys) => throw Exception(missingKeys),
     ).item;
     return result;
   }
@@ -62,8 +63,9 @@ class AuthRepository {
     final json = await network.post(url, body: body);
     final result = Deserialize<AuthModel>(
       json,
-      requiredFields: ['token', 'refreshToken', 'id', 'name'],
+      requiredFields: ['token', 'refreshToken', 'username', 'displayname'],
       fromJson: (e, {callback}) => AuthModel.fromMap(e),
+      callback: (missingKeys) => throw Exception(missingKeys),
     ).item;
     return result;
   }
@@ -79,11 +81,11 @@ class AuthRepository {
     return result ?? false;
   }
 
-  Future<void> saveProfile({required Object profile}) async {
+  Future<void> saveProfile({required String profile}) async {
     keystore.save(key: KeystoreKey.profile, value: profile);
   }
 
-  Future<void> saveUser({required Object user}) async {
+  Future<void> saveUser({required String user}) async {
     keystore.save(key: KeystoreKey.user, value: user);
   }
 }

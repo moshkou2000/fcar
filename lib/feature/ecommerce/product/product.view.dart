@@ -14,6 +14,7 @@ class ProductView extends ConsumerStatefulWidget {
 }
 
 class _ProductViewState extends ConsumerState<ProductView> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   String? selectedImageUrl;
   String? selectedSize;
 
@@ -24,7 +25,6 @@ class _ProductViewState extends ConsumerState<ProductView> {
     super.initState();
   }
 
-  // TODO: move to controller
   void setSelectedImageUrl(String url) {
     setState(() {
       selectedImageUrl = url;
@@ -80,10 +80,10 @@ class _ProductViewState extends ConsumerState<ProductView> {
   Widget build(BuildContext context) {
     final _ = ref.watch(ecommerceController);
 
-    return WillPopScope(
-      onWillPop: () => Future.value(true),
+    return PopScope(
+      canPop: true,
       child: Scaffold(
-        key: GlobalKey<ScaffoldState>(),
+        key: _scaffoldKey,
         appBar: _buildAppBar(),
         body: _buildBody(),
       ),

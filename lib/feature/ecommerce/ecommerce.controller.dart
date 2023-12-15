@@ -26,8 +26,6 @@ class EcommerceController extends BaseController<bool> {
     return false;
   }
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
   String _searchString = '';
   final _searchResultTiles = <Widget>[];
   final _categories = <CategoryModel>[];

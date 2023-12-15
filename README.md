@@ -1,8 +1,22 @@
 # fcar
 
-A new Flutter project.
+- **F** Flutter
+- **C** Clean
+- **A** Architecture
+- **R** Riverpod
 
-Clean Architecture with Riverpod
+## App Name
+
+By default, when a flutter app gets installed, the app name on the launcher is your Flutter project name.
+To change that to your desired application name on Android need to change AndroidManifest.xml,
+and for iOS needs to change Info.plist respectively.
+We may want to update the app name for web & desktop as well.
+
+Here is [rename_app package](https://pub.dev/packages/rename_app) that makes life easy. Instead of updating the app name in the respective files,
+just run the command.
+
+Here is the command to change the app name for the all platforms:
+`flutter pub run rename_app:main all="App Name"`
 
 ## Getting Started
 
@@ -75,6 +89,9 @@ flutter run --flavor dev -t lib/main_dev.dart --dart-define=ENVDEFINE_AMPLITUDE_
 
 ## Coding
 
+Future.microtask(() => HERE);
+WidgetsBinding.instance.addPostFrameCallback((\_) => HERE);
+
 use
 final val = StateProvider<bool>((ref) => false);
 
@@ -91,3 +108,6 @@ If the socket connection is failing, then you might have to add the following pr
 # TODO
 
 implement iOS splashxcreen -> https://medium.com/swlh/native-splash-screen-in-flutter-using-lottie-121ce2b9b0a4
+
+Compatibility Matrix `Java` `Gradle` `Kotlin`
+https://docs.gradle.org/current/userguide/compatibility.html

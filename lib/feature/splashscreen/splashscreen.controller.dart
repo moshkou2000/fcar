@@ -1,7 +1,6 @@
-import 'package:fcar_lib/core/service/navigation/navigation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fcar_lib/core/service/navigation/navigation.dart';
 
 import '../../config/app.dart';
 import '../../core/base.controller.dart';
@@ -23,18 +22,18 @@ class SplashscreenController extends BaseController<bool> {
     return false;
   }
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
   // Must remove NativeSplash before navigation
   Future<void> _init() async {
-    await App.init();
-    FlutterNativeSplash.remove();
-    await navigateTo();
+    Future.microtask(() async {
+      App.init();
+      final user = await _splashscreenRepository.getUser();
+      FlutterNativeSplash.remove();
+      navigateTo(user?.hasToken ?? false);
+    });
   }
 
-  Future<void> navigateTo() async {
-    final user = await _splashscreenRepository.getUser();
-    if (user != null && user.hasToken) {
+  void navigateTo(bool userHasToken) {
+    if (userHasToken) {
       Navigation.pushAndRemoveUntil(NavigationRoute.landingRoute);
     } else {
       Navigation.pushAndRemoveUntil(NavigationRoute.loginRoute);

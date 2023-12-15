@@ -6,8 +6,10 @@ import 'model/order_item.model.dart';
 
 class CartAppBarAction extends StatelessWidget {
   final List<OrderItemModel> itemsInCart;
-  const CartAppBarAction({required this.itemsInCart, Key? key})
-      : super(key: key);
+  const CartAppBarAction({
+    required this.itemsInCart,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

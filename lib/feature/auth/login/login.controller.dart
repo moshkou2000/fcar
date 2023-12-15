@@ -1,6 +1,5 @@
 import 'package:fcar_lib/core/service/navigation/navigation.dart';
 import 'package:fcar_lib/core/utility/logger.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/service/navigation/navigation_route.dart';
@@ -20,54 +19,48 @@ class AuthController extends AutoDisposeNotifier<bool> {
     return false;
   }
 
-  final formKey = GlobalKey<FormState>();
-
-  Future<void> login({
+  Future<void> onPressedSignIn({
     required String username,
     required String password,
   }) async {
-    await _authRepository.login(username: username, password: password).then(
-      (user) async {
-        logger.info(user);
-        if (user != null) {
-          await _saveUser(user: user);
-        }
-      },
-    ).catchError((e, s) {
-      logger.error('login', e: e, s: s);
+    try {
+      await _login(username: username, password: password);
+      await _profile();
+      _navigateToLanding();
+    } catch (e, s) {
+      logger.error('onPressedSignIn', e: e, s: s);
       showErrorDialog(title: 'Error', error: e);
       // ErrorTracking.recordError(e, s);
-    });
+    }
   }
 
-  Future<void> profile() async {
-    await _authRepository.profile().then(
-      (profile) async {
-        logger.info(profile);
-        if (profile != null) {
-          await _saveProfile(profile: profile);
-        }
-      },
-    ).catchError((e, s) {
-      logger.error('profile', e: e, s: s);
-      showErrorDialog(title: 'Error', error: e);
-      // FirebaseErrorTracking.recordError(e, s);
-    });
+  Future<void> _login({
+    required String username,
+    required String password,
+  }) async {
+    final result =
+        await _authRepository.login(username: username, password: password);
+    if (result != null) {
+      await _saveUser(user: result.toJson());
+    }
   }
 
-  void navigateToLanding() {
+  Future<void> _profile() async {
+    final result = await _authRepository.profile();
+    if (result != null) {
+      await _saveProfile(profile: result.toJson());
+    }
+  }
+
+  Future<void> _saveProfile({required String profile}) async {
+    _authRepository.saveProfile(profile: profile);
+  }
+
+  Future<void> _saveUser({required String user}) async {
+    _authRepository.saveUser(user: user);
+  }
+
+  void _navigateToLanding() {
     Navigation.pushAndRemoveUntil(NavigationRoute.landingRoute);
-  }
-
-  Future<void> _saveProfile({required Object profile}) async {
-    _authRepository.saveProfile(profile: profile).catchError((e, s) {
-      // ErrorTracking.recordError(e, s);
-    });
-  }
-
-  Future<void> _saveUser({required Object user}) async {
-    _authRepository.saveUser(user: user).catchError((e, s) {
-      // ErrorTracking.recordError(e, s);
-    });
   }
 }

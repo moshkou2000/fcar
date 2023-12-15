@@ -8,6 +8,7 @@ final splashscreenRepository = Provider((ref) => SplashscreenRepository());
 
 class SplashscreenRepository {
   Future<AuthModel?> getUser() async {
-    return await keystore.read<AuthModel>(key: KeystoreKey.user);
+    final result = await keystore.read(key: KeystoreKey.user);
+    return result != null ? AuthModel.fromJson(result) : null;
   }
 }
