@@ -79,6 +79,22 @@ https://sync.objectbox.io/sync-client
 - ESLint
 - Dart Data Class Generator
 
+## Usefull CLI
+
+- flutter screenshot: It will take screenshot and save it in the root
+
+## Usefull Links
+
+- [Material Design](m3.material.io)
+- [App Icon Generator](icon.kitchen)
+- [Online Photoshop](https://www.photopea.com/)
+- [File Convertor](freeconvert.com) You can convert Image and Doc.
+- [Background Remover](https://www.photoroom.com/tools/background-remover) Remove background of a image very quick
+- [Remove Background](remove.bg)
+- [Implement iOS Splashscreen](https://medium.com/swlh/native-splash-screen-in-flutter-using-lottie-121ce2b9b0a4)
+- [Badges package](https://pub.dev/packages/badges) Use the **badges.Badge** widget instead of the **Badge** widget. The same for all the classes from this package.
+- [Compatibility Matrix `Java` `Gradle` `Kotlin`](https://docs.gradle.org/current/userguide/compatibility.html)
+
 ## How to run
 
 - **Development**:
@@ -95,7 +111,7 @@ WidgetsBinding.instance.addPostFrameCallback((\_) => HERE);
 use
 final val = StateProvider<bool>((ref) => false);
 
-### Socket.io
+## Socket.io
 
 If the socket connection is failing, then you might have to add the following property to your `AndroidManifest.xml` file application tag:
 
@@ -104,10 +120,3 @@ If the socket connection is failing, then you might have to add the following pr
      .....
      android:usesCleartextTraffic="true">
 ```
-
-# TODO
-
-implement iOS splashxcreen -> https://medium.com/swlh/native-splash-screen-in-flutter-using-lottie-121ce2b9b0a4
-
-Compatibility Matrix `Java` `Gradle` `Kotlin`
-https://docs.gradle.org/current/userguide/compatibility.html

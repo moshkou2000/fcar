@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-     Copyright 2022 The Android Open Source Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
@@ -26,4 +11,12 @@
         android:pathData="M46.57,35H46.57C46.1,35 45.72,35.38 45.72,35.85L45.72,43.15H44.19C43.35,43.15 42.67,43.83 42.67,44.68C42.67,45.52 43.35,46.2 44.19,46.2H45.72V43.15H47.42C48.17,43.15 48.78,42.54 48.78,41.79L48.78,37.72H49.97C50.43,37.72 50.81,37.34 50.81,36.87V35.85C50.81,35.38 50.43,35 49.97,35H47.42H46.57ZM46.57,54.35H46.57H47.42H49.97C50.43,54.35 50.81,53.97 50.81,53.5V52.48C50.81,52.02 50.43,51.64 49.97,51.64H48.78L48.78,47.56C48.78,46.81 48.17,46.2 47.42,46.2H45.72L45.72,53.5C45.72,53.97 46.1,54.35 46.57,54.35ZM61.54,35H61.54C62.01,35 62.39,35.38 62.39,35.85V43.15H63.92C64.76,43.15 65.44,43.83 65.44,44.68C65.44,45.52 64.76,46.2 63.92,46.2H62.39V43.15H60.69C59.94,43.15 59.33,42.54 59.33,41.79V37.72H58.15C57.68,37.72 57.3,37.34 57.3,36.87V35.85C57.3,35.38 57.68,35 58.15,35H60.69H61.54ZM61.54,54.35H61.54H60.69H58.15C57.68,54.35 57.3,53.97 57.3,53.5V52.48C57.3,52.02 57.68,51.64 58.15,51.64H59.33V47.56C59.33,46.81 59.94,46.2 60.69,46.2H62.39V53.5C62.39,53.97 62.01,54.35 61.54,54.35Z"
         android:fillColor="@color/ic_launcher_foreground_tint"
         android:fillType="evenOdd"/>
-</vector>
+</vector> -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@mipmap/ic_launcher" />
+    </item>
+</layer-list>

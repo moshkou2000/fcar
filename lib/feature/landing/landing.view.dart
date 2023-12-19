@@ -1,8 +1,8 @@
+import 'package:fcar_lib/config/extension/context.extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fcar_lib/core/utility/will_pop.dart';
 
-import '../../config/theme/theme_color.dart';
+import '../../config/constant/asset.constant.dart';
 import '../about/about.argument.dart';
 import '../about/about.view.dart';
 import '../home/home.argument.dart';
@@ -35,49 +35,22 @@ class _LandingViewState extends ConsumerState<LandingView>
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(landingController);
+    final _ = ref.watch(landingController);
 
     // TODO: state.toString() is for test, set the page title
-    return WillPop(
-      attemptToPop: true,
-      child: Scaffold(
-        key: _scaffoldKey,
-        extendBody: true,
-        extendBodyBehindAppBar: false,
-        resizeToAvoidBottomInset: false,
-        appBar: _appBar(title: state.toString()),
-        body: _body(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: _floatingActionButton(),
-        bottomNavigationBar: _bottomNavigationAppBar(),
-      ),
+    return Scaffold(
+      key: _scaffoldKey,
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
+      body: _body(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: _floatingActionButton(),
+      bottomNavigationBar: _bottomNavigationAppBar(),
     );
   }
 
-  AppBar? _appBar({required String title}) {
-    return switch (ref.read(landingController.notifier).currentItem) {
-      LandingItemType.home => AppBar(
-          title: Text(title),
-          automaticallyImplyLeading: false,
-          shape: switch (ref.read(landingController.notifier).currentItem) {
-            LandingItemType.home => CurvedAppbarShape(),
-            // LandingItemType.about => CurvedAppbarShape(),
-            _ => null,
-          },
-          leading: const Icon(Icons.menu),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.notifications),
-              onPressed: () {},
-            )
-          ],
-        ),
-      // LandingItemType.about => CurvedAppbarShape(),
-      _ => null,
-    };
-  }
-
-  Widget _body() {
+  Widget? _body() {
     return switch (ref.read(landingController.notifier).currentItem) {
       LandingItemType.home => HomeView(
           arguments: HomeArgument(title: 'Home Title'),
@@ -91,12 +64,14 @@ class _LandingViewState extends ConsumerState<LandingView>
       LandingItemType.record => RecordView(
           arguments: RecordArgument(title: 'Record Title'),
         ),
+      LandingItemType.exit => null,
     };
   }
 
   Widget _floatingActionButton() {
     return FloatingActionButton(
       shape: const CircleBorder(),
+      elevation: 0,
       onPressed: () =>
           ref.read(landingController.notifier).onTapFloatingActionButton(),
       tooltip: 'Increment',
@@ -123,47 +98,67 @@ class _LandingViewState extends ConsumerState<LandingView>
   /// The BottomNavigationBar can be a BottomAppBar
   Widget _bottomNavigationAppBar() {
     return BottomAppBar(
-      height: 60,
+      height: 144,
       elevation: 0,
-      notchMargin: 9,
-      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+      notchMargin: 8,
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
       shape: const CircularNotchedRectangle(),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _bottomNavigationBarItem(
-            item: LandingItemType.about,
-            icon: Icons.menu,
-          ),
-          _bottomNavigationBarItem(
-            item: LandingItemType.record,
-            icon: Icons.record_voice_over,
-          ),
-          const SizedBox(width: 60), // notch
-          _bottomNavigationBarItem(
-            item: LandingItemType.about,
-            icon: Icons.search,
-          ),
-          _bottomNavigationBarItem(
-            item: LandingItemType.setting,
-            icon: Icons.settings,
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            _bottomNavigationBarItem(
+              svgIcon: AssetConstant.googleIcon,
+              title: LandingItemType.exit.name,
+              onPressed: () => context.showSnackBar('Create your function.'),
+            ),
+            const Spacer(flex: 5),
+            _bottomNavigationBarItem(
+              svgIcon: AssetConstant.googleIcon,
+              title: LandingItemType.record.name,
+              onPressed: () => ref
+                  .read(landingController.notifier)
+                  .onTapBottomNavigationBar(LandingItemType.record),
+            ),
+            const Spacer(),
+            // const SizedBox(width: 60), // notch
+            _bottomNavigationBarItem(
+              svgIcon: AssetConstant.sunCloudIcon,
+              title: LandingItemType.about.name,
+              onPressed: () => ref
+                  .read(landingController.notifier)
+                  .onTapBottomNavigationBar(LandingItemType.about),
+              badge: const Icon(Icons.check, color: Colors.white, size: 5),
+            ),
+            const Spacer(),
+            _bottomNavigationBarItem(
+              svgIcon: AssetConstant.googleIcon,
+              title: LandingItemType.setting.name,
+              onPressed: () => ref
+                  .read(landingController.notifier)
+                  .onTapBottomNavigationBar(LandingItemType.setting),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _bottomNavigationBarItem({
-    required IconData icon,
-    required LandingItemType item,
+    required String svgIcon,
+    required String title,
+    required void Function()? onPressed,
+    Widget? badge,
   }) {
-    final isSelected = ref.read(landingController.notifier).currentItem == item;
-    return IconButton(
-      icon: Icon(icon,
-          color: isSelected ? ThemeColor.onButton : ThemeColor.buttonContainer),
-      onPressed: () =>
-          ref.read(landingController.notifier).onTapBottomNavigationBar(item),
+    // final isSelected = ref.read(landingController.notifier).currentItem == item;
+    return textIconButton(
+      image: svgIcon,
+      title: title,
+      onPressed: onPressed,
+      badge: badge,
     );
   }
 }

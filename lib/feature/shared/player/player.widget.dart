@@ -1,37 +1,38 @@
-import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../auth/player.model.dart';
-import '../shape/player_painter.dart';
+import 'avatar.widget.dart';
+import 'coin.widget.dart';
+import 'displayname.widget.dart';
+import 'level.widget.dart';
 import 'player.controller.dart';
+import 'rank.widget.dart';
+import 'score.widget.dart';
+import 'xp.widget.dart';
 
-class PlayerWidget extends ConsumerWidget {
-  final PlayerModel? playerInfo;
-  const PlayerWidget({this.playerInfo, super.key});
+class PlayerWidget extends ConsumerStatefulWidget {
+  const PlayerWidget({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(playerController);
-    final _ = state ?? playerInfo;
+  ConsumerState<PlayerWidget> createState() => _PlayerWidgetState();
+}
 
-    logger.info(_);
+class _PlayerWidgetState extends ConsumerState<PlayerWidget> {
+  @override
+  Widget build(BuildContext context) {
+    final info = ref.watch(playerController);
 
-    return Stack(
-      children: [
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 300,
-          child: CustomPaint(
-            painter: PlayerPainter(),
-            child: Container(
-              height: 300,
-            ),
-          ),
-        ),
-      ],
-    );
+    if (info == null) return const SizedBox();
+
+    return Stack(children: [
+      const SizedBox(width: 300),
+      ScoreWidget(playerInfo: info),
+      AvatarWidget(playerInfo: info),
+      DisplaynameWidget(playerInfo: info),
+      RankWidget(playerInfo: info),
+      XpWidget(playerInfo: info),
+      LevelWidget(playerInfo: info),
+      CoinWidget(playerInfo: info),
+    ]);
   }
 }

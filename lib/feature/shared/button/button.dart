@@ -1,5 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
+import 'package:flutter_svg/svg.dart';
 
 import '../../../config/theme/theme_color.dart';
 import '../../../config/theme/theme_font.dart';
@@ -119,6 +120,55 @@ class _ObserverButtonState extends State<ObserverButton> {
             ),
           )
       };
+}
+
+Widget textIconButton({
+  required String image,
+  required String title,
+  required void Function()? onPressed,
+  Widget? badge,
+}) {
+  return badges.Badge(
+    position: badges.BadgePosition.topEnd(top: 0, end: 0),
+    showBadge: badge != null,
+    ignorePointer: false,
+    onTap: () {},
+    badgeContent: badge,
+    badgeAnimation: const badges.BadgeAnimation.rotation(
+      animationDuration: Duration(seconds: 1),
+      colorChangeAnimationDuration: Duration(seconds: 1),
+      loopAnimation: false,
+      curve: Curves.fastOutSlowIn,
+      colorChangeAnimationCurve: Curves.easeInCubic,
+    ),
+    badgeStyle: badges.BadgeStyle(
+      shape: badges.BadgeShape.square,
+      badgeColor: Colors.blue,
+      padding: const EdgeInsets.all(5),
+      borderRadius: BorderRadius.circular(4),
+      borderSide: const BorderSide(color: Colors.white, width: 1),
+      elevation: 0,
+    ),
+    child: GestureDetector(
+      onTap: onPressed,
+      child: SizedBox(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset(
+              image,
+              height: 40,
+              width: 40,
+            ),
+            Text(
+              title,
+              style: ThemeFont.subtitleStyle.copyWith(color: Colors.black),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 Widget outlinedButton({
