@@ -2,16 +2,16 @@ import 'package:fcar_lib/config/extension/context.extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../config/constant/asset.constant.dart';
 import '../about/about.argument.dart';
 import '../about/about.view.dart';
 import '../home/home.argument.dart';
 import '../home/home.view.dart';
+import '../league/league.argument.dart';
+import '../league/league.view.dart';
 import '../record/record.argument.dart';
 import '../record/record.view.dart';
-import '../setting/setting.argument.dart';
-import '../setting/setting.view.dart';
-import '../shared/shared.module.dart';
+import '../shop/shop.argument.dart';
+import '../shop/shop.view.dart';
 import 'landing.controller.dart';
 import 'landing_item_type.dart';
 
@@ -43,39 +43,49 @@ class _LandingViewState extends ConsumerState<LandingView>
       extendBody: true,
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
-      body: _body(),
+      body: _buildBody(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: _floatingActionButton(),
       bottomNavigationBar: _bottomNavigationAppBar(),
     );
   }
 
-  Widget? _body() {
+  Widget? _buildBody() {
     return switch (ref.read(landingController.notifier).currentItem) {
-      LandingItemType.home => HomeView(
-          arguments: HomeArgument(title: 'Home Title'),
-        ),
       LandingItemType.about => AboutView(
           arguments: AboutArgument(title: 'About Title'),
         ),
-      LandingItemType.setting => SettingView(
-          arguments: SettingArgument(title: 'Setting Title'),
+      LandingItemType.home => HomeView(
+          arguments: HomeArgument(title: 'Home Title'),
+        ),
+      LandingItemType.league => LeagueView(
+          arguments: LeagueArgument(title: 'League Title'),
         ),
       LandingItemType.record => RecordView(
           arguments: RecordArgument(title: 'Record Title'),
         ),
-      LandingItemType.exit => null,
+      LandingItemType.shop => ShopView(
+          arguments: ShopArgument(title: 'Shop Title'),
+        ),
     };
   }
 
   Widget _floatingActionButton() {
     return FloatingActionButton(
-      shape: const CircleBorder(),
-      elevation: 0,
+      shape: const CircleBorder(
+          side: BorderSide(
+        width: 2,
+        color: Colors.black38,
+      )),
+      backgroundColor: Colors.green,
+      elevation: 2,
       onPressed: () =>
           ref.read(landingController.notifier).onTapFloatingActionButton(),
-      tooltip: 'Increment',
-      child: const Icon(Icons.add),
+      tooltip: 'Play',
+      child: const Icon(
+        Icons.play_arrow_rounded,
+        size: 44,
+      ),
     );
   }
 
@@ -111,14 +121,16 @@ class _LandingViewState extends ConsumerState<LandingView>
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             _bottomNavigationBarItem(
-              svgIcon: AssetConstant.googleIcon,
-              title: LandingItemType.exit.name,
+              // svgIcon: AssetConstant.googleIcon,
+              icon: Icons.info,
+              item: LandingItemType.about,
               onPressed: () => context.showSnackBar('Create your function.'),
             ),
-            const Spacer(flex: 5),
+            const Spacer(),
             _bottomNavigationBarItem(
-              svgIcon: AssetConstant.googleIcon,
-              title: LandingItemType.record.name,
+              // svgIcon: AssetConstant.googleIcon,
+              icon: Icons.emoji_events,
+              item: LandingItemType.record,
               onPressed: () => ref
                   .read(landingController.notifier)
                   .onTapBottomNavigationBar(LandingItemType.record),
@@ -126,20 +138,31 @@ class _LandingViewState extends ConsumerState<LandingView>
             const Spacer(),
             // const SizedBox(width: 60), // notch
             _bottomNavigationBarItem(
-              svgIcon: AssetConstant.sunCloudIcon,
-              title: LandingItemType.about.name,
+              // svgIcon: AssetConstant.sunCloudIcon,
+              icon: Icons.home,
+              item: LandingItemType.home,
               onPressed: () => ref
                   .read(landingController.notifier)
-                  .onTapBottomNavigationBar(LandingItemType.about),
+                  .onTapBottomNavigationBar(LandingItemType.home),
+            ),
+            const Spacer(),
+            _bottomNavigationBarItem(
+              // svgIcon: AssetConstant.sunCloudIcon,
+              icon: Icons.group,
+              item: LandingItemType.league,
+              onPressed: () => ref
+                  .read(landingController.notifier)
+                  .onTapBottomNavigationBar(LandingItemType.league),
               badge: const Icon(Icons.check, color: Colors.white, size: 5),
             ),
             const Spacer(),
             _bottomNavigationBarItem(
-              svgIcon: AssetConstant.googleIcon,
-              title: LandingItemType.setting.name,
+              // svgIcon: AssetConstant.googleIcon,
+              icon: Icons.shopping_cart,
+              item: LandingItemType.shop,
               onPressed: () => ref
                   .read(landingController.notifier)
-                  .onTapBottomNavigationBar(LandingItemType.setting),
+                  .onTapBottomNavigationBar(LandingItemType.shop),
             ),
           ],
         ),
@@ -148,17 +171,24 @@ class _LandingViewState extends ConsumerState<LandingView>
   }
 
   Widget _bottomNavigationBarItem({
-    required String svgIcon,
-    required String title,
+    // required String svgIcon,
+    required IconData icon,
+    required LandingItemType item,
     required void Function()? onPressed,
     Widget? badge,
   }) {
-    // final isSelected = ref.read(landingController.notifier).currentItem == item;
-    return textIconButton(
-      image: svgIcon,
-      title: title,
+    final isSelected = ref.read(landingController.notifier).currentItem == item;
+    return IconButton.outlined(
+      icon: Icon(icon),
+      color: Colors.white70,
+      iconSize: isSelected ? 44 : 33,
       onPressed: onPressed,
-      badge: badge,
     );
+    // return textIconButton(
+    //   image: svgIcon,
+    //   title: item.name,
+    //   onPressed: onPressed,
+    //   badge: badge,
+    // );
   }
 }

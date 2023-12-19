@@ -1,9 +1,9 @@
 enum LandingItemType {
   about,
-  exit,
   home,
+  league,
   record,
-  setting;
+  shop;
 
   static LandingItemType fromString(String name) {
     return values.firstWhere(
