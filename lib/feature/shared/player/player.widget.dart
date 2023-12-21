@@ -21,7 +21,6 @@ class _PlayerWidgetState extends ConsumerState<PlayerWidget> {
   @override
   Widget build(BuildContext context) {
     final info = ref.watch(playerController);
-
     if (info == null) return const SizedBox();
 
     return Stack(children: [
