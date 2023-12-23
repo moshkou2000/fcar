@@ -10,15 +10,15 @@ final playerController =
 });
 
 class PlayerController extends BaseController<PlayerModel?> {
-  late final PlayerRepository _homeRepository;
+  late final PlayerRepository _playerRepository;
 
   @override
   PlayerModel? build() {
     ref.onDispose(() {});
-    _homeRepository = ref.read(playerRepository);
+    _playerRepository = ref.read(playerRepository);
     getProfile();
     return null;
   }
 
-  Future<void> getProfile() async => state = await _homeRepository.profile;
+  Future<void> getProfile() async => state = await _playerRepository.profile;
 }

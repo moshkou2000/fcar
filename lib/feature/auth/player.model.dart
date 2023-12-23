@@ -11,6 +11,7 @@ class PlayerModel {
   final String group;
   final int score;
   final int rank;
+  final int xp;
   final int level;
   final int coin;
   final int point;
@@ -22,6 +23,7 @@ class PlayerModel {
     required this.group,
     required this.score,
     required this.rank,
+    required this.xp,
     required this.level,
     required this.coin,
     required this.point,
@@ -35,6 +37,7 @@ class PlayerModel {
       group: map['group'] as String,
       score: map['score'] as int,
       rank: map['rank'] as int,
+      xp: map['xp'] as int,
       level: map['level'] as int,
       coin: map['coin'] as int,
       point: map['point'] as int,
@@ -49,6 +52,7 @@ class PlayerModel {
       'group': group,
       'score': score,
       'rank': rank,
+      'xp': xp,
       'level': level,
       'coin': coin,
       'point': point,
@@ -63,7 +67,7 @@ class PlayerModel {
   @override
   String toString() {
     return 'PlayerModel(username: $username, displayname: $displayname, '
-        'avatar: $avatar, group: $group, score: $score, rank: $rank, '
+        'avatar: $avatar, group: $group, score: $score, rank: $rank, xp: $xp, '
         'level: $level, coin: $coin, point: $point)';
   }
 }

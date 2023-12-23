@@ -20,9 +20,9 @@ ThemeData get lightThemeData => ThemeData(
       colorScheme: colorScheme,
       useMaterial3: true,
       brightness: Brightness.light,
-      scaffoldBackgroundColor: Colors.white, //ThemeColor.blue300
+      scaffoldBackgroundColor: Colors.transparent,
       appBarTheme: const AppBarTheme(
-        color: ThemeColor.statusBarColor,
+        color: Colors.transparent,
         elevation: 0,
         centerTitle: true,
       ),
@@ -132,7 +132,8 @@ void themeSetSystemUIOverlayStyle() {
 void themeInitSystemUIOverlayStyle({Color? navigationBarColor}) {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
-    systemNavigationBarColor: navigationBarColor ?? Colors.white,
+    systemNavigationBarColor:
+        navigationBarColor ?? Colors.black.withOpacity(0.01),
     statusBarBrightness: Brightness.light,
     statusBarIconBrightness: Brightness.light,
     systemNavigationBarIconBrightness: Brightness.light,

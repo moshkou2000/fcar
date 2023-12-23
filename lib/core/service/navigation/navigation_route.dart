@@ -8,6 +8,8 @@ import '../../../feature/ecommerce/category/category.view.dart';
 import '../../../feature/ecommerce/ecommerce.view.dart';
 import '../../../feature/ecommerce/product/product.argument.dart';
 import '../../../feature/ecommerce/product/product.view.dart';
+import '../../../feature/game/game.argument.dart';
+import '../../../feature/game/game.view.dart';
 import '../../../feature/home/home.argument.dart';
 import '../../../feature/home/home.view.dart';
 import '../../../feature/landing/landing.view.dart';
@@ -22,6 +24,7 @@ abstract final class NavigationRoute {
   static const String categoryRoute = '/category';
   static const String ecommerceRoute = '/ecommerce';
   static const String forgotPasswordRoute = '/forgotPassword';
+  static const String gameRoute = '/game';
   static const String homeRoute = '/home';
   static const String landingRoute = '/landing';
   static const String loginRoute = '/login';
@@ -43,6 +46,9 @@ abstract final class NavigationRoute {
             CategoryView(arguments: settings.arguments as CategoryArgument));
       case ecommerceRoute:
         return _pageRoute(const EcommerceView());
+      case gameRoute:
+        return _pageRoute(
+            GameView(arguments: settings.arguments as GameArgument));
       case homeRoute:
         return _pageRoute(
             HomeView(arguments: settings.arguments as HomeArgument));

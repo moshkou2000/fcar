@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 class PlayerPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    const colorOne = Colors.white;
-    final colorTwo = Colors.red[200]!;
-    final colorThree = Colors.red[100]!;
     const radius = 60.0;
 
     final paint = Paint();
@@ -18,14 +15,15 @@ class PlayerPainter extends CustomPainter {
     //     center: Offset(size.width / 2, size.height / 2),
     //     radius: radius - thickness);
 
-    final Gradient gradient = RadialGradient(
+    const Gradient gradient = RadialGradient(
       colors: [
-        colorOne,
-        colorOne,
-        colorTwo,
-        colorThree
+        Colors.blue,
+        Colors.blue,
+        Colors.white,
+        Colors.grey,
+        Colors.grey,
       ], // Customize gradient colors
-      stops: const [0.0, 0.8, 0.8, 1.0],
+      stops: [0.0, 0.8, 0.84, 0.1, 1.0],
     );
     final gradientShader = gradient.createShader(outerRect);
 

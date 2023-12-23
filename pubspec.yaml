@@ -41,6 +41,7 @@ dependencies:
     # ref: dev
 
   animations: ^2.0.8
+  badges: ^3.1.2
   camera: ^0.10.5+4
   connectivity_plus: ^5.0.2
   cupertino_icons: ^1.0.2
