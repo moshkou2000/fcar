@@ -49,6 +49,18 @@ class AuthRepository {
 
     final result = Deserialize<PlayerModel>(
       json,
+      requiredFields: [
+        'username',
+        'displayname',
+        'rank',
+        'avatar,',
+        'score',
+        'group',
+        'xp',
+        'level',
+        'coin',
+        'point',
+      ],
       fromJson: (e, {callback}) => PlayerModel.fromMap(e),
     ).item;
     return result;

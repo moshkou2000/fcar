@@ -9,9 +9,12 @@ abstract final class AssetConstant {
   static const String imagePath = '$assetPath/image';
 
 // icon
+  static const String exitIcon = '$iconPath/exit.svg';
+  static const String googleIcon = '$iconPath/google.svg';
   static const String sunCloudIcon = '$iconPath/sun_cloud.svg';
 
 // image
+  static const String avatarImage = '$imagePath/avatar.jpg';
   static const String calendarImage = '$imagePath/calendar.png';
   static const String cuteEyeImage = '$imagePath/cute_eye.png';
 

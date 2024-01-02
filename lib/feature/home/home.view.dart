@@ -16,10 +16,14 @@ class _HomePageState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(255, 35, 141, 155),
+      color: const Color.fromARGB(255, 11, 122, 145),
       child: const Stack(
         children: [
-          PlayerWidget(),
+          Positioned(
+            top: 40,
+            left: 10,
+            child: PlayerWidget(),
+          ),
         ],
       ),
     );
