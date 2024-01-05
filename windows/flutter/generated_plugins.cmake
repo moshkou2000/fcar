@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   firebase_core
   flutter_secure_storage_windows
+  local_auth_windows
   objectbox_flutter_libs
   sentry_flutter
   url_launcher_windows
