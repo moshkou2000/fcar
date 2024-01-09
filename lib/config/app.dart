@@ -1,10 +1,12 @@
-import 'package:fcar_lib/core/service/auth/remote/oauth2.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:fcar_lib/config/enum/app_env.enum.dart';
+import 'package:fcar_lib/core/service/auth/remote/oauth2.dart';
+import 'package:fcar_lib/core/service/geolocator/geolocator.module.dart';
 import 'package:fcar_lib/core/service/localization/localization.provider.dart';
-
+import 'package:fcar_lib/core/service/permission/permissions.module.dart';
+import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'flavor.dart';
 import 'theme/theme.provider.dart';
@@ -65,12 +67,6 @@ class App {
     // themeInitSystemUIOverlayStyle();
     hideOverlays();
 
-    /// setup Analytics
-    ///
-    // DatadogAnalytics.setup(env: env);
-    // FirebaseAnalytics.setup(env: env);
-    // SentryAnalytics.setup(env: env);
-
     /// setup ErrorTracking
     ///
     // DatadogErrorTracking.setup(env: env);
@@ -83,9 +79,32 @@ class App {
     // FirebasePerformanceMonitoring.setup(env: env);
     // SentryPerformanceMonitoring.setup(env: env);
 
+    /// setup Analytics
+    ///
+    // DatadogAnalytics.setup(env: env);
+    // FirebaseAnalytics.setup(env: env);
+    // SentryAnalytics.setup(env: env);
+
     /// setup RemoteConfig
     ///
     // FirebaseRemoteConfig.setup(env: AppEnvironment.dev);
+
+    /// setup Permissions
+    ///
+    Permissions.request(
+      Permission.location,
+      callIfDenied: () {
+        logger.info('Permission.location Denied.');
+      },
+      callIfGranted: () {
+        logger.info('Permission.location Granted.');
+      },
+      callIfPermanentlyDenied: () async {
+        logger.info('Permission.location Permanently Denied.');
+        final isOpened = await Geolocators.geolocator.openLocationSettings();
+        if (!isOpened) await Geolocators.geolocator.openAppSettings();
+      },
+    );
 
     /// setup Notification
     ///
