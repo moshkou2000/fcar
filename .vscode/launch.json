@@ -18,7 +18,7 @@
         "--dart-define",
         "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
         "--dart-define",
-        "AUTH_USERNAME=admin@admin.admin",
+        "AUTH_USERNAME=admin@moshkou.com",
         "--dart-define",
         "AUTH_PASSWORD=Admin123@@@"
       ]
@@ -37,7 +37,7 @@
         "--dart-define",
         "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
         "--dart-define",
-        "AUTH_USERNAME=admin@admin.admin",
+        "AUTH_USERNAME=admin@moshkou.com",
         "--dart-define",
         "AUTH_PASSWORD=Admin123@@@"
       ]
@@ -54,7 +54,7 @@
         "--dart-define",
         "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
         "--dart-define",
-        "AUTH_USERNAME=admin@admin.admin",
+        "AUTH_USERNAME=admin@moshkou.com",
         "--dart-define",
         "AUTH_PASSWORD=Admin123@@@"
       ]
@@ -71,7 +71,7 @@
         "--dart-define",
         "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
         "--dart-define",
-        "AUTH_USERNAME=admin@admin.admin",
+        "AUTH_USERNAME=admin@moshkou.com",
         "--dart-define",
         "AUTH_PASSWORD=Admin123@@@"
       ]

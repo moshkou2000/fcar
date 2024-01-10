@@ -1,9 +1,10 @@
 import 'dart:convert';
 
 import 'package:fcar_lib/core/datasource/keystore/keystore.enum.dart';
+import 'package:fcar_lib/core/datasource/network/deserialize.dart';
+import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fcar_lib/core/datasource/network/deserialize.dart';
 
 import '../../core/datasource/keystore/keystore.provider.dart';
 import '../../core/datasource/network/network.provider.dart';
@@ -53,7 +54,7 @@ class AuthRepository {
         'username',
         'displayname',
         'rank',
-        'avatar,',
+        'avatar',
         'score',
         'group',
         'xp',
@@ -62,6 +63,8 @@ class AuthRepository {
         'point',
       ],
       fromJson: (e, {callback}) => PlayerModel.fromMap(e),
+      callback: (m) =>
+          logger.error(m), // you may log in Analytics/ErrorTracking
     ).item;
     return result;
   }

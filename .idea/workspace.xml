@@ -1,51 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b769f89d-e988-487a-bd43-ddcbad570bed" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/config/theme/color/color.module.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/config/theme/color/korra_color.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/config/theme/color/persian_color.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/config/theme/font/font_style.module.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/feature/shared/button/button.widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/main_dart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/main_dart.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/kotlin/com/example/fcar/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/kotlin/com/example/fcar/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fcar.iml" beforeDir="false" afterPath="$PROJECT_DIR$/fcar.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/config/constant/nav.constant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/constant/nav.constant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/config/theme/color.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/config/theme/color/banana_color.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/theme/color/banana_color.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/config/theme/font/roboto_style.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/theme/font/roboto_style.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/config/theme/theme.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/config/theme/theme.enum.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/config/theme/theme.provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/theme/theme.provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/config/theme/theme_default.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/datasource/network/dio/interceptor/dio_validator_interceptor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/datasource/network/dio/interceptor/dio_validator_interceptor.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/datasource/network/dio/network.extension.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/datasource/network/dio/dio.extension.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/feature/home/home.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/home/home.view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/feature/landing/landing.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/landing/landing.view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/feature/shared/button.widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/feature/shared/dialog/dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/shared/dialog/dialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/feature/shared/empty.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/shared/empty.view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/linux/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Runner/Configs/AppInfo.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Runner/Configs/AppInfo.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/auth/login/login.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/auth/login/login.view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,18 +45,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/moshkou/fcar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "feature/hero-image",
+    "ignore.virus.scanning.warn.message": "true",
+    "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "C:/Users/HassanNasouri/Documents/fcar",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

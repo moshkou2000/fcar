@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../auth/player.model.dart';
+import 'player.controller.dart';
 
 class AvatarWidget extends ConsumerWidget {
   final PlayerModel playerInfo;
@@ -21,11 +22,18 @@ class AvatarWidget extends ConsumerWidget {
           borderRadius: BorderRadius.circular(50),
         ),
         // avatar
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(50),
-          child: Image.asset(
-            playerInfo.avatar,
-            fit: BoxFit.cover,
+        child: Hero(
+          tag: 'avatar',
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: GestureDetector(
+              onTap: () =>
+                  ref.read(playerController.notifier).navigateToAbout(),
+              child: Image.asset(
+                playerInfo.avatar,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ),
       ),

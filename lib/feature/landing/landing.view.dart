@@ -2,14 +2,13 @@ import 'package:fcar_lib/config/extension/context.extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../about/about.argument.dart';
-import '../about/about.view.dart';
 import '../home/home.argument.dart';
 import '../home/home.view.dart';
 import '../league/league.argument.dart';
 import '../league/league.view.dart';
 import '../record/record.argument.dart';
 import '../record/record.view.dart';
+import '../shared/unimplemented.view.dart';
 import '../shop/shop.argument.dart';
 import '../shop/shop.view.dart';
 import 'landing.controller.dart';
@@ -52,9 +51,7 @@ class _LandingViewState extends ConsumerState<LandingView>
 
   Widget? _buildBody() {
     return switch (ref.read(landingController.notifier).currentItem) {
-      LandingItemType.about => AboutView(
-          arguments: AboutArgument(title: 'About Title'),
-        ),
+      LandingItemType.action => const UnimplementedView(title: 'action'),
       LandingItemType.home => HomeView(
           arguments: HomeArgument(title: 'Home Title'),
         ),
@@ -123,7 +120,7 @@ class _LandingViewState extends ConsumerState<LandingView>
             _bottomNavigationBarItem(
               // svgIcon: AssetConstant.googleIcon,
               icon: Icons.info,
-              item: LandingItemType.about,
+              item: LandingItemType.action,
               onPressed: () => context.showSnackBar('Create your function.'),
             ),
             const Spacer(),

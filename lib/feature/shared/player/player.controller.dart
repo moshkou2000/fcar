@@ -1,6 +1,9 @@
+import 'package:fcar_lib/core/service/navigation/navigation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/base.controller.dart';
+import '../../../core/service/navigation/navigation_route.dart';
+import '../../about/about.argument.dart';
 import '../../auth/player.model.dart';
 import 'player.repository.dart';
 
@@ -21,4 +24,11 @@ class PlayerController extends BaseController<PlayerModel?> {
   }
 
   Future<void> getProfile() async => state = await _playerRepository.profile;
+
+  void navigateToAbout() {
+    if (state != null) {
+      Navigation.navigateTo(NavigationRoute.aboutRoute,
+          arguments: AboutArgument(title: 'About Title', playerInfo: state!));
+    }
+  }
 }

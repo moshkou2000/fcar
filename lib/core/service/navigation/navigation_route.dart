@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../feature/about/about.argument.dart';
+import '../../../feature/about/about.view.dart';
 import '../../../feature/auth/login/login.view.dart';
 import '../../../feature/auth/register/register.view.dart';
 import '../../../feature/ecommerce/cart/cart.view.dart';
@@ -20,6 +22,7 @@ import '../../../feature/splashscreen/splashscreen.view.dart';
 @immutable
 abstract final class NavigationRoute {
 // route path
+  static const String aboutRoute = '/about';
   static const String cartRoute = '/cart';
   static const String categoryRoute = '/category';
   static const String ecommerceRoute = '/ecommerce';
@@ -39,6 +42,9 @@ abstract final class NavigationRoute {
   /// call in [MaterialApp.onGenerateRoute]
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case aboutRoute:
+        return _pageRoute(
+            AboutView(arguments: settings.arguments as AboutArgument));
       case cartRoute:
         return _pageRoute(const CartView());
       case categoryRoute:
