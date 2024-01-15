@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:fcar_lib/core/datasource/network/deserialize.dart';
+import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/datasource/network/network.provider.dart';
-import '../../auth/player.model.dart';
+import 'opponent.model.dart';
 
 final opponentRepository = Provider((ref) => OpponentRepository());
 
@@ -27,7 +28,7 @@ class OpponentRepository {
   ///
   /// It will be one to one
   ///   if the group is not provided(null | empty).
-  Future<PlayerModel?> getOpponent({
+  Future<OpponentModel?> getOpponent({
     String? category,
     String? group,
     String? username,
@@ -43,12 +44,13 @@ class OpponentRepository {
 
     // this is mock data
     final dummy = await rootBundle.loadString('asset/mock/opponent.json');
+    logger.debug(dummy);
     final dynamic json = jsonDecode(dummy);
 
-    return Deserialize<PlayerModel>(
+    return Deserialize<OpponentModel>(
       json,
-      requiredFields: ['username', 'displayname', 'rank', 'avatar'],
-      fromJson: (e, {callback}) => PlayerModel.fromMap(e),
+      requiredFields: ['username', 'displayname', 'avatar', 'score', 'rank'],
+      fromJson: (e, {callback}) => OpponentModel.fromMap(e),
       callback: (missingKeys) => throw Exception(missingKeys),
     ).item; // item | items
   }

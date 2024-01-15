@@ -10,16 +10,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b769f89d-e988-487a-bd43-ddcbad570bed" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/feature/game/opponent/opponent.model.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/feature/shared/field/search_field.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fcar.iml" beforeDir="false" afterPath="$PROJECT_DIR$/fcar.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/feature/auth/login/login.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/auth/login/login.view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/kotlin/com/example/fcar/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/kotlin/com/example/fcar/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/mock/opponent.json" beforeDir="false" afterPath="$PROJECT_DIR$/asset/mock/opponent.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/config/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/app.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/config/theme/theme.provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/theme/theme.provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/config/theme/theme_color.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/theme/theme_color.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/service/navigation/navigation_route.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/service/navigation/navigation_route.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/about/about.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/about/about.view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/ecommerce/product/product.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/ecommerce/product/product.view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/game/opponent/opponent.argument.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/game/opponent/opponent.argument.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/game/opponent/opponent.controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/game/opponent/opponent.controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/game/opponent/opponent.repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/game/opponent/opponent.repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/game/opponent/opponent.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/game/opponent/opponent.view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/landing/landing.controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/landing/landing.controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/shared/button/button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/shared/button/button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/shared/player/avatar.widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/shared/player/avatar.widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/shared/player/coin.widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/shared/player/coin.widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/shared/player/displayname.widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/shared/player/displayname.widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/shared/player/level.widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/shared/player/level.widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/shared/player/player.controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/shared/player/player.controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/shared/player/player.widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/shared/player/player.widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/shared/player/rank.widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/shared/player/rank.widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/shared/player/score.widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/shared/player/score.widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/feature/shared/player/xp.widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/feature/shared/player/xp.widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/CMakeLists.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,24 +64,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "feature/hero-image",
-    "ignore.virus.scanning.warn.message": "true",
-    "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/Users/HassanNasouri/Documents/fcar",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/hero-image&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/HassanNasouri/Documents/fcar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

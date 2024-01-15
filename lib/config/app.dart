@@ -1,9 +1,7 @@
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:fcar_lib/config/enum/app_env.enum.dart';
 import 'package:fcar_lib/core/service/localization/localization.provider.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'flavor.dart';
 import 'theme/theme.provider.dart';
@@ -57,12 +55,16 @@ class App {
   /// call before [runApp]
   static Future<void> setup({required AppEnvironment env}) async {
     FlutterNativeSplash.preserve(widgetsBinding: WidgetsBinding.instance);
-    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+    /// setup the Device Orientation
+    ///
+    await deviceOrientation();
 
     /// setup the System Overlay
     ///
-    // themeInitSystemUIOverlayStyle();
-    hideOverlays();
+    themeInitSystemUIOverlayStyle();
+    systemOverlaysChangeCallback();
+    await hideOverlays();
 
     /// setup Analytics
     ///

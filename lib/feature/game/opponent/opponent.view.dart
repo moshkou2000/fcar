@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../auth/player.model.dart';
 import '../../shared/button/button.dart';
+import '../../shared/field/search_field.dart';
 import '../../shared/player/avatar.widget.dart';
 import '../../shared/player/displayname.widget.dart';
 import '../../shared/player/rank.widget.dart';
 import '../../shared/player/score.widget.dart';
 import 'opponent.argument.dart';
 import 'opponent.controller.dart';
+import 'opponent.model.dart';
+
+const _widthAvatar = 110.0;
+const _widgetSize = 126.0;
 
 class OpponentView extends ConsumerStatefulWidget {
-  const OpponentView({required this.arguments, super.key});
-
   final OpponentArgument arguments;
+  const OpponentView({required this.arguments, super.key});
 
   @override
   ConsumerState<OpponentView> createState() => _OpponentPageState();
@@ -24,9 +27,20 @@ class _OpponentPageState extends ConsumerState<OpponentView> {
   final backgroundColor = const Color.fromARGB(255, 11, 122, 145);
 
   @override
+  void initState() {
+    Future.microtask(
+        () async => await ref.read(opponentController.notifier).getOpponent(
+              category: widget.arguments.category,
+              group: widget.arguments.group,
+              username: widget.arguments.username,
+            ));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final info = ref.watch(opponentController);
-    if (info == null) return const SizedBox();
+    // if (info == null) return const SizedBox();
 
     return Scaffold(
       key: _scaffoldKey,
@@ -53,60 +67,57 @@ class _OpponentPageState extends ConsumerState<OpponentView> {
     );
   }
 
-  Widget _buildBody({PlayerModel? info}) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: constraints.maxHeight,
-            ),
-            child: Column(
-              children: <Widget>[
-                _buildSearch(),
-                const Spacer(flex: 2),
-                _buildOpponentPlayer(info: info),
-                const Spacer(flex: 2),
-                _buildDecline(),
-              ],
-            ),
-          ),
-        );
-      },
+  Widget _buildBody({OpponentModel? info}) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        _buildSearch(displayName: info?.displayname),
+        _buildOpponentPlayer(info: info),
+        _buildDecline(),
+      ],
     );
   }
 
-  Widget _buildSearch() {
-    return SearchBar(
-      hintText: 'Tap search button on the keyboard.',
-      onSubmitted: (value) {
-        // TODO: lock & search
-        ref.read(opponentController.notifier).onPressedSearch(
-              username: value,
-              category: widget.arguments.category,
-              group: widget.arguments.group,
-            );
-      },
+  Widget _buildSearch({String? displayName}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 80),
+      child: SearchField(
+        label: displayName ?? 'Searching...',
+        placeholder: 'Tap search button on the keyboard.',
+        searchFieldBackground: Colors.transparent,
+      ),
     );
   }
 
-  Widget _buildOpponentPlayer({PlayerModel? info}) {
-    if (info == null) return const SizedBox();
-
-    return Stack(children: [
-      const SizedBox(width: 300),
-      ScoreWidget(playerInfo: info),
-      AvatarWidget(playerInfo: info),
-      DisplaynameWidget(playerInfo: info),
-      RankWidget(playerInfo: info),
-    ]);
+  Widget _buildOpponentPlayer({OpponentModel? info}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      child: Stack(children: [
+        const SizedBox(
+          width: _widgetSize,
+          height: _widgetSize,
+        ),
+        ScoreWidget(score: info?.score ?? 0, width: _widthAvatar),
+        AvatarWidget(avatar: info?.avatar, width: _widthAvatar),
+        DisplaynameWidget(displayname: info?.displayname, width: _widthAvatar),
+        RankWidget(
+          rank: info?.rank ?? 0,
+          left: _widthAvatar,
+        ),
+      ]),
+    );
   }
 
   Widget _buildDecline() {
-    return outlinedButton(
-      title: 'Decline',
-      color: Colors.red,
-      onPressed: () {},
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 32),
+      child: outlinedButton(
+        width: 128,
+        title: 'Decline',
+        color: Colors.white,
+        alignment: CrossAxisAlignment.center,
+        onPressed: () {},
+      ),
     );
   }
 }

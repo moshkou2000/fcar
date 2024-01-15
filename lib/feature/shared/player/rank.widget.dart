@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../auth/player.model.dart';
-
 class RankWidget extends ConsumerWidget {
-  final PlayerModel playerInfo;
-  const RankWidget({required this.playerInfo, super.key});
+  final double left;
+  final int? rank;
+  const RankWidget({
+    required this.left,
+    this.rank,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Positioned(
       bottom: 16,
-      left: 86,
+      left: left - 16,
       child: Container(
         height: 30,
         width: 30,
@@ -30,7 +33,7 @@ class RankWidget extends ConsumerWidget {
             ),
           ],
         ),
-        child: Center(child: Text(playerInfo.rank.toString())),
+        child: Center(child: Text(rank != null ? rank.toString() : '')),
       ),
     );
   }

@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../auth/player.model.dart';
-
 class LevelWidget extends ConsumerWidget {
-  final PlayerModel playerInfo;
-  const LevelWidget({required this.playerInfo, super.key});
+  final int level;
+  final double width;
+  final double left;
+  const LevelWidget({
+    required this.level,
+    required this.width,
+    required this.left,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Positioned(
-      left: 110,
+      left: left + 10,
       child: Column(
         children: [
           Container(
-            height: 46,
-            width: 46,
+            height: width,
+            width: width,
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 92, 92, 92),
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(width / 2),
               border: Border.all(
                 color: Colors.grey,
                 width: 2,
@@ -34,27 +39,31 @@ class LevelWidget extends ConsumerWidget {
             child: Stack(
               children: [
                 Positioned(
-                  top: 6,
+                  top: width / 8,
                   child: SizedBox(
-                    width: 40,
+                    width: width - 6,
                     child: Center(
                       child: Text(
-                        playerInfo.level.toString(),
+                        level.toString(),
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: width / 3,
+                            ),
                       ),
                     ),
                   ),
                 ),
                 Positioned(
-                  top: 26,
-                  left: 12,
-                  child: Text(
-                    'LVL',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelSmall
-                        ?.copyWith(color: Colors.white, fontSize: 10),
+                  top: (width / 2),
+                  left: -1,
+                  width: width,
+                  child: Center(
+                    child: Text(
+                      'LVL',
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: Colors.white, fontSize: width / 4.6),
+                    ),
                   ),
                 )
               ],

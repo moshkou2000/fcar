@@ -28,7 +28,8 @@ class PlayerController extends BaseController<PlayerModel?> {
   void navigateToAbout() {
     if (state != null) {
       Navigation.navigateTo(NavigationRoute.aboutRoute,
-          arguments: AboutArgument(title: 'About Title', playerInfo: state!));
+          arguments:
+              AboutArgument(title: state!.displayname, playerInfo: state!));
     }
   }
 }
