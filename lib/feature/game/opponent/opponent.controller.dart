@@ -2,32 +2,32 @@ import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/base.controller.dart';
-import '../../auth/player.model.dart';
 import '../../shared/dialog/dialog.dart';
+import 'opponent.model.dart';
 import 'opponent.repository.dart';
 
 final opponentController =
-    AutoDisposeNotifierProvider<PlayerController, PlayerModel?>(() {
-  return PlayerController();
+    AutoDisposeNotifierProvider<OpponentController, OpponentModel?>(() {
+  return OpponentController();
 });
 
-class PlayerController extends BaseController<PlayerModel?> {
+class OpponentController extends BaseController<OpponentModel?> {
   late final OpponentRepository _opponentRepository;
 
   @override
-  PlayerModel? build() {
+  OpponentModel? build() {
     ref.onDispose(() {});
     _opponentRepository = ref.read(opponentRepository);
     return null;
   }
 
   Future<void> onPressedSearch({
-    String? username,
     String? category,
     String? group,
+    String? username,
   }) async {
     try {
-      await _getOpponent(
+      await getOpponent(
         category: category,
         group: group,
         username: username,
@@ -43,7 +43,7 @@ class PlayerController extends BaseController<PlayerModel?> {
     _opponentRepository.cancelGetOpponent();
   }
 
-  Future<void> _getOpponent({
+  Future<void> getOpponent({
     String? category,
     String? group,
     String? username,

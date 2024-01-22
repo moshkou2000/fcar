@@ -5,19 +5,6 @@
 - **A** Architecture
 - **R** Riverpod
 
-## App Name
-
-By default, when a flutter app gets installed, the app name on the launcher is your Flutter project name.
-To change that to your desired application name on Android need to change AndroidManifest.xml,
-and for iOS needs to change Info.plist respectively.
-We may want to update the app name for web & desktop as well.
-
-Here is [rename_app package](https://pub.dev/packages/rename_app) that makes life easy. Instead of updating the app name in the respective files,
-just run the command.
-
-Here is the command to change the app name for the all platforms:
-`flutter pub run rename_app:main all="App Name"`
-
 ## Getting Started
 
 This project is a starting point for a Flutter application.
@@ -31,46 +18,55 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+## App Name
+
+By default, when a flutter app gets installed, the app name on the launcher is your Flutter project name.
+To change that to your desired application name on Android need to change AndroidManifest.xml,
+and for iOS needs to change Info.plist respectively.
+We may want to update the app name for web & desktop as well.
+
+Here is [rename_app package](https://pub.dev/packages/rename_app) that makes life easy. Instead of updating the app name in the respective files,
+just run the command.
+
+Here is the command to change the app name for the all platforms:
+`flutter pub run rename_app:main all="App Name"`
+
 ## Target Platforms
 
-- mobile: Android & iOS
+- mobile:` Android` & `iOS`
 
 ## Target OS version
 
-- Android: 21 - 30
-- iOS: 12.1
+- Android: `24` - `33`
+- iOS: `12.1`
+
+## Enironment (env)
+
+- **dev**: development (debug)
+- **uat**: QA
+- **prod**: production (Play Store)
 
 ## Riverpod
 
-service & repository -> controller -> view & widget
-
-https://docs-v2.riverpod.dev/docs/getting_started
+Learn the [Riverpod](https://riverpod.dev/).
 
 ## Generate Objectbox Database
 
-### A
+Run the `build_runner` to generate `objectbox.g.dart`. You may need to do `flutter clean` & `flutter pub get` before run the `build_runner`. Do one of the following:
 
-1. flutter clean
-2. flutter pub get
+- `flutter pub run build_runner build --delete-conflicting-outputs`
+- `flutter packages pub run build_runner build --delete-conflicting-outputs`
 
-### B
+Generated databsae `objectbox.g.dart` might contains errors regardless of your **lints** in the `analysis_options.yaml`.
 
-1. flutter pub run build_runner build --delete-conflicting-outputs
-2. flutter packages pub run build_runner build --delete-conflicting-outputs
+#### References
+- [objectbox](https://docs.objectbox.io/)
+- [sync objectbox](https://sync.objectbox.io/sync-client)
 
-To generate Objectbox database do:
-**A** then **B1** or **B2**
+#### Update the existing database carefully
+- [Resolving Meta Model Conflicts](https://docs.objectbox.io/advanced/meta-model-ids-and-uids#resolving-meta-model-conflicts)
+- [DbSchemaException: incoming ID does not match existing UID](https://docs.objectbox.io/troubleshooting#dbschemaexception-incoming-id-does-not-match-existing-uid)
 
-- It will generate `objectbox.g.dart` that `objectbox.g.dart` has some errors in the file.
-- To resolve the issue, add `// ignore_for_file: camel_case_types, depend_on_referenced_packages, avoid_classes_with_only_static_members` to top of the file.
-
-https://docs.objectbox.io/
-
-https://sync.objectbox.io/sync-client
-
-[Resolving Meta Model Conflicts](https://docs.objectbox.io/advanced/meta-model-ids-and-uids#resolving-meta-model-conflicts)
-
-[DbSchemaException: incoming ID does not match existing UID](https://docs.objectbox.io/troubleshooting#dbschemaexception-incoming-id-does-not-match-existing-uid)
 
 ## Usefull Tools `vscode`
 
@@ -78,10 +74,6 @@ https://sync.objectbox.io/sync-client
 - GitLenze
 - ESLint
 - Dart Data Class Generator
-
-## Usefull CLI
-
-- flutter screenshot: It will take screenshot and save it in the root
 
 ## Usefull Links
 
@@ -95,13 +87,40 @@ https://sync.objectbox.io/sync-client
 - [Badges package](https://pub.dev/packages/badges) Use the **badges.Badge** widget instead of the **Badge** widget. The same for all the classes from this package.
 - [Compatibility Matrix `Java` `Gradle` `Kotlin`](https://docs.gradle.org/current/userguide/compatibility.html)
 
+## Usefull CLI
+
+- Take screenshot. It will take screenshot and save it in the root
+  - flutter screenshot
+
+- The size analysis tool is invoked by passing the --analyze-size flag when building. It will generate a *-code-size-analysis_*.json file for more detailed analysis in DevTools. You may need to set `--target-platform` for example `--target-platform=android-arm64`
+
+  - flutter build apk -t lib/main_dev.dart --flavor=dev --analyze-size
+  - flutter build appbundle lib/main_dev.dart --flavor=dev --analyze-size
+  - flutter build ios lib/main_dev.dart --flavor=dev --analyze-size
+  - flutter build linux lib/main_dev.dart --flavor=dev --analyze-size
+  - flutter build macos lib/main_dev.dart --flavor=dev --analyze-size
+  - flutter build windows lib/main_dev.dart --flavor=dev --analyze-size
+
+- Deeper analysis in DevTools. Select Open app size tool and uploading the *-code-size-analysis_*.json file.
+  - `flutter pub global run devtools`
+
+- Activate a flutter package
+  - `flutter pub global activate devtools`
+
+
 ## How to run
+#### Run app [in `dev` environment]
+- `flutter run -t lib/main_dev.dart --flavor=dev --dart-define=ENVDEFINE_API_KEY=theValue`
+#### Run app in debug mode [in `dev` environment] (Picks up debug signing config)
+- `flutter run -t lib/main_dev.dart --debug --flavor=dev --dart-define=ENVDEFINE_API_KEY=theValue`
+#### Run app in release mode [in `dev` environment] (Picks up release signing config)
+- `flutter run -t lib/main_dev.dart --release --flavor=dev --dart-define=ENVDEFINE_API_KEY=theValue`
 
-- **Development**:
-
-```plaintext
-flutter run --flavor dev -t lib/main_dev.dart --dart-define=ENVDEFINE_AMPLITUDE_API_KEY=theValue
-```
+## How to build
+#### Create appBundle for Android platform. Runs in release mode by default. [in `dev` environment]
+- `flutter build appbundle -t lib/main_dev.dart --flavor=dev --split-debug-info --dart-define=ENVDEFINE_API_KEY=theValue`
+#### Create APK for dev flavor. Runs in release mode by default. [in `dev` environment]
+- `flutter build apk -t lib/main_dev.dart --flavor=dev --split-debug-info --dart-define=ENVDEFINE_API_KEY=theValue`
 
 ## Coding
 

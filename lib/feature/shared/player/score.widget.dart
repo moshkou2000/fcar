@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../auth/player.model.dart';
-
 class ScoreWidget extends ConsumerWidget {
-  final PlayerModel playerInfo;
-  const ScoreWidget({required this.playerInfo, super.key});
+  final int score;
+  final double width;
+  const ScoreWidget({
+    required this.score,
+    required this.width,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
+    final radius = width / 2;
+    final w = width + 8;
+    return Positioned(
+      top: 0,
+      left: 0,
+      height: w,
+      width: w,
       child: Container(
-        height: 108,
-        width: 108,
+        height: w,
+        width: w,
         decoration: BoxDecoration(
           color: Colors.black38,
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(radius),
           boxShadow: const [
             BoxShadow(
               blurRadius: 4,
@@ -25,16 +34,16 @@ class ScoreWidget extends ConsumerWidget {
           ],
         ),
         child: SizedBox(
-          width: 100,
-          height: 100,
+          width: width,
+          height: width,
           child: Transform.rotate(
             angle: 123.4,
             child: CircularProgressIndicator(
               strokeCap: StrokeCap.round,
               // strokeAlign: -0.4,
-              strokeWidth: 4,
+              strokeWidth: 2,
               backgroundColor: Colors.grey,
-              value: playerInfo.score.toDouble() / 10000,
+              value: score.toDouble() / 10000,
               valueColor: const AlwaysStoppedAnimation<Color>(Colors.amber),
             ),
           ),

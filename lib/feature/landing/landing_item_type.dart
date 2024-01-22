@@ -1,5 +1,5 @@
 enum LandingItemType {
-  about,
+  action,
   home,
   league,
   record,

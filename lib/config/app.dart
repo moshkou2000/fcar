@@ -60,12 +60,16 @@ class App {
   /// call before [runApp]
   static Future<void> setup({required AppEnvironment env}) async {
     FlutterNativeSplash.preserve(widgetsBinding: WidgetsBinding.instance);
-    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+    /// setup the Device Orientation
+    ///
+    await deviceOrientation();
 
     /// setup the System Overlay
     ///
-    // themeInitSystemUIOverlayStyle();
-    hideOverlays();
+    themeInitSystemUIOverlayStyle();
+    systemOverlaysChangeCallback();
+    await hideOverlays();
 
     /// setup ErrorTracking
     ///
