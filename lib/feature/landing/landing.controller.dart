@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/base.controller.dart';
 import '../../core/service/navigation/navigation_route.dart';
-import '../game/game.argument.dart';
+import '../game/opponent/opponent.argument.dart';
 import 'landing_item_type.dart';
 
 final landingController =
@@ -26,8 +26,8 @@ class LandingController extends BaseController<bool> {
   LandingItemType get currentItem => ref.read(_itemController.notifier).state;
 
   void onTapFloatingActionButton() {
-    Navigation.navigateTo(NavigationRoute.gameRoute,
-        arguments: GameArgument(title: 'Game Title'));
+    Navigation.navigateTo(NavigationRoute.opponentRoute,
+        arguments: OpponentArgument(title: 'Game Title'));
   }
 
   void onTapBottomNavigationBar(LandingItemType item) {

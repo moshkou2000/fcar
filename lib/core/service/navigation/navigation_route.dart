@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../feature/about/about.argument.dart';
+import '../../../feature/about/about.view.dart';
 import '../../../feature/auth/login/login.view.dart';
 import '../../../feature/auth/register/register.view.dart';
 import '../../../feature/ecommerce/cart/cart.view.dart';
@@ -10,6 +12,8 @@ import '../../../feature/ecommerce/product/product.argument.dart';
 import '../../../feature/ecommerce/product/product.view.dart';
 import '../../../feature/game/game.argument.dart';
 import '../../../feature/game/game.view.dart';
+import '../../../feature/game/opponent/opponent.argument.dart';
+import '../../../feature/game/opponent/opponent.view.dart';
 import '../../../feature/home/home.argument.dart';
 import '../../../feature/home/home.view.dart';
 import '../../../feature/landing/landing.view.dart';
@@ -20,6 +24,7 @@ import '../../../feature/splashscreen/splashscreen.view.dart';
 @immutable
 abstract final class NavigationRoute {
 // route path
+  static const String aboutRoute = '/about';
   static const String cartRoute = '/cart';
   static const String categoryRoute = '/category';
   static const String ecommerceRoute = '/ecommerce';
@@ -28,6 +33,7 @@ abstract final class NavigationRoute {
   static const String homeRoute = '/home';
   static const String landingRoute = '/landing';
   static const String loginRoute = '/login';
+  static const String opponentRoute = '/opponent';
   static const String photoPreviewRoute = '/photoViewer';
   static const String previewRoute = '/preview';
   static const String productRoute = '/product';
@@ -39,6 +45,9 @@ abstract final class NavigationRoute {
   /// call in [MaterialApp.onGenerateRoute]
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case aboutRoute:
+        return _pageRoute(
+            AboutView(arguments: settings.arguments as AboutArgument));
       case cartRoute:
         return _pageRoute(const CartView());
       case categoryRoute:
@@ -56,6 +65,9 @@ abstract final class NavigationRoute {
         return _pageRoute(const LandingView());
       case loginRoute:
         return _pageRoute(const LoginView());
+      case opponentRoute:
+        return _pageRoute(
+            OpponentView(arguments: settings.arguments as OpponentArgument));
       case previewRoute:
         return _pageRoute(
             ProductView(arguments: settings.arguments as ProductArgument));

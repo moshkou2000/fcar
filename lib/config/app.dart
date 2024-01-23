@@ -1,9 +1,11 @@
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:fcar_lib/config/enum/app_env.enum.dart';
+import 'package:fcar_lib/core/service/auth/remote/oauth2.dart';
+import 'package:fcar_lib/core/service/geolocator/geolocator.module.dart';
 import 'package:fcar_lib/core/service/localization/localization.provider.dart';
-
+import 'package:fcar_lib/core/service/permission/permissions.module.dart';
+import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'flavor.dart';
 import 'theme/theme.provider.dart';
@@ -57,18 +59,16 @@ class App {
   /// call before [runApp]
   static Future<void> setup({required AppEnvironment env}) async {
     FlutterNativeSplash.preserve(widgetsBinding: WidgetsBinding.instance);
-    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+    /// setup the Device Orientation
+    ///
+    await deviceOrientation();
 
     /// setup the System Overlay
     ///
-    // themeInitSystemUIOverlayStyle();
-    hideOverlays();
-
-    /// setup Analytics
-    ///
-    // DatadogAnalytics.setup(env: env);
-    // FirebaseAnalytics.setup(env: env);
-    // SentryAnalytics.setup(env: env);
+    themeInitSystemUIOverlayStyle();
+    systemOverlaysChangeCallback();
+    await hideOverlays();
 
     /// setup ErrorTracking
     ///
@@ -82,14 +82,37 @@ class App {
     // FirebasePerformanceMonitoring.setup(env: env);
     // SentryPerformanceMonitoring.setup(env: env);
 
+    /// setup Analytics
+    ///
+    // DatadogAnalytics.setup(env: env);
+    // FirebaseAnalytics.setup(env: env);
+    // SentryAnalytics.setup(env: env);
+
     /// setup RemoteConfig
     ///
-    // FirebaseRemoteConfig.setup(env: AppEnvironment.dev);zzz
+    // FirebaseRemoteConfig.setup(env: AppEnvironment.dev);
+
+    /// setup Permissions
+    ///
+    Permissions.request(
+      Permission.location,
+      callIfDenied: () {
+        logger.info('Permission.location Denied.');
+      },
+      callIfGranted: () {
+        logger.info('Permission.location Granted.');
+      },
+      callIfPermanentlyDenied: () async {
+        logger.info('Permission.location Permanently Denied.');
+        final isOpened = await Geolocator.openLocationSettings();
+        if (!isOpened) await Geolocator.openAppSettings();
+      },
+    );
 
     /// setup Notification
     ///
-    // RemoteNotification.setup();zzz
-    // LocalNotification.setup();zzz
+    // RemoteNotification.setup();
+    // LocalNotification.setup();
 
     /// setup Database
     ///
@@ -99,6 +122,50 @@ class App {
     //     DatabaseName.networkCache,
     //   ]
     // });
+
+    /*
+      Terms and Conditions: url
+      Privacy Policy: url
+
+      Name: timesheet-mobile-dev
+      Display name: Timesheet Mobile (dev)
+      Bundle ID: 
+      Redirect URI: <Bundle ID>://oauth2/client
+      Tenant ID: 
+      Application (client) ID: 
+      Client identifier: 
+      Client secret: <optional>
+
+      > Microsoft Authorization endpoint
+      https://login.microsoftonline.com
+
+      > OAuth 2.0 authorization endpoint (v2)
+      https://login.microsoftonline.com/organizations/oauth2/v2.0/authorize
+      https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/authorize
+
+      > OAuth 2.0 token endpoint (v2)
+      https://login.microsoftonline.com/organizations/oauth2/v2.0/token
+      https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token
+
+      > Microsoft Graph API endpoint
+      https://graph.microsoft.com
+    */
+
+    /// setup Authorization
+    ///
+    /// Microsoft Authorization (Oauth2)
+    Oauth2.setup(
+      authorizationEndpoint: Uri.parse(''),
+      tokenEndpoint: Uri.parse(''),
+      redirectUrl: Uri.parse(''),
+      identifier: '',
+      secret: null,
+      redirect: (Uri url) async {},
+      listen: (Uri url) async {
+        return Uri();
+      },
+      jsonCredentials: '',
+    );
 
     await Flavor.setup(env: env);
     await LocalizationProvider.setup();

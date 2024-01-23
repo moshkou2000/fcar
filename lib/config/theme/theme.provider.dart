@@ -150,11 +150,26 @@ void themeInitSystemUIOverlayStyle({Color? navigationBarColor}) {
 /// To remove the blank area, add the following attribute in the resources style,
 /// that can be found at android/app/src/main/res/values/styles.
 /// <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
-void hideOverlays() {
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: [
-    SystemUiOverlay.bottom,
+Future<void> hideOverlays() async {
+  /// hide bottom navigation
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+    // SystemUiOverlay.bottom,
     SystemUiOverlay.top,
   ]);
+
+  /// hide both statusbar & bottom navigation
+  // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
+  //     overlays: [
+  //       // SystemUiOverlay.bottom,
+  //       SystemUiOverlay.top,
+  //     ]);
+}
+
+Future<void> systemOverlaysChangeCallback() async {
+  SystemChrome.setSystemUIChangeCallback((systemOverlaysAreVisible) async {
+    await Future.delayed(const Duration(seconds: 1));
+    await hideOverlays();
+  });
 }
 
 /// System Overlay visibility [show]
@@ -164,4 +179,9 @@ void showOverlays() {
     SystemUiOverlay.bottom,
     SystemUiOverlay.top,
   ]);
+}
+
+/// Set Device Orientation [portraitUp]
+Future<void> deviceOrientation() async {
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }

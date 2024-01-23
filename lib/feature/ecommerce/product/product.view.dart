@@ -139,7 +139,7 @@ class _ProductViewState extends ConsumerState<ProductView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * .35,
+          height: MediaQuery.of(context).size.height * 0.35,
           color: Colors.grey,
           padding: const EdgeInsets.symmetric(vertical: 18),
           child: Column(
