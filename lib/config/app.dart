@@ -5,7 +5,6 @@ import 'package:fcar_lib/core/service/localization/localization.provider.dart';
 import 'package:fcar_lib/core/service/permission/permissions.module.dart';
 import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'flavor.dart';
@@ -105,8 +104,8 @@ class App {
       },
       callIfPermanentlyDenied: () async {
         logger.info('Permission.location Permanently Denied.');
-        final isOpened = await Geolocators.geolocator.openLocationSettings();
-        if (!isOpened) await Geolocators.geolocator.openAppSettings();
+        final isOpened = await Geolocator.openLocationSettings();
+        if (!isOpened) await Geolocator.openAppSettings();
       },
     );
 
