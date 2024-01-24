@@ -34,3 +34,16 @@ doc/api/
 .vscode\*
 !.vscode\dart.code-snippets
 !.vscode\launch.json
+
+.flutter-plugins
+.flutter-plugins-dependencies
+
+linux\flutter\generated_plugins.cmake
+linux\flutter\generated_plugin_registrant.h
+linux\flutter\generated_plugin_registrant.cc
+
+windows\flutter\generated_plugins.cmake
+windows\flutter\generated_plugin_registrant.cc
+windows\flutter\generated_plugin_registrant.h
+
+macos\Flutter\GeneratedPluginRegistrant.swift
