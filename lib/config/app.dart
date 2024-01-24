@@ -1,8 +1,5 @@
 import 'package:fcar_lib/config/enum/app_env.enum.dart';
-import 'package:fcar_lib/core/service/auth/remote/oauth2.dart';
-import 'package:fcar_lib/core/service/geolocator/geolocator.module.dart';
-import 'package:fcar_lib/core/service/localization/localization.provider.dart';
-import 'package:fcar_lib/core/service/permission/permissions.module.dart';
+import 'package:fcar_lib/core/core.module.dart';
 import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -53,6 +50,11 @@ class App {
   /// This is where you can initialize the resources needed by your app while
   /// the splash screen is displayed.
   static Future<void> init() async {
+    /// init LocalAuth
+    ///
+    /// Device biometrics (face, fingerprint)
+    // LocalAuth.init();
+
     // do add the your code here
   }
 
@@ -151,20 +153,15 @@ class App {
       https://graph.microsoft.com
     */
 
-    /// setup Authorization
+    /// setup RemoteAuth
     ///
     /// Microsoft Authorization (Oauth2)
-    Oauth2.setup(
-      authorizationEndpoint: Uri.parse(''),
-      tokenEndpoint: Uri.parse(''),
-      redirectUrl: Uri.parse(''),
-      identifier: '',
-      secret: null,
-      redirect: (Uri url) async {},
-      listen: (Uri url) async {
-        return Uri();
-      },
-      jsonCredentials: '',
+    RemoteAuth.setup(
+      clientId: '<Application ID>',
+      redirectUrl: '<<Bundle ID>://oauth2/client>',
+      authorizationEndpoint: '<OAuth 2.0 authorization endpoint>',
+      tokenEndpoint: '<OAuth 2.0 token endpoint>',
+      scopes: ['openid', 'profile', 'email', 'offline_access'],
     );
 
     await Flavor.setup(env: env);
