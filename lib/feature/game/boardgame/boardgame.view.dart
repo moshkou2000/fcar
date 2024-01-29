@@ -1,29 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../auth/player.model.dart';
 import '../../shared/dialog/dialog.dart';
 import '../../shared/shared.module.dart';
 import 'boardgame.argument.dart';
 import 'boardgame.controller.dart';
+import 'widgets/question.model.dart';
 
 class BoardgameView extends ConsumerStatefulWidget {
+  final BoardgameArgument arguments;
   const BoardgameView({required this.arguments, super.key});
 
-  final BoardgameArgument arguments;
-
   @override
-  ConsumerState<BoardgameView> createState() => _OpponentPageState();
+  ConsumerState<BoardgameView> createState() => _OpponentViewState();
 }
 
-class _OpponentPageState extends ConsumerState<BoardgameView> {
+class _OpponentViewState extends ConsumerState<BoardgameView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final backgroundColor = const Color.fromARGB(255, 11, 122, 145);
 
   @override
+  void initState() {
+    Future.microtask(() => ref.read(boardgameController.notifier).init());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final info = ref.watch(boardgameController);
-    if (info == null) return const SizedBox();
+    final boardgameData = ref.watch(boardgameController);
+    if (boardgameData == null) return const SizedBox();
 
     return PopScope(
       canPop: false,
@@ -56,8 +61,10 @@ class _OpponentPageState extends ConsumerState<BoardgameView> {
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
         backgroundColor: backgroundColor,
-        appBar: _buildAppBar(title: 'You 0 - 0 Opponent'),
-        body: _buildBody(info: info),
+        appBar: _buildAppBar(
+            title:
+                'You ${boardgameData.playerScore} - ${boardgameData.opponentScore} Opponent'),
+        body: _buildBody(question: boardgameData.question),
       ),
     );
   }
@@ -75,7 +82,7 @@ class _OpponentPageState extends ConsumerState<BoardgameView> {
     );
   }
 
-  Widget _buildBody({PlayerModel? info}) {
+  Widget _buildBody({QuestionModel? question}) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return SingleChildScrollView(

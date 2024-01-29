@@ -1,7 +1,7 @@
+import 'package:fcar_lib/config/extension/string.extension.dart';
 import 'package:fcar_lib/core/service/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fcar_lib/config/extension/string.extension.dart';
 
 import '../../config/constant/asset.constant.dart';
 import '../../core/service/localization/localization.dart';
@@ -15,10 +15,10 @@ class RecordView extends StatefulWidget {
   final RecordArgument arguments;
 
   @override
-  State<RecordView> createState() => _RecordPageState();
+  State<RecordView> createState() => _RecordViewState();
 }
 
-class _RecordPageState extends State<RecordView> {
+class _RecordViewState extends State<RecordView> {
   @override
   Widget build(BuildContext context) {
     return EmptyView(

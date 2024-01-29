@@ -11,10 +11,10 @@ class LeagueView extends StatefulWidget {
   final LeagueArgument arguments;
 
   @override
-  State<LeagueView> createState() => _LeaguePageState();
+  State<LeagueView> createState() => _LeagueViewState();
 }
 
-class _LeaguePageState extends State<LeagueView> {
+class _LeagueViewState extends State<LeagueView> {
   double _sliderValue = 20;
 
   @override

@@ -1,0 +1,34 @@
+{
+    "data": {
+        "id": "id-q-1-xxxx-xxxx",
+        "title": "What is your favorite Gond?",
+        "type": "text",
+        "url": "",
+        "options": [
+            {
+                "id": "id-op-1-xxxx-xxxx",
+                "title": "Golden Gond",
+                "type": "text",
+                "url": ""
+            },
+            {
+                "id": "id-op-2-xxxx-xxxx",
+                "title": "Silver Gond",
+                "type": "text",
+                "url": ""
+            },
+            {
+                "id": "id-op-3-xxxx-xxxx",
+                "title": "Gondool",
+                "type": "text",
+                "url": ""
+            },
+            {
+                "id": "id-op-4-xxxx-xxxx",
+                "title": "Doodool tala",
+                "type": "text",
+                "url": ""
+            }
+        ]
+    }
+}

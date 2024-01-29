@@ -50,7 +50,7 @@ class OpponentRepository {
     return Deserialize<OpponentModel>(
       json,
       requiredFields: ['username', 'displayname', 'avatar', 'score', 'rank'],
-      fromJson: (e, {callback}) => OpponentModel.fromMap(e),
+      fromMap: (e, {callback}) => OpponentModel.fromMap(e),
       callback: (missingKeys) => throw Exception(missingKeys),
     ).item; // item | items
   }

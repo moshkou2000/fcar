@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 @immutable
@@ -12,7 +14,7 @@ class CategoryModel {
     required this.selections,
   });
 
-  factory CategoryModel.fromJson(Map<String, dynamic> map) {
+  factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
       title: map['title'] as String,
       imageUrl: map['imageUrl'] as String,
@@ -23,4 +25,7 @@ class CategoryModel {
           : [],
     );
   }
+
+  factory CategoryModel.fromJson(String source) =>
+      CategoryModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

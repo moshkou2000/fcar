@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 @immutable
@@ -20,7 +22,7 @@ class ProductModel {
     this.sizes,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> map) {
+  factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
       name: map['name'] as String,
       imageUrls: map['imageUrls'] is List<dynamic>
@@ -38,4 +40,7 @@ class ProductModel {
       productType: map['productType'] as String,
     );
   }
+
+  factory ProductModel.fromJson(String source) =>
+      ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

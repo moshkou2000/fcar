@@ -9,10 +9,10 @@ class HomeView extends ConsumerStatefulWidget {
   const HomeView({required this.arguments, super.key});
 
   @override
-  ConsumerState<HomeView> createState() => _HomePageState();
+  ConsumerState<HomeView> createState() => _HomeViewState();
 }
 
-class _HomePageState extends ConsumerState<HomeView> {
+class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Container(

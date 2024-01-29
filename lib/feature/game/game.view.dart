@@ -8,10 +8,10 @@ class GameView extends StatefulWidget {
   final GameArgument arguments;
 
   @override
-  State<GameView> createState() => _LeaguePageState();
+  State<GameView> createState() => _LeagueViewState();
 }
 
-class _LeaguePageState extends State<GameView> {
+class _LeagueViewState extends State<GameView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final backgroundColor = const Color.fromARGB(255, 11, 122, 145);
 
