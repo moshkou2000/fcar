@@ -79,29 +79,31 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
               ),
               child: Form(
                 key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Container(
-                      height: 20,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      decoration: ShapeDecoration(
-                        color: Colors.amber,
-                        shape: CurvedAppbarShape(),
+                child: AutofillGroup(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        height: 20,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        decoration: ShapeDecoration(
+                          color: Colors.amber,
+                          shape: CurvedAppbarShape(),
+                        ),
                       ),
-                    ),
-                    _buildHeading(),
-                    SizedBox(height: screenHeight * .09),
-                    _buildUsernameField(),
-                    _buildPasswordField(),
-                    const SizedBox(height: 24),
-                    _buildSignInButton(),
-                    SizedBox(height: screenHeight * .09),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: _buildSignUpButton(),
-                    ),
-                  ],
+                      _buildHeading(),
+                      SizedBox(height: screenHeight * .09),
+                      _buildUsernameField(),
+                      _buildPasswordField(),
+                      const SizedBox(height: 24),
+                      _buildSignInButton(),
+                      SizedBox(height: screenHeight * .09),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: _buildSignUpButton(),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -147,6 +149,7 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
           keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          autofillHints: [AutofillHints.email],
           onChanged: (value) => setState(() => _username = value),
           validator: (value) =>
               value?.isNotEmpty == true && value?.isValidEmail != true
@@ -170,6 +173,7 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
               obscureText: true,
               textInputAction: TextInputAction.next,
               autovalidateMode: AutovalidateMode.onUserInteraction,
+              autofillHints: [AutofillHints.password],
               onChanged: (value) => setState(() => _password = value),
               validator: (value) =>
                   value?.isNotEmpty == true && value!.isValidPassword != true
