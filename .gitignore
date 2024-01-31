@@ -35,6 +35,8 @@ doc/api/
 !.vscode/dart.code-snippets
 !.vscode/launch.json
 
+.idea/*
+
 .flutter-plugins
 .flutter-plugins-dependencies
 

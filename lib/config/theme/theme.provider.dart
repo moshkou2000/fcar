@@ -13,7 +13,7 @@ import 'theme_font.dart';
 /// Toggle the Theme mode
 /// set -> ref.read(themeMode.notifier).state = ThemeMode.light;
 /// get -> final mode = ref.watch(themeMode);
-final themeMode = StateProvider<ThemeMode>((ref) => ThemeMode.light);
+final themeModeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.light);
 
 ThemeData get darkThemeData => ThemeData(brightness: Brightness.dark);
 ThemeData get lightThemeData => ThemeData(

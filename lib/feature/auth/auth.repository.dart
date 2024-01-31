@@ -19,6 +19,11 @@ class AuthRepository {
     // d.loadOne(query: d.box.query(AuthModel_.id.notNull()));
   }
 
+  Future<AuthModel?> getUser() async {
+    final result = await keystore.read(key: KeystoreKey.user);
+    return result != null ? AuthModel.fromJson(result) : null;
+  }
+
   Future<AuthModel?> login({
     required String username,
     required String password,
