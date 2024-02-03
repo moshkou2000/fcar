@@ -128,7 +128,7 @@
       "\tfinal result = Deserialize<${1:ReturnType}>(",
       "\t  json,",
       "\t  requiredFields: ['field1'],",
-      "\t  fromJson: (e, {callback}) => ${1:ReturnType}.fromMap(e),",
+      "\t  fromMap: (e, {callback}) => ${1:ReturnType}.fromMap(e),",
       "\t  callback: (missingKeys) => throw Exception(missingKeys),",
       "\t).item; // item | items",
       "\treturn result;",

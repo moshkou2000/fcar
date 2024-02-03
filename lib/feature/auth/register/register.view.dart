@@ -1,8 +1,8 @@
+import 'package:fcar_lib/config/extension/string.extension.dart';
 import 'package:fcar_lib/core/service/navigation/navigation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fcar_lib/config/extension/string.extension.dart';
 
 import '../../../config/constant/env.constant.dart';
 import '../../../config/theme/theme_color.dart';

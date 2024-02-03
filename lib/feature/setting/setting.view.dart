@@ -11,10 +11,10 @@ class SettingView extends StatefulWidget {
   final SettingArgument arguments;
 
   @override
-  State<SettingView> createState() => _SettingPageState();
+  State<SettingView> createState() => _SettingViewState();
 }
 
-class _SettingPageState extends State<SettingView> {
+class _SettingViewState extends State<SettingView> {
   double _sliderValue = 20;
 
   @override

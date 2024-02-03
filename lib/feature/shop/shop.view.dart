@@ -11,10 +11,10 @@ class ShopView extends StatefulWidget {
   final ShopArgument arguments;
 
   @override
-  State<ShopView> createState() => _ShopPageState();
+  State<ShopView> createState() => _ShopViewState();
 }
 
-class _ShopPageState extends State<ShopView> {
+class _ShopViewState extends State<ShopView> {
   double _sliderValue = 20;
 
   @override

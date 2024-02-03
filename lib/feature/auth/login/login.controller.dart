@@ -6,11 +6,11 @@ import '../../../core/service/navigation/navigation_route.dart';
 import '../../shared/shared.module.dart';
 import '../auth.repository.dart';
 
-final loginController = AutoDisposeNotifierProvider<AuthController, bool>(() {
-  return AuthController();
+final loginController = AutoDisposeNotifierProvider<LoginController, bool>(() {
+  return LoginController();
 });
 
-class AuthController extends AutoDisposeNotifier<bool> {
+class LoginController extends AutoDisposeNotifier<bool> {
   late final AuthRepository _authRepository;
   @override
   bool build() {

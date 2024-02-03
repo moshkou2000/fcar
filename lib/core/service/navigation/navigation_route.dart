@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../feature/about/about.argument.dart';
 import '../../../feature/about/about.view.dart';
@@ -19,7 +20,9 @@ import '../../../feature/home/home.view.dart';
 import '../../../feature/landing/landing.view.dart';
 import '../../../feature/record/record.argument.dart';
 import '../../../feature/record/record.view.dart';
-import '../../../feature/splashscreen/splashscreen.view.dart';
+
+final navigationProvider =
+    StateProvider<String>((ref) => NavigationRoute.loginRoute);
 
 @immutable
 abstract final class NavigationRoute {
@@ -39,7 +42,6 @@ abstract final class NavigationRoute {
   static const String productRoute = '/product';
   static const String recordRoute = '/record';
   static const String registerRoute = '/register';
-  static const String splashscreenRoute = '/splashscreen';
   static const String versionRoute = '/version';
 
   /// call in [MaterialApp.onGenerateRoute]
@@ -76,8 +78,6 @@ abstract final class NavigationRoute {
       case recordRoute:
         return _pageRoute(
             RecordView(arguments: settings.arguments as RecordArgument));
-      case splashscreenRoute:
-        return _pageRoute(const SplashscreenView());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

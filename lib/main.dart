@@ -1,37 +1,30 @@
-import 'package:fcar_lib/core/service/localization/localization.provider.dart';
+import 'dart:async';
+
+import 'package:fcar_lib/config/enum/app_env.enum.dart';
+import 'package:fcar_lib/core/service/monitoring/error_tracking/firebase_error_tracking.dart';
+import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fcar_lib/core/service/navigation/navigation.dart';
-import 'package:fcar_lib/core/service/monitoring/navigation_observer/sentry_navigator_observer.dart';
 
-import 'config/theme/theme.provider.dart';
-import 'core/service/navigation/navigation_route.dart';
+import 'app.dart';
+import 'app.provider.dart';
 
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+void main() {
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    AppProvider.errorHandling();
+    await AppProvider.setup(env: AppEnvironment.fromString(appFlavor));
+    runApp(const ProviderScope(child: App()));
+  }, (e, s) {
+    logger.error('runZonedGuarded', e: e, s: s);
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final mode = ref.watch(themeMode);
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: lightThemeData,
-      darkTheme: darkThemeData,
-      themeMode: mode,
-      navigatorKey: Navigation.navigationKey,
-      initialRoute: NavigationRoute.splashscreenRoute,
-      onGenerateRoute: NavigationRoute.generateRoute,
-      showSemanticsDebugger: false,
-      debugShowCheckedModeBanner: false,
-      navigatorObservers: [SentryNavigatorObservers()],
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: LocalizationProvider.supportedLocales,
+    // Use [ErrorTracking] which is used in App.setup
+    FirebaseErrorTracking.recordError(
+      e,
+      s,
+      fatal: true,
+      reason: 'runZonedGuarded',
     );
-  }
+  });
 }

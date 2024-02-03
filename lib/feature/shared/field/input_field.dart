@@ -24,6 +24,7 @@ TextFormField inputField({
   TextInputType? keyboardType,
   TextInputAction? textInputAction,
   FocusNode? focusNode,
+  Iterable<String>? autofillHints,
   bool autoFocus = false,
   bool obscureText = false,
   Color color = Colors.black,

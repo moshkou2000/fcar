@@ -69,7 +69,7 @@ android {
         multiDexEnabled true
 
         // TODO: get the auth redirect url from <Infra ID>
-        manifestPlaceholders = ['appAuthRedirectScheme': '<Bundle ID>://oauth2/client']
+        manifestPlaceholders += ['appAuthRedirectScheme': '<Bundle ID>://oauth2/client']
     }
 
     buildTypes {
@@ -81,10 +81,11 @@ android {
         release {
             // Build release required release signing config.
             // To make sure `flutter run --release` works, sign with the debug keys.
+            // TODO: use release
             // signingConfig signingConfigs.release
 
             // TODO: Add your own signing config for the release build.
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

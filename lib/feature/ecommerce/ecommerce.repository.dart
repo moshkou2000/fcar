@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:fcar_lib/core/datasource/network/deserialize.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fcar_lib/core/datasource/network/deserialize.dart';
 
 import 'model/category.model.dart';
 import 'model/order_item.model.dart';
@@ -19,7 +19,7 @@ class EcommerceRepository {
     final dynamic json = jsonDecode(mock);
     return Deserialize<CategoryModel>(
       json,
-      fromJson: (e, {callback}) => CategoryModel.fromJson(e),
+      fromMap: (e, {callback}) => CategoryModel.fromMap(e),
     ).items;
   }
 
@@ -31,7 +31,7 @@ class EcommerceRepository {
     final dynamic json = jsonDecode(mock);
     return Deserialize<ProductModel>(
       json,
-      fromJson: (e, {callback}) => ProductModel.fromJson(e),
+      fromMap: (e, {callback}) => ProductModel.fromMap(e),
     ).items;
   }
 
