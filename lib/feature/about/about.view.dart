@@ -12,10 +12,10 @@ class AboutView extends StatefulWidget {
   final AboutArgument arguments;
 
   @override
-  State<AboutView> createState() => _AboutPageState();
+  State<AboutView> createState() => _AboutViewState();
 }
 
-class _AboutPageState extends State<AboutView> {
+class _AboutViewState extends State<AboutView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final backgroundColor = const Color.fromARGB(255, 11, 122, 145);
 

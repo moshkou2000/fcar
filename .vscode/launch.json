@@ -9,7 +9,7 @@
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile",
-      "program": "lib/main_dev.dart",
+      "program": "lib/main.dart",
       "args": [
         "--cache-sksl",
         "--purge-persistent-cache",
@@ -28,7 +28,7 @@
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile",
-      "program": "lib/main_dev.dart",
+      "program": "lib/main.dart",
       "args": [
         "--cache-sksl",
         "--purge-persistent-cache",
@@ -47,7 +47,7 @@
       "request": "launch",
       "type": "dart",
       "flutterMode": "debug",
-      "program": "lib/main_dev.dart",
+      "program": "lib/main.dart",
       "args": [
         "--flavor",
         "Debug-Dev",
@@ -64,7 +64,7 @@
       "request": "launch",
       "type": "dart",
       "flutterMode": "debug",
-      "program": "lib/main_dev.dart",
+      "program": "lib/main.dart",
       "args": [
         "--flavor",
         "dev",

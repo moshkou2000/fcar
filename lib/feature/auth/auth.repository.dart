@@ -19,6 +19,11 @@ class AuthRepository {
     // d.loadOne(query: d.box.query(AuthModel_.id.notNull()));
   }
 
+  Future<AuthModel?> getUser() async {
+    final result = await keystore.read(key: KeystoreKey.user);
+    return result != null ? AuthModel.fromJson(result) : null;
+  }
+
   Future<AuthModel?> login({
     required String username,
     required String password,
@@ -34,7 +39,7 @@ class AuthRepository {
     final result = Deserialize<AuthModel>(
       json,
       requiredFields: ['token', 'refreshToken', 'username', 'displayname'],
-      fromJson: (e, {callback}) => AuthModel.fromMap(e),
+      fromMap: (e, {callback}) => AuthModel.fromMap(e),
       callback: (missingKeys) => throw Exception(missingKeys),
     ).item;
     return result;
@@ -62,7 +67,7 @@ class AuthRepository {
         'coin',
         'point',
       ],
-      fromJson: (e, {callback}) => PlayerModel.fromMap(e),
+      fromMap: (e, {callback}) => PlayerModel.fromMap(e),
       callback: (m) =>
           logger.error(m), // you may log in Analytics/ErrorTracking
     ).item;
@@ -79,7 +84,7 @@ class AuthRepository {
     final result = Deserialize<AuthModel>(
       json,
       requiredFields: ['token', 'refreshToken', 'username', 'displayname'],
-      fromJson: (e, {callback}) => AuthModel.fromMap(e),
+      fromMap: (e, {callback}) => AuthModel.fromMap(e),
       callback: (missingKeys) => throw Exception(missingKeys),
     ).item;
     return result;

@@ -19,10 +19,10 @@ class OpponentView extends ConsumerStatefulWidget {
   const OpponentView({required this.arguments, super.key});
 
   @override
-  ConsumerState<OpponentView> createState() => _OpponentPageState();
+  ConsumerState<OpponentView> createState() => _OpponentViewState();
 }
 
-class _OpponentPageState extends ConsumerState<OpponentView> {
+class _OpponentViewState extends ConsumerState<OpponentView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final backgroundColor = const Color.fromARGB(255, 11, 122, 145);
 

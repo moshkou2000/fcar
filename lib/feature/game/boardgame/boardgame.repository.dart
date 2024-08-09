@@ -5,50 +5,40 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/datasource/network/network.provider.dart';
-import '../../auth/player.model.dart';
+import '../../../core/datasource/network/network_url.constant.dart';
+import 'widgets/answer.model.dart';
+import 'widgets/question.model.dart';
 
 final boardgameRepository = Provider((ref) => BoardgameRepository());
 
 class BoardgameRepository {
-  // TODO: get level, location
-  //    from tocken in the backent.
-
-  final _cancelToken = network.newCancelToken;
-
-  void cancelGetOpponent() {
-    _cancelToken.cancel('User decline');
-  }
-
-  /// It will pick available player randomly
-  ///   if the username is not provided(null | empty).
-  ///
-  /// It will pick the General or random category
-  ///   if the category is not provided(null | empty).
-  ///
-  /// It will be one to one
-  ///   if the group is not provided(null | empty).
-  Future<PlayerModel?> getOpponent({
-    String? category,
-    String? group,
-    String? username,
-  }) async {
-    // final url = NetworkUrl.opponent;
-    // final queryParam = <String, dynamic>{
-    //   'group': group,
-    //   'category': category,
-    //   'username': username,
-    // };
+  /// There is single gameplay for each individual player.
+  /// Player is not able to have multiple gameplay at a same time.
+  Future<QuestionModel?> getQuestion() async {
+    // final url = NetworkUrl.question;
+    // final queryParam = <String, dynamic>{};
     // final json = await network.get(url,
     //     queryParam: queryParam, cancelToken: _cancelToken);
 
     // this is mock data
-    final dummy = await rootBundle.loadString('asset/mock/opponent.json');
+    final dummy = await rootBundle.loadString('asset/mock/question.json');
     final dynamic json = jsonDecode(dummy);
-
-    return Deserialize<PlayerModel>(
+    return Deserialize<QuestionModel>(
       json,
-      requiredFields: ['username', 'displayname', 'rank', 'avatar'],
-      fromJson: (e, {callback}) => PlayerModel.fromMap(e),
+      requiredFields: ['id', 'title', 'type', 'url', 'options'],
+      fromMap: (e, {callback}) => QuestionModel.fromMap(e),
+      callback: (missingKeys) => throw Exception(missingKeys),
+    ).item; // item | items
+  }
+
+  Future<AnswerModel?> postSelectedOption({required String id}) async {
+    final url = NetworkUrl.selectedOption;
+    final body = <String, dynamic>{'id': id};
+    final json = await network.post(url, body: body);
+    return Deserialize<AnswerModel>(
+      json,
+      requiredFields: ['playerAnswer', 'opponentAnswer'],
+      fromMap: (e, {callback}) => AnswerModel.fromMap(e),
       callback: (missingKeys) => throw Exception(missingKeys),
     ).item; // item | items
   }

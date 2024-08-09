@@ -19,7 +19,7 @@
 ///     queryParam: queryParam,
 ///     cancelToken: NetworkCancelToken.getABC,
 ///   );
-///   return NetworkResponse<ABCDto>(json, fromJson: ABCDto.fromJson).item;
+///   return NetworkResponse<ABCDto>(json, fromMap: ABCDto.fromJson).item;
 /// }
 ///
 ///
