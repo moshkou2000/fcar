@@ -22,9 +22,6 @@ final class ThemeColor {
   static const onError = KoraColor.onError;
   static const errorContainer = KoraColor.errorContainer;
 
-  static const background = KoraColor.background;
-  static const onBackground = KoraColor.onBackground;
-
   static const surface = KoraColor.surface;
   static const onSurface = KoraColor.onSurface;
   static const surfaceVariant = KoraColor.surfaceVariant;

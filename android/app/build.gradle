@@ -1,7 +1,12 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
+
+    // id "org.jetbrains.kotlin.android"
+    // id "com.google.gms.google-services"
+    // id "com.google.firebase.crashlytics"
 }
 
 def localProperties = new Properties()
@@ -22,10 +27,9 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-
 def flutterCompileSdkVersion = localProperties.getProperty('flutter.compileSdkVersion')
 if (flutterCompileSdkVersion == null) {
-    flutterCompileSdkVersion = '33'
+    flutterCompileSdkVersion = '34'
 }
 
 def flutterMinSdkVersion = localProperties.getProperty('flutter.minSdkVersion')
@@ -35,38 +39,30 @@ if (flutterMinSdkVersion == null) {
 
 def flutterTargetSdkVersion = localProperties.getProperty('flutter.targetSdkVersion')
 if (flutterTargetSdkVersion == null) {
-    flutterTargetSdkVersion = '33'
+    flutterTargetSdkVersion = '34'
 }
 
 android {
-    namespace "com.moshkou.fcar"
-    testNamespace "com.moshkou.fcar.test"
-    compileSdk flutterCompileSdkVersion.toInteger()
-    // ndkVersion flutterNdkVersion.toInteger()
+    namespace = "com.moshkou.fcar"
+    testNamespace = "com.moshkou.fcar.test"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility kotlin_version
-        targetCompatibility kotlin_version
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.moshkou.fcar"
+        applicationId = "com.moshkou.fcar"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutterMinSdkVersion.toInteger()
-        targetSdkVersion flutterTargetSdkVersion.toInteger()
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-        multiDexEnabled true
+        minSdk = flutterMinSdkVersion.toInteger()
+        targetSdk = flutterTargetSdkVersion.toInteger()
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
+        multiDexEnabled = true
 
         // TODO: get the auth redirect url from <Infra ID>
         manifestPlaceholders += ['appAuthRedirectScheme': '<Bundle ID>://oauth2/client']
@@ -120,26 +116,5 @@ android {
 }
 
 flutter {
-    source '../..'
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'com.airbnb.android:lottie:6.2.0'
-    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
-    
-    /// google services
-    // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:32.7.0')
-    // Declare the dependencies for the Crashlytics NDK and others firebase libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    // implementation 'com.google.firebase:firebase-crashlytics-ndk'
-    // implementation 'com.google.firebase:firebase-crashlytics'
-    // implementation 'com.google.firebase:firebase-analytics'
-    // implementation 'com.google.firebase:firebase-messaging'
-    implementation 'androidx.core:core-splashscreen:1.0.1'
-
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test:runner:1.5.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    source = "../.."
 }

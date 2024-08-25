@@ -37,7 +37,7 @@ Here is the command to change the app name for the all platforms:
 
 ## Target OS version
 
-- Android: `24` - `33`
+- Android: `24` - `34`
 - iOS: `12.1`
 
 ## Enironment (env)
@@ -60,13 +60,14 @@ Run the `build_runner` to generate `objectbox.g.dart`. You may need to do `flutt
 Generated databsae `objectbox.g.dart` might contains errors regardless of your **lints** in the `analysis_options.yaml`.
 
 #### References
+
 - [objectbox](https://docs.objectbox.io/)
 - [sync objectbox](https://sync.objectbox.io/sync-client)
 
 #### Update the existing database carefully
+
 - [Resolving Meta Model Conflicts](https://docs.objectbox.io/advanced/meta-model-ids-and-uids#resolving-meta-model-conflicts)
 - [DbSchemaException: incoming ID does not match existing UID](https://docs.objectbox.io/troubleshooting#dbschemaexception-incoming-id-does-not-match-existing-uid)
-
 
 ## Usefull Tools `vscode`
 
@@ -90,9 +91,10 @@ Generated databsae `objectbox.g.dart` might contains errors regardless of your *
 ## Usefull CLI
 
 - Take screenshot. It will take screenshot and save it in the root
+
   - flutter screenshot
 
-- The size analysis tool is invoked by passing the --analyze-size flag when building. It will generate a *-code-size-analysis_*.json file for more detailed analysis in DevTools. You may need to set `--target-platform` for example `--target-platform=android-arm64`
+- The size analysis tool is invoked by passing the --analyze-size flag when building. It will generate a _-code-size-analysis_.json file for more detailed analysis in DevTools. You may need to set `--target-platform` for example `--target-platform=android-arm64`
 
   - flutter build apk -t lib/main_dev.dart --flavor=dev --analyze-size
   - flutter build appbundle lib/main_dev.dart --flavor=dev --analyze-size
@@ -101,25 +103,35 @@ Generated databsae `objectbox.g.dart` might contains errors regardless of your *
   - flutter build macos lib/main_dev.dart --flavor=dev --analyze-size
   - flutter build windows lib/main_dev.dart --flavor=dev --analyze-size
 
-- Deeper analysis in DevTools. Select Open app size tool and uploading the *-code-size-analysis_*.json file.
+- Deeper analysis in DevTools. Select Open app size tool and uploading the _-code-size-analysis_.json file.
+
   - `flutter pub global run devtools`
 
 - Activate a flutter package
   - `flutter pub global activate devtools`
 
-
 ## How to run
+
 #### Run app [in `dev` environment]
+
 - `flutter run -t lib/main_dev.dart --flavor=dev --dart-define=ENVDEFINE_API_KEY=theValue`
+
 #### Run app in debug mode [in `dev` environment] (Picks up debug signing config)
+
 - `flutter run -t lib/main_dev.dart --debug --flavor=dev --dart-define=ENVDEFINE_API_KEY=theValue`
+
 #### Run app in release mode [in `dev` environment] (Picks up release signing config)
+
 - `flutter run -t lib/main_dev.dart --release --flavor=dev --dart-define=ENVDEFINE_API_KEY=theValue`
 
 ## How to build
+
 #### Create appBundle for Android platform. Runs in release mode by default. [in `dev` environment]
+
 - `flutter build appbundle -t lib/main_dev.dart --flavor=dev --split-debug-info --dart-define=ENVDEFINE_API_KEY=theValue`
+
 #### Create APK for dev flavor. Runs in release mode by default. [in `dev` environment]
+
 - `flutter build apk -t lib/main_dev.dart --flavor=dev --split-debug-info --dart-define=ENVDEFINE_API_KEY=theValue`
 
 ## Coding

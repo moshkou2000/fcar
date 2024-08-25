@@ -79,8 +79,6 @@ ColorScheme get colorScheme => const ColorScheme(
       onSecondary: ThemeColor.onSecondary,
       error: ThemeColor.error,
       onError: ThemeColor.onError,
-      background: ThemeColor.background,
-      onBackground: ThemeColor.onBackground,
       surface: ThemeColor.surface,
       onSurface: ThemeColor.onSurface,
       // optional

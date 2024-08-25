@@ -120,7 +120,7 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SizedBox(
         height: 99,
-        child: inputField(
+        child: InputField(
           initialValue: _email,
           labelText: 'Email',
           keyboardType: TextInputType.emailAddress,
@@ -141,7 +141,7 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SizedBox(
         height: 99,
-        child: inputField(
+        child: InputField(
           initialValue: _password,
           labelText: 'Password',
           obscureText: true,
@@ -162,7 +162,7 @@ class _SimpleRegisterScreenState extends ConsumerState<RegisterView> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SizedBox(
         height: 99,
-        child: inputField(
+        child: InputField(
           initialValue: _confirmPassword,
           labelText: 'Confirm Password',
           obscureText: true,

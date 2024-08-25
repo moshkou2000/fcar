@@ -9,8 +9,8 @@ final playerRepository = Provider((ref) => PlayerRepository());
 
 class PlayerRepository {
   Future<PlayerModel?> get profile async {
-    final _ = await keystore.read(key: KeystoreKey.profile);
-    logger.info(_);
+    final message = await keystore.read(key: KeystoreKey.profile);
+    logger.info(message);
     final result =
         await keystore.read(key: KeystoreKey.profile).catchError((e, s) {
       logger.error('player', e: e, s: s);

@@ -143,13 +143,13 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SizedBox(
         height: 99,
-        child: inputField(
+        child: InputField(
           initialValue: _username,
           labelText: 'Email',
           keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          autofillHints: [AutofillHints.email],
+          autofillHints: const [AutofillHints.email],
           onChanged: (value) => setState(() => _username = value),
           validator: (value) =>
               value?.isNotEmpty == true && value?.isValidEmail != true
@@ -167,13 +167,13 @@ class _SimpleLoginScreenState extends ConsumerState<LoginView> {
         children: [
           SizedBox(
             height: 104,
-            child: inputField(
+            child: InputField(
               initialValue: _password,
               labelText: 'Password',
               obscureText: true,
               textInputAction: TextInputAction.next,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              autofillHints: [AutofillHints.password],
+              autofillHints: const [AutofillHints.password],
               onChanged: (value) => setState(() => _password = value),
               validator: (value) =>
                   value?.isNotEmpty == true && value!.isValidPassword != true

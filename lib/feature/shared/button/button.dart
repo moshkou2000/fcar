@@ -28,14 +28,16 @@ import 'button_observer.dart';
 /// title is in bold style be default [titleBold] is true
 ///   set the default [title] & [subtitle] bold style
 ///
-/// [observer] is to change the [MaterialState] of the [OutlinedButton]
+/// [observer] is to change the [WidgetState] of the [OutlinedButton]
 ///
 class ObserverButton extends StatefulWidget {
   final ButtonType buttonType;
   final void Function(ButtonObserver buttonState) onPressed;
   final IconData? icon;
+  final String? image;
   final String? title;
   final String? subtitle;
+  final Widget? badge;
   final Widget? child;
   final double? width;
   final bool? titleBold;
@@ -49,8 +51,10 @@ class ObserverButton extends StatefulWidget {
     required this.buttonType,
     required this.onPressed,
     this.icon,
+    this.image,
     this.title,
     this.subtitle,
+    this.badge,
     this.child,
     this.width,
     this.titleBold = true,
@@ -83,6 +87,17 @@ class _ObserverButtonState extends State<ObserverButton> {
 
   @override
   Widget build(BuildContext context) => switch (widget.buttonType) {
+        ButtonType.textIconButton => ValueListenableBuilder<ButtonState>(
+            valueListenable: _observer,
+            builder: (_, state, __) => textIconButton(
+              onPressed: state == widget.buttonState
+                  ? () => widget.onPressed(_observer)
+                  : null,
+              title: widget.title,
+              image: widget.image,
+              badge: widget.badge,
+            ),
+          ),
         ButtonType.outlinedButton => ValueListenableBuilder<ButtonState>(
             valueListenable: _observer,
             builder: (_, state, __) => outlinedButton(
@@ -123,9 +138,9 @@ class _ObserverButtonState extends State<ObserverButton> {
 }
 
 Widget textIconButton({
-  required String image,
-  required String title,
   required void Function()? onPressed,
+  String? title,
+  String? image,
   Widget? badge,
 }) {
   return badges.Badge(
@@ -155,15 +170,17 @@ Widget textIconButton({
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset(
-              image,
-              height: 40,
-              width: 40,
-            ),
-            Text(
-              title,
-              style: ThemeFont.subtitleStyle.copyWith(color: Colors.black),
-            ),
+            if (image != null)
+              SvgPicture.asset(
+                image,
+                height: 40,
+                width: 40,
+              ),
+            if (title != null)
+              Text(
+                title,
+                style: ThemeFont.subtitleStyle.copyWith(color: Colors.black),
+              ),
           ],
         ),
       ),
@@ -188,24 +205,24 @@ Widget outlinedButton({
     onPressed: onPressed,
     style: ButtonStyle(
       fixedSize: width != null
-          ? MaterialStateProperty.all<Size?>(Size.fromWidth(width))
+          ? WidgetStateProperty.all<Size?>(Size.fromWidth(width))
           : null,
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
       ),
-      side: MaterialStateProperty.resolveWith<BorderSide>(
-        (Set<MaterialState> states) {
-          if (states.contains(MaterialState.disabled)) {
+      side: WidgetStateProperty.resolveWith<BorderSide>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.disabled)) {
             return BorderSide(
               width: 2,
               color: colorDisabled,
             );
           }
-          if (states.contains(MaterialState.focused) ||
-              states.contains(MaterialState.pressed) ||
-              states.contains(MaterialState.hovered)) {
+          if (states.contains(WidgetState.focused) ||
+              states.contains(WidgetState.pressed) ||
+              states.contains(WidgetState.hovered)) {
             return BorderSide(
               width: 2,
               color: color,
@@ -218,26 +235,26 @@ Widget outlinedButton({
           ); // Defer to the widget's default.
         },
       ),
-      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(10)),
-      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-        (Set<MaterialState> states) {
-          if (states.contains(MaterialState.disabled)) {
+      padding: WidgetStateProperty.all<EdgeInsets>(const EdgeInsets.all(10)),
+      backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.disabled)) {
             return color.withOpacity(.2);
           }
 
           return null; // Defer to the widget's default.
         },
       ),
-      overlayColor: MaterialStateProperty.resolveWith<Color?>(
-        (Set<MaterialState> states) {
-          if (states.contains(MaterialState.disabled)) {
+      overlayColor: WidgetStateProperty.resolveWith<Color?>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.disabled)) {
             return color.withOpacity(0.1);
           }
-          if (states.contains(MaterialState.hovered)) {
+          if (states.contains(WidgetState.hovered)) {
             return color.withOpacity(0.04);
           }
-          if (states.contains(MaterialState.focused) ||
-              states.contains(MaterialState.pressed)) {
+          if (states.contains(WidgetState.focused) ||
+              states.contains(WidgetState.pressed)) {
             return color.withOpacity(0.12);
           }
           return null; // Defer to the widget's default.
@@ -296,17 +313,17 @@ Widget textButton({
     onPressed: onPressed,
     style: ButtonStyle(
       fixedSize: width != null
-          ? MaterialStateProperty.all<Size?>(Size.fromWidth(width))
+          ? WidgetStateProperty.all<Size?>(Size.fromWidth(width))
           : null,
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
       ),
-      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
-      overlayColor: MaterialStateProperty.resolveWith<Color?>(
-        (Set<MaterialState> states) {
-          if (states.contains(MaterialState.disabled)) {
+      padding: WidgetStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
+      overlayColor: WidgetStateProperty.resolveWith<Color?>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.disabled)) {
             return color.withOpacity(0.1);
           }
           return Colors.transparent; // Defer to the widget's default.
@@ -475,14 +492,14 @@ Widget textButton({
 //         style: ButtonStyle(
 //             enableFeedback: enableFeedback,
 //             overlayColor:
-//                 MaterialStateProperty.all(overlayColor.withOpacity(0.4)),
+//                 WidgetStateProperty.all(overlayColor.withOpacity(0.4)),
 //             backgroundColor: onPressed != null
-//                 ? MaterialStateProperty.all<Color>(buttonColor)
-//                 : MaterialStateProperty.all<Color>(
+//                 ? WidgetStateProperty.all<Color>(buttonColor)
+//                 : WidgetStateProperty.all<Color>(
 //                     disabledButtonColor ?? ThemeColor.grey50),
 //             padding:
-//                 MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
-//             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+//                 WidgetStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
+//             shape: WidgetStateProperty.all<RoundedRectangleBorder>(
 //               RoundedRectangleBorder(
 //                   side: bordSide ?? BorderSide.none,
 //                   borderRadius: BorderRadius.all(

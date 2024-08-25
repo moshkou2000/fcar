@@ -1,4 +1,5 @@
 enum ButtonType {
+  textIconButton,
   outlinedButton,
   textButton,
 }
