@@ -50,7 +50,7 @@
       "program": "lib/main.dart",
       "args": [
         "--flavor",
-        "Debug-Dev",
+        "Debug",
         "--dart-define",
         "ABC_API_KEY=abcdefghigklmnopqrstuvwxyz",
         "--dart-define",

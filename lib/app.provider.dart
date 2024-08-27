@@ -274,13 +274,31 @@ abstract final class AppProvider {
     /// setup RemoteAuth
     ///
     /// Microsoft Authorization (Oauth2)
+
+// android: msauth://lr.com.zeroharm/DBkv+M3V4nQFdhbnvP3oLh6SPDY= ZeroHarm://com.capgemini.ZeroHarm
+// iOS: msauth://lr.com.zeroharm/DBkv+M3V4nQFdhbnvP3oLh6SPDY= ZeroHarm://com.capgemini.ZeroHarm
+
+    // iOS
     // RemoteAuth.setup(
-    //   clientId: '<Application ID>',
-    //   redirectUrl: '<<Bundle ID>://oauth2/client>',
-    //   authorizationEndpoint: '<OAuth 2.0 authorization endpoint>',
-    //   tokenEndpoint: '<OAuth 2.0 token endpoint>',
-    //   scopes: ['openid', 'profile', 'email', 'offline_access'],
+    //   clientId: 'fe123053-6f80-447b-9ac8-710813cdd0f2',
+    //   Redirect URI: msauth.com.lloydsregister.safety.zeroharm://auth
+    //   authorizationEndpoint:
+    //       'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/authorize',
+    //   tokenEndpoint:
+    //       'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/token',
+    //   scopes: ['openid', 'profile', 'email'],
     // );
+
+    // Android
+    RemoteAuth.setup(
+      clientId: '9a39a0cd-5460-4aba-bbfa-26d533dda069',
+      redirectUrl: 'msauth://lr.com.zeroharm://auth',
+      authorizationEndpoint:
+          'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/authorize',
+      tokenEndpoint:
+          'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/token',
+      scopes: ['openid', 'profile', 'email'],
+    );
 
     await Flavor.setup(env: env);
     await LocalizationProvider.setup();

@@ -1,3 +1,4 @@
+import 'package:fcar_lib/core/core.module.dart';
 import 'package:fcar_lib/core/service/navigation/navigation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,9 +26,13 @@ class LandingController extends BaseController<bool> {
 
   LandingItemType get currentItem => ref.read(_itemController.notifier).state;
 
-  void onTapFloatingActionButton() {
-    Navigation.navigateTo(NavigationRoute.opponentRoute,
-        arguments: OpponentArgument(title: 'Game Title'));
+  Future<void> onTapFloatingActionButton() async {
+    final d = await RemoteAuth.auth();
+
+    final b = 3;
+
+    // Navigation.navigateTo(NavigationRoute.opponentRoute,
+    //     arguments: OpponentArgument(title: 'Game Title'));
   }
 
   void onTapBottomNavigationBar(LandingItemType item) {

@@ -37,8 +37,9 @@ dependencies:
     # local repo
     path: ../fcar_lib
     # remote repo
-    # url: https://gitlab.com/moshkou2000/fcar_lib.git
-    # ref: dev
+    # git:
+    #   url: https://github.com/moshkou2000/fcar_lib
+    #   ref: dev
 
   animations: ^2.0.8
   badges: ^3.1.2
