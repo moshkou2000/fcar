@@ -1,5 +1,6 @@
 import 'package:fcar_lib/config/extension/context.extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../home/home.argument.dart';
@@ -8,6 +9,7 @@ import '../league/league.argument.dart';
 import '../league/league.view.dart';
 import '../record/record.argument.dart';
 import '../record/record.view.dart';
+import '../shared/dialog/dialog.dart';
 import '../shared/unimplemented.view.dart';
 import '../shop/shop.argument.dart';
 import '../shop/shop.view.dart';
@@ -37,15 +39,27 @@ class _LandingViewState extends ConsumerState<LandingView>
     final _ = ref.watch(landingController);
 
     // TODO: state.toString() is for test, set the page title
-    return Scaffold(
-      key: _scaffoldKey,
-      extendBody: true,
-      extendBodyBehindAppBar: true,
-      resizeToAvoidBottomInset: false,
-      body: _buildBody(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: _floatingActionButton(),
-      bottomNavigationBar: _bottomNavigationAppBar(),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) {
+          return;
+        }
+        final shouldPop = await showBackDialog() ?? false;
+        if (context.mounted && shouldPop) {
+          SystemNavigator.pop();
+        }
+      },
+      child: Scaffold(
+        key: _scaffoldKey,
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        resizeToAvoidBottomInset: false,
+        body: _buildBody(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        floatingActionButton: _floatingActionButton(),
+        bottomNavigationBar: _bottomNavigationAppBar(),
+      ),
     );
   }
 

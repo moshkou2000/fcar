@@ -3,11 +3,13 @@
   "apply": "apply",
   "are": "are",
   "assign": "assign",
+  "authentication": "authentication",
   "camera": "camera",
   "cancel": "cancel",
   "error": "error",
+  "exit": "exit",
+  "exitDescription": "Are you sure to exit?",
   "noInternet": "no internet!!!",
   "ok":"ok",
   "unauthorized": "unauthorized"
-
 }

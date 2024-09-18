@@ -20,7 +20,7 @@ ThemeData get lightThemeData => ThemeData(
       colorScheme: colorScheme,
       useMaterial3: true,
       brightness: Brightness.light,
-      scaffoldBackgroundColor: Colors.transparent,
+      scaffoldBackgroundColor: Colors.white,
       appBarTheme: const AppBarTheme(
         color: Colors.transparent,
         elevation: 0,
@@ -52,22 +52,18 @@ ThemeData get lightThemeData => ThemeData(
         displayLarge: ThemeFont.displayLarge,
         displayMedium: ThemeFont.displayMedium,
         displaySmall: ThemeFont.displaySmall,
-
-        headlineLarge: ThemeFont.headingLarge,
-        headlineMedium: ThemeFont.headingMedium,
-        headlineSmall: ThemeFont.headingSmall,
-
-        // titleLarge: ThemeFont.tit,
-        // titleMedium: ThemeFont.headingLarge,
-        // titleSmall: ThemeFont.headingLarge,
-
-        // bodyLarge: ThemeFont.headingLarge,
-        // bodyMedium: ThemeFont.headingLarge,
-        // bodySmall: ThemeFont.headingLarge,
-
-        // labelLarge: ThemeFont.label,
-        // labelMedium: ThemeFont.headingLarge,
-        // labelSmall: ThemeFont.lab,
+        headlineLarge: ThemeFont.headlineLarge,
+        headlineMedium: ThemeFont.headlineMedium,
+        headlineSmall: ThemeFont.headlineSmall,
+        titleLarge: ThemeFont.titleLarge,
+        titleMedium: ThemeFont.titleMedium,
+        titleSmall: ThemeFont.titleSmall,
+        bodyLarge: ThemeFont.bodyLarge,
+        bodyMedium: ThemeFont.bodyMedium,
+        bodySmall: ThemeFont.bodySmall,
+        labelLarge: ThemeFont.labelLarge,
+        labelMedium: ThemeFont.labelMedium,
+        labelSmall: ThemeFont.labelSmall,
       ),
     );
 
@@ -81,6 +77,7 @@ ColorScheme get colorScheme => const ColorScheme(
       onError: ThemeColor.onError,
       surface: ThemeColor.surface,
       onSurface: ThemeColor.onSurface,
+
       // optional
       // primaryContainer: ThemeColor.primaryContainer,
       // onPrimaryContainer: ThemeColor.onPrimaryContainer,

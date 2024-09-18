@@ -47,7 +47,7 @@ class BoardgameWidget extends ConsumerWidget {
     return Center(
       child: Text(
         text,
-        style: ThemeFont.paragraph400Medium.copyWith(color: Colors.white),
+        style: ThemeFont.bodyMedium.copyWith(color: Colors.white),
       ),
     );
   }

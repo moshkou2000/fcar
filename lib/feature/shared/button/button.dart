@@ -336,7 +336,7 @@ Widget textButton({
           Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: alignment,
             children: [
               const SizedBox(),
               if (icon != null)

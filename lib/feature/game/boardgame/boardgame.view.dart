@@ -32,7 +32,7 @@ class _OpponentViewState extends ConsumerState<BoardgameView> {
 
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, result) {
         if (didPop) return;
 
         // TODO: after exit game, display the message:

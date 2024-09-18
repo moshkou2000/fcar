@@ -16,7 +16,7 @@ import 'feature/shared/empty.view.dart';
 
 @immutable
 abstract final class AppProvider {
-  static String name = 'F.C.A.R';
+  static String name = 'ZeroHarm';
   static String os = '';
   static String osVersion = '';
   static String id = '';
@@ -168,7 +168,7 @@ abstract final class AppProvider {
 
     /// init UserAuth
     ///
-    await AuthProvider.userAuth(ref: ref);
+    await AuthProvider.auth(ref: ref);
 
     return true;
   }
@@ -275,30 +275,79 @@ abstract final class AppProvider {
     ///
     /// Microsoft Authorization (Oauth2)
 
-// android: msauth://lr.com.zeroharm/DBkv+M3V4nQFdhbnvP3oLh6SPDY= ZeroHarm://com.capgemini.ZeroHarm
-// iOS: msauth://lr.com.zeroharm/DBkv+M3V4nQFdhbnvP3oLh6SPDY= ZeroHarm://com.capgemini.ZeroHarm
+    //  android
+    //    clientId:     '9a39a0cd-5460-4aba-bbfa-26d533dda069'
+    //    bundle:       lr.com.zeroharm
+    //    redirectUrl:  'msauth://lr.com.zeroharm/DBkv+M3V4nQFdhbnvP3oLh6SPDY='
+
+    //  iOS:
+    //    clientId:     'fe123053-6f80-447b-9ac8-710813cdd0f2'
+    //    bundle:       org.lr.zeroharm
+    //    redirectUrl:  msauth.org.lr.zeroharm://auth
+    //    issuer: https://login.microsoftonline.com/lloydsregistergroup.onmicrosoft.com
+
+    // Flutter:
+    //    clientId: bd9d614e-e975-4f56-b791-b85bd60319cb
+    //    bundle:       lr.com.zeroharm
+    //    redirectUrl:  lr.org.zeroharm://auth
+
+    // Test
+    // RemoteAuth.setup(
+    //   clientId: 'interactive.public',
+    //   redirectUrl: 'com.duendesoftware.demo:/oauthredirect',
+    //   authorizationEndpoint:
+    //       'https://demo.duendesoftware.com/connect/authorize',
+    //   tokenEndpoint: 'https://demo.duendesoftware.com/connect/token',
+    //   scopes: ['openid', 'profile', 'email'],
+    // );
 
     // iOS
     // RemoteAuth.setup(
     //   clientId: 'fe123053-6f80-447b-9ac8-710813cdd0f2',
-    //   Redirect URI: msauth.com.lloydsregister.safety.zeroharm://auth
+    //   redirectUrl: 'msauth.org.lr.zeroharm://auth',
+    //   issuer:
+    //       'https://login.microsoftonline.com/lloydsregistergroup.onmicrosoft.com',
+    //   // authorizationEndpoint:
+    //   //     'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/authorize',
+    //   // tokenEndpoint:
+    //   //     'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/token',
+    //   scopes: [
+    //     'openid',
+    //     'profile',
+    //     'email',
+    //     'offline_access',
+    //     'api',
+    //     'user.read'
+    //   ],
+    // );
+
+    // Flutter
+    // RemoteAuth.setup(
+    //   clientId: 'bd9d614e-e975-4f56-b791-b85bd60319cb',
+    //   redirectUrl: 'lr.org.zeroharm://auth',
+    //   // issuer:
+    //   //     'https://login.microsoftonline.com/lloydsregistergroup.onmicrosoft.com',
+    //   // discoveryUrl:
+    //   //     'https://login.microsoftonline.com/organizations/v2.0/.well-known/openid-configuration',
+    //   authorizationEndpoint:
+    //       'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/authorize',
+    //   tokenEndpoint:
+    //       'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/token',
+    //   endSessionEndpoint:
+    //       'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/saml2',
+    //   scopes: ['user.read'],
+    // );
+
+    // Android
+    // RemoteAuth.setup(
+    //   clientId: '9a39a0cd-5460-4aba-bbfa-26d533dda069',
+    //   redirectUrl: 'msauth://lr.com.zeroharm/DBkv+M3V4nQFdhbnvP3oLh6SPDY=',
     //   authorizationEndpoint:
     //       'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/authorize',
     //   tokenEndpoint:
     //       'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/token',
     //   scopes: ['openid', 'profile', 'email'],
     // );
-
-    // Android
-    RemoteAuth.setup(
-      clientId: '9a39a0cd-5460-4aba-bbfa-26d533dda069',
-      redirectUrl: 'msauth://lr.com.zeroharm://auth',
-      authorizationEndpoint:
-          'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/authorize',
-      tokenEndpoint:
-          'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/token',
-      scopes: ['openid', 'profile', 'email'],
-    );
 
     await Flavor.setup(env: env);
     await LocalizationProvider.setup();

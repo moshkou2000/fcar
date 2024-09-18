@@ -17,6 +17,37 @@ const int _dialogEaseInDuration = 200;
 const int _dialogEaseOutDuration = 250;
 const AlignmentGeometry _defaultPosition = Alignment.bottomCenter;
 
+/// Shows a dialog and resolves to true when the user has indicated that they
+/// want to pop.
+///
+/// A return value of null indicates a desire not to pop, such as when the
+/// user has dismissed the modal without tapping a button.
+Future<bool?> showBackDialog() async {
+  final context = Navigation.context;
+  if (context != null) {
+    return await showDialogAt<bool>(
+      context: context,
+      title: Localization.exit,
+      subtitle: Localization.exitDescription,
+      barrierDismissible: false,
+      primaryActionText: Localization.exit,
+      secondaryActionText: Localization.cancel,
+      onPrimaryActionPressed: (observer) async {
+        observer.setLoading();
+        Navigator.pop(context, true);
+        observer.setIdle();
+      },
+      onSecondaryActionPressed: (observer) async {
+        observer.setLoading();
+        Navigator.pop(context, false);
+        observer.setIdle();
+      },
+    );
+  }
+
+  return Future.value(null);
+}
+
 /// primaryActionText: localization.ok
 /// action: Future<dynamic> or void function()
 ///   default: navigationService.pop();
@@ -60,7 +91,7 @@ void showErrorDialog({
 
 /// to set posittion of the dialog,
 /// bottomSheetDialog position is at the center bottom
-void showDialogAt({
+Future<T?> showDialogAt<T>({
   required BuildContext context,
 
   /// to set posittion of the dialog,
@@ -99,8 +130,8 @@ void showDialogAt({
   Color? primaryActionTextColor,
   Color? secondaryActionColor,
   Color? secondaryActionTextColor,
-}) {
-  showModal<void>(
+}) async {
+  return await showModal<T>(
     context: context,
     configuration: FadeScaleTransitionConfiguration(
         barrierColor: barrierColor,
@@ -230,7 +261,7 @@ class _Positionedbool extends State<_PositionedDialog> {
       child: Material(
         color: Colors.transparent,
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
           decoration: BoxDecoration(
             color: Colors.white,

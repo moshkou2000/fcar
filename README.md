@@ -1,4 +1,4 @@
-# fcar
+# ZeroHarm
 
 - **F** Flutter
 - **C** Clean
@@ -31,14 +31,19 @@ just run the command.
 Here is the command to change the app name for the all platforms:
 `flutter pub run rename_app:main all="App Name"`
 
+## Flutter & Dart
+
+- Flutter: 3.24.1
+- Dart: 3.5.1
+
 ## Target Platforms
 
-- mobile:` Android` & `iOS`
+- mobile: Android & iOS
 
 ## Target OS version
 
-- Android: `24` - `34`
-- iOS: `12.1`
+- Android: 24 - 34
+- iOS: 13
 
 ## Enironment (env)
 
@@ -99,9 +104,6 @@ Generated databsae `objectbox.g.dart` might contains errors regardless of your *
   - flutter build apk -t lib/main_dev.dart --flavor=dev --analyze-size
   - flutter build appbundle lib/main_dev.dart --flavor=dev --analyze-size
   - flutter build ios lib/main_dev.dart --flavor=dev --analyze-size
-  - flutter build linux lib/main_dev.dart --flavor=dev --analyze-size
-  - flutter build macos lib/main_dev.dart --flavor=dev --analyze-size
-  - flutter build windows lib/main_dev.dart --flavor=dev --analyze-size
 
 - Deeper analysis in DevTools. Select Open app size tool and uploading the _-code-size-analysis_.json file.
 

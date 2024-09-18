@@ -21,7 +21,7 @@ class AuthProvider extends Notifier<bool> {
     return user?.hasToken ?? false;
   }
 
-  static Future<void> userAuth({required FutureProviderRef ref}) async {
+  static Future<void> auth({required FutureProviderRef ref}) async {
     final isAuthenticated =
         await ref.read(authProvider.notifier).isAuthenticated();
 
@@ -29,10 +29,17 @@ class AuthProvider extends Notifier<bool> {
     FlutterNativeSplash.remove();
 
     if (isAuthenticated) {
-      ref.read(navigationProvider.notifier).state =
-          NavigationRoute.landingRoute;
+      _navigateToLanding(ref);
     } else {
-      ref.read(navigationProvider.notifier).state = NavigationRoute.loginRoute;
+      _navigateToAuth(ref);
     }
+  }
+
+  static void _navigateToLanding(FutureProviderRef ref) {
+    ref.read(navigationProvider.notifier).state = NavigationRoute.landingRoute;
+  }
+
+  static void _navigateToAuth(FutureProviderRef ref) {
+    ref.read(navigationProvider.notifier).state = NavigationRoute.authRoute;
   }
 }

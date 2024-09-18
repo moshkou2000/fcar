@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../feature/about/about.argument.dart';
 import '../../../feature/about/about.view.dart';
-import '../../../feature/auth/login/login.view.dart';
-import '../../../feature/auth/register/register.view.dart';
+import '../../../feature/auth/auth.view.dart';
 import '../../../feature/ecommerce/cart/cart.view.dart';
 import '../../../feature/ecommerce/category/category.argument.dart';
 import '../../../feature/ecommerce/category/category.view.dart';
@@ -20,13 +19,16 @@ import '../../../feature/home/home.view.dart';
 import '../../../feature/landing/landing.view.dart';
 import '../../../feature/record/record.argument.dart';
 import '../../../feature/record/record.view.dart';
+import '../../../feature/webview/webview.argument.dart';
+import '../../../feature/webview/webview.view.dart';
 
 final navigationProvider =
-    StateProvider<String>((ref) => NavigationRoute.loginRoute);
+    StateProvider<String>((ref) => NavigationRoute.authRoute);
 
 @immutable
 abstract final class NavigationRoute {
 // route path
+  static const String authRoute = '/auth';
   static const String aboutRoute = '/about';
   static const String cartRoute = '/cart';
   static const String categoryRoute = '/category';
@@ -35,18 +37,19 @@ abstract final class NavigationRoute {
   static const String gameRoute = '/game';
   static const String homeRoute = '/home';
   static const String landingRoute = '/landing';
-  static const String loginRoute = '/login';
   static const String opponentRoute = '/opponent';
   static const String photoPreviewRoute = '/photoViewer';
   static const String previewRoute = '/preview';
   static const String productRoute = '/product';
   static const String recordRoute = '/record';
-  static const String registerRoute = '/register';
   static const String versionRoute = '/version';
+  static const String webviewRoute = '/webview';
 
   /// call in [MaterialApp.onGenerateRoute]
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case authRoute:
+        return _pageRoute(const AuthView());
       case aboutRoute:
         return _pageRoute(
             AboutView(arguments: settings.arguments as AboutArgument));
@@ -65,19 +68,18 @@ abstract final class NavigationRoute {
             HomeView(arguments: settings.arguments as HomeArgument));
       case landingRoute:
         return _pageRoute(const LandingView());
-      case loginRoute:
-        return _pageRoute(const LoginView());
       case opponentRoute:
         return _pageRoute(
             OpponentView(arguments: settings.arguments as OpponentArgument));
       case previewRoute:
         return _pageRoute(
             ProductView(arguments: settings.arguments as ProductArgument));
-      case registerRoute:
-        return _pageRoute(const RegisterView());
       case recordRoute:
         return _pageRoute(
             RecordView(arguments: settings.arguments as RecordArgument));
+      case webviewRoute:
+        return _pageRoute(
+            WebviewView(arguments: settings.arguments as WebviewArgument));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

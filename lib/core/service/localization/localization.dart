@@ -9,6 +9,8 @@ abstract final class Localization {
   static String get apply => LocalizationProvider.text('apply');
   static String get are => LocalizationProvider.text('are');
   static String get assign => LocalizationProvider.text('assign');
+  static String get authentication =>
+      LocalizationProvider.text('authentication');
 
 // c
   static String get camera => LocalizationProvider.text('camera');
@@ -16,6 +18,9 @@ abstract final class Localization {
 
 // e
   static String get error => LocalizationProvider.text('error');
+  static String get exit => LocalizationProvider.text('exit');
+  static String get exitDescription =>
+      LocalizationProvider.text('exitDescription');
 
 // o
   static String get ok => LocalizationProvider.text('ok');

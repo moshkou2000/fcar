@@ -10,5 +10,5 @@
   },
   "java.configuration.updateBuildConfiguration": "interactive",
   "cmake.configureOnOpen": false,
-  "dart.flutterSdkPath": ".fvm/versions/3.22.0"
+  "dart.flutterSdkPath": ".fvm/versions/3.24.1"
 }

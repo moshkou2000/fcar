@@ -1,5 +1,5 @@
 import 'package:fcar_lib/core/core.module.dart';
-import 'package:fcar_lib/core/service/navigation/navigation.dart';
+import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/base.controller.dart';
@@ -27,12 +27,17 @@ class LandingController extends BaseController<bool> {
   LandingItemType get currentItem => ref.read(_itemController.notifier).state;
 
   Future<void> onTapFloatingActionButton() async {
-    final d = await RemoteAuth.auth();
+    // final d = await RemoteAuth.auth();
+    // auth();
+
+    logger.info('RemoteAuth.auth');
+    // logger.trace(d);
 
     final b = 3;
+    return;
 
-    // Navigation.navigateTo(NavigationRoute.opponentRoute,
-    //     arguments: OpponentArgument(title: 'Game Title'));
+    Navigation.navigateTo(NavigationRoute.opponentRoute,
+        arguments: OpponentArgument(title: 'Game Title'));
   }
 
   void onTapBottomNavigationBar(LandingItemType item) {

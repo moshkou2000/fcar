@@ -43,8 +43,8 @@ if (flutterTargetSdkVersion == null) {
 }
 
 android {
-    namespace = "com.moshkou.fcar"
-    testNamespace = "com.moshkou.fcar.test"
+    namespace = "org.lr.zeroharm"
+    testNamespace = "org.lr.zeroharm.test"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -55,7 +55,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.moshkou.fcar"
+        applicationId = "org.lr.zeroharm"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdk = flutterMinSdkVersion.toInteger()
@@ -65,7 +65,7 @@ android {
         multiDexEnabled = true
 
         // TODO: get the auth redirect url from <Infra ID>
-        manifestPlaceholders += ['appAuthRedirectScheme': '<Bundle ID>://oauth2/client']
+        manifestPlaceholders += ['appAuthRedirectScheme': 'lr.org.zeroharm']
     }
 
     buildTypes {
