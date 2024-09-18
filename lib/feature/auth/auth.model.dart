@@ -36,7 +36,7 @@ class AuthModel {
   final String clientId;
   final String secret;
 
-  List<String> get scopes => const ['user.read'];
+  List<String> get scopes => const ['user.read', 'profile', 'openid', 'email'];
   Uri get redirectUrl => Uri.parse('lr.org.zeroharm://auth');
   Uri get profileEndpoint => Uri.parse('https://graph.microsoft.com/v1.0/me');
   Uri get authorizationEndpoint => Uri.parse(

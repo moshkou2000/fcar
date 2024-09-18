@@ -14,11 +14,9 @@
         "--cache-sksl",
         "--purge-persistent-cache",
         "--dart-define",
-        "TENANT_ID=",
+        "TENANT_ID=4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82",
         "--dart-define",
-        "CLIENT_ID=",
-        "--dart-define",
-        "SECRET="
+        "CLIENT_ID=bd9d614e-e975-4f56-b791-b85bd60319cb"
       ]
     },
     {
@@ -31,11 +29,9 @@
         "--cache-sksl",
         "--purge-persistent-cache",
         "--dart-define",
-        "TENANT_ID=",
+        "TENANT_ID=4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82",
         "--dart-define",
-        "CLIENT_ID=",
-        "--dart-define",
-        "SECRET="
+        "CLIENT_ID=bd9d614e-e975-4f56-b791-b85bd60319cb"
       ]
     },
     {
@@ -46,11 +42,9 @@
       "program": "lib/main.dart",
       "args": [
         "--dart-define",
-        "TENANT_ID=",
+        "TENANT_ID=4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82",
         "--dart-define",
-        "CLIENT_ID=",
-        "--dart-define",
-        "SECRET="
+        "CLIENT_ID=bd9d614e-e975-4f56-b791-b85bd60319cb"
       ]
     },
     {
@@ -61,11 +55,9 @@
       "program": "lib/main.dart",
       "args": [
         "--dart-define",
-        "TENANT_ID=",
+        "TENANT_ID=4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82",
         "--dart-define",
-        "CLIENT_ID=",
-        "--dart-define",
-        "SECRET="
+        "CLIENT_ID=bd9d614e-e975-4f56-b791-b85bd60319cb"
       ]
     }
   ]

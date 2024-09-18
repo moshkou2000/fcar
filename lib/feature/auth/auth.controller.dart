@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fcar_lib/core/service/navigation/navigation.dart';
 import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +11,7 @@ import '../../core/service/navigation/navigation_route.dart';
 import '../webview/webview.argument.dart';
 import 'auth.model.dart';
 import 'auth.repository.dart';
+import 'user.model.dart';
 
 final authController = AutoDisposeNotifierProvider<AuthController, String>(() {
   return AuthController();
@@ -32,7 +35,6 @@ class AuthController extends AutoDisposeNotifier<String> {
       _authModel.clientId,
       _authModel.authorizationEndpoint,
       _authModel.tokenEndpoint,
-      secret: _authModel.secret,
     );
 
     // Build the authorization URL
@@ -94,14 +96,20 @@ class AuthController extends AutoDisposeNotifier<String> {
           var response = await client.get(_authModel.profileEndpoint);
 
           if (response.statusCode == 200) {
-            // Store the profile
-            // TODO: email, name & ...
-            logger.trace('User data: ${response.body}');
+            final Map<String, dynamic> parameters = jsonDecode(response.body);
+            var user = UserModel(
+              id: parameters['id'],
+              displayname: parameters['displayName'],
+              username: parameters['mail'],
+              accessToken: client.credentials.accessToken,
+              refreshToken: client.credentials.refreshToken,
+            );
 
-            await _saveUser('');
+            // Store the user profile
+            await _saveUser(user.toJson());
 
             // Return syccess
-            Navigation.pop(result: MapEntry(true, response.body));
+            Navigation.pop(result: MapEntry(true, user));
             return;
           } else {
             logger.error('Failed to fetch user data: ${response.statusCode}');

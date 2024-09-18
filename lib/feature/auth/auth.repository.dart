@@ -9,7 +9,9 @@ final authRepository = Provider((ref) => AuthRepository());
 class AuthRepository {
   Future<UserModel?> getUser() async {
     final result = await keystore.read(key: KeystoreKey.user);
-    return result != null ? UserModel.fromJson(result) : null;
+    return result != null && (result as String).isNotEmpty
+        ? UserModel.fromJson(result)
+        : null;
   }
 
   Future<void> saveUser({required String user}) async {

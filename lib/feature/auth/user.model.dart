@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class UserModel {
-  final int? id;
+  final String? id;
   final String? displayname;
   final String? username;
   final String? accessToken;
@@ -22,11 +22,11 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'] as int,
-      displayname: map['displayname'] as String,
-      username: map['username'] as String,
-      accessToken: map['accessToken'] as String,
-      refreshToken: map['refreshToken'] as String,
+      id: map['id'] as String?,
+      displayname: map['displayname'] as String?,
+      username: map['username'] as String?,
+      accessToken: map['accessToken'] as String?,
+      refreshToken: map['refreshToken'] as String?,
     );
   }
 
