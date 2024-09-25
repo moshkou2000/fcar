@@ -58,7 +58,6 @@ dependencies:
   rxdart: ^0.28.0
   shimmer: ^3.0.0
   video_player: ^2.9.1
-  webview_flutter: ^4.0.7
 
 dev_dependencies:
   flutter_test:

@@ -1,20 +1,20 @@
-import 'package:fcar_lib/core/datasource/keystore/keystore.enum.dart';
+import 'package:fcar_lib/core/service/auth/remote/remote_auth.model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/datasource/keystore/keystore.provider.dart';
-import 'user.model.dart';
+import '../../app.provider.dart';
+import '../../config/keystore.enum.dart';
 
 final authRepository = Provider((ref) => AuthRepository());
 
 class AuthRepository {
-  Future<UserModel?> getUser() async {
-    final result = await keystore.read(key: KeystoreKey.user);
+  Future<RemoteAuthModel?> getAuthData() async {
+    final result = await keystore.read(key: KeystoreKey.user.name);
     return result != null && (result as String).isNotEmpty
-        ? UserModel.fromJson(result)
+        ? RemoteAuthModel.fromJson(result)
         : null;
   }
 
-  Future<void> saveUser({required String user}) async {
-    keystore.save(key: KeystoreKey.user, value: user);
+  Future<void> saveAuthData({required String user}) async {
+    keystore.save(key: KeystoreKey.user.name, value: user);
   }
 }

@@ -5,7 +5,7 @@ import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/datasource/network/network.provider.dart';
+import '../../../app.provider.dart';
 import 'opponent.model.dart';
 
 final opponentRepository = Provider((ref) => OpponentRepository());

@@ -1,6 +1,9 @@
 import 'package:fcar_lib/config/enum/app_env.enum.dart';
 import 'package:fcar_lib/config/extension/string.extension.dart';
 import 'package:fcar_lib/core/core.module.dart';
+import 'package:fcar_lib/core/datasource/database/objectbox/objectbox_store.dart';
+import 'package:fcar_lib/core/datasource/keystore/keystore.dart';
+import 'package:fcar_lib/core/datasource/keystore/secure_storage/secure_storage.dart';
 import 'package:fcar_lib/core/utility/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,13 @@ import 'config/flavor.dart';
 import 'config/theme/theme.provider.dart';
 import 'feature/auth/auth.provider.dart';
 import 'feature/shared/empty.view.dart';
+
+late final IDatabase database;
+late final IKeystore keystore;
+late final INetwork network;
+
+final appProvider =
+    FutureProvider<bool>((ref) async => await AppProvider.init(ref));
 
 @immutable
 abstract final class AppProvider {
@@ -159,6 +169,10 @@ abstract final class AppProvider {
   /// This is where you can initialize the resources needed by your app while
   /// the splash screen is displayed.
   static Future<bool> init(FutureProviderRef ref) async {
+    database = ObjectboxStore(databaseName: DatabaseName.appDb);
+    keystore = SecureStorage(keystoreName: KeystoreName.appKeystore.name);
+    network = DioNetwork(baseUrl: Flavor.baseUrl, database: null);
+
     /// init LocalAuth
     ///
     /// Device biometrics (face, fingerprint)
@@ -166,8 +180,7 @@ abstract final class AppProvider {
 
     // <<< do add your code here >>>
 
-    /// init UserAuth
-    ///
+    /// init Autherizatin & Authentication
     await AuthProvider.auth(ref: ref);
 
     return true;
@@ -243,116 +256,7 @@ abstract final class AppProvider {
     //   ]
     // });
 
-    /*
-      Terms and Conditions: url
-      Privacy Policy: url
-
-      Name: timesheet-mobile-dev
-      Display name: Timesheet Mobile (dev)
-      Bundle ID: 
-      Redirect URI: <Bundle ID>://oauth2/client
-      Tenant ID: 
-      Application (client) ID: 
-      Client identifier: 
-      Client secret: <optional>
-
-      > Microsoft Authorization endpoint
-      https://login.microsoftonline.com
-
-      > OAuth 2.0 authorization endpoint (v2)
-      https://login.microsoftonline.com/organizations/oauth2/v2.0/authorize
-      https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/authorize
-
-      > OAuth 2.0 token endpoint (v2)
-      https://login.microsoftonline.com/organizations/oauth2/v2.0/token
-      https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token
-
-      > Microsoft Graph API endpoint
-      https://graph.microsoft.com
-    */
-
-    /// setup RemoteAuth
-    ///
-    /// Microsoft Authorization (Oauth2)
-
-    //  android
-    //    clientId:     '9a39a0cd-5460-4aba-bbfa-26d533dda069'
-    //    bundle:       lr.com.zeroharm
-    //    redirectUrl:  'msauth://lr.com.zeroharm/DBkv+M3V4nQFdhbnvP3oLh6SPDY='
-
-    //  iOS:
-    //    clientId:     'fe123053-6f80-447b-9ac8-710813cdd0f2'
-    //    bundle:       org.lr.zeroharm
-    //    redirectUrl:  msauth.org.lr.zeroharm://auth
-    //    issuer: https://login.microsoftonline.com/lloydsregistergroup.onmicrosoft.com
-
-    // Flutter:
-    //    clientId: bd9d614e-e975-4f56-b791-b85bd60319cb
-    //    bundle:       lr.com.zeroharm
-    //    redirectUrl:  lr.org.zeroharm://auth
-
-    // Test
-    // RemoteAuth.setup(
-    //   clientId: 'interactive.public',
-    //   redirectUrl: 'com.duendesoftware.demo:/oauthredirect',
-    //   authorizationEndpoint:
-    //       'https://demo.duendesoftware.com/connect/authorize',
-    //   tokenEndpoint: 'https://demo.duendesoftware.com/connect/token',
-    //   scopes: ['openid', 'profile', 'email'],
-    // );
-
-    // iOS
-    // RemoteAuth.setup(
-    //   clientId: 'fe123053-6f80-447b-9ac8-710813cdd0f2',
-    //   redirectUrl: 'msauth.org.lr.zeroharm://auth',
-    //   issuer:
-    //       'https://login.microsoftonline.com/lloydsregistergroup.onmicrosoft.com',
-    //   // authorizationEndpoint:
-    //   //     'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/authorize',
-    //   // tokenEndpoint:
-    //   //     'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/token',
-    //   scopes: [
-    //     'openid',
-    //     'profile',
-    //     'email',
-    //     'offline_access',
-    //     'api',
-    //     'user.read'
-    //   ],
-    // );
-
-    // Flutter
-    // RemoteAuth.setup(
-    //   clientId: 'bd9d614e-e975-4f56-b791-b85bd60319cb',
-    //   redirectUrl: 'lr.org.zeroharm://auth',
-    //   // issuer:
-    //   //     'https://login.microsoftonline.com/lloydsregistergroup.onmicrosoft.com',
-    //   // discoveryUrl:
-    //   //     'https://login.microsoftonline.com/organizations/v2.0/.well-known/openid-configuration',
-    //   authorizationEndpoint:
-    //       'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/authorize',
-    //   tokenEndpoint:
-    //       'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/token',
-    //   endSessionEndpoint:
-    //       'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/saml2',
-    //   scopes: ['user.read'],
-    // );
-
-    // Android
-    // RemoteAuth.setup(
-    //   clientId: '9a39a0cd-5460-4aba-bbfa-26d533dda069',
-    //   redirectUrl: 'msauth://lr.com.zeroharm/DBkv+M3V4nQFdhbnvP3oLh6SPDY=',
-    //   authorizationEndpoint:
-    //       'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/authorize',
-    //   tokenEndpoint:
-    //       'https://login.microsoftonline.com/4a3454a0-8cf4-4a9c-b1c0-6ce4d1495f82/oauth2/v2.0/token',
-    //   scopes: ['openid', 'profile', 'email'],
-    // );
-
     await Flavor.setup(env: env);
     await LocalizationProvider.setup();
   }
 }
-
-final appProvider =
-    FutureProvider<bool>((ref) async => await AppProvider.init(ref));

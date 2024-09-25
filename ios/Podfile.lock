@@ -51,22 +51,22 @@ PODS:
   - Firebase/RemoteConfig (11.0.0):
     - Firebase/CoreOnly
     - FirebaseRemoteConfig (~> 11.0.0)
-  - firebase_analytics (11.3.0):
+  - firebase_analytics (11.3.2):
     - Firebase/Analytics (= 11.0.0)
     - firebase_core
     - Flutter
-  - firebase_core (3.4.0):
+  - firebase_core (3.5.0):
     - Firebase/CoreOnly (= 11.0.0)
     - Flutter
-  - firebase_crashlytics (4.1.0):
+  - firebase_crashlytics (4.1.2):
     - Firebase/Crashlytics (= 11.0.0)
     - firebase_core
     - Flutter
-  - firebase_messaging (15.1.0):
+  - firebase_messaging (15.1.2):
     - Firebase/Messaging (= 11.0.0)
     - firebase_core
     - Flutter
-  - firebase_remote_config (5.1.0):
+  - firebase_remote_config (5.1.2):
     - Firebase/RemoteConfig (= 11.0.0)
     - firebase_core
     - Flutter
@@ -253,11 +253,11 @@ PODS:
   - SDWebImageWebPCoder (0.14.6):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.17)
-  - Sentry/HybridSDK (8.35.1)
-  - sentry_flutter (8.8.0):
+  - Sentry/HybridSDK (8.36.0)
+  - sentry_flutter (8.9.0):
     - Flutter
     - FlutterMacOS
-    - Sentry/HybridSDK (= 8.35.1)
+    - Sentry/HybridSDK (= 8.36.0)
   - url_launcher_ios (0.0.1):
     - Flutter
   - video_compress (0.3.0):
@@ -411,11 +411,11 @@ SPEC CHECKSUMS:
   DictionaryCoder: 5f84fff69f54cb806071538430bdafe04a89d658
   external_app_launcher: ad55ac844aa21f2d2197d7cec58ff0d0dc40bbc0
   Firebase: 9f574c08c2396885b5e7e100ed4293d956218af9
-  firebase_analytics: 1a66fe8d4375eccff44671ea37897683a78b2675
-  firebase_core: ceec591a66629daaee82d3321551692c4a871493
-  firebase_crashlytics: e4f04180f443d5a8b56fbc0685bdbd7d90dd26f0
-  firebase_messaging: 15d8b557010f3bb7b98d0302e1c7c8fbcd244425
-  firebase_remote_config: 2347e1cd52216f4b07f421068fb8dad42cca2803
+  firebase_analytics: 4fd10182fd08bb8358f26ac8aca8dad7b6d0f592
+  firebase_core: 2ec6b789859c7c24766344ec71fdf78639402d56
+  firebase_crashlytics: 60630a0f91ee432275fa1660fd8593079761448a
+  firebase_messaging: a18e1e02b2e8e69097c8173e0c851be223b21c50
+  firebase_remote_config: e9540adfc076899bf326f934a9dc722dd7795310
   FirebaseABTesting: c2e22c3aab99afa81d0561708b2c1c356c556976
   FirebaseAnalytics: 27eb78b97880ea4a004839b9bac0b58880f5a92a
   FirebaseCore: 3cf438f431f18c12cdf2aaf64434648b63f7e383
@@ -453,8 +453,8 @@ SPEC CHECKSUMS:
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   SDWebImage: 8a6b7b160b4d710e2a22b6900e25301075c34cb3
   SDWebImageWebPCoder: e38c0a70396191361d60c092933e22c20d5b1380
-  Sentry: 1fe34e9c2cbba1e347623610d26db121dcb569f1
-  sentry_flutter: a39c2a2d67d5e5b9cb0b94a4985c76dd5b3fc737
+  Sentry: f8374b5415bc38dfb5645941b3ae31230fbeae57
+  sentry_flutter: 0eb93e5279eb41e2392212afe1ccd2fecb4f8cbe
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
   video_compress: fce97e4fb1dfd88175aa07d2ffc8a2f297f87fbe
   video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3

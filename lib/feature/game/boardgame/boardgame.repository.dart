@@ -4,8 +4,8 @@ import 'package:fcar_lib/core/datasource/network/deserialize.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/datasource/network/network.provider.dart';
-import '../../../core/datasource/network/network_url.constant.dart';
+import '../../../app.provider.dart';
+import '../../../config/network_url.constant.dart';
 import 'widgets/answer.model.dart';
 import 'widgets/question.model.dart';
 
@@ -32,7 +32,7 @@ class BoardgameRepository {
   }
 
   Future<AnswerModel?> postSelectedOption({required String id}) async {
-    final url = NetworkUrl.selectedOption;
+    const url = NetworkUrl.selectedOption;
     final body = <String, dynamic>{'id': id};
     final json = await network.post(url, body: body);
     return Deserialize<AnswerModel>(

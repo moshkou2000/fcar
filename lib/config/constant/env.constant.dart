@@ -1,12 +1,11 @@
+import 'package:fcar_lib/core/service/auth/remote/remote_auth_config.model.dart';
 import 'package:flutter/material.dart';
-
-import '../../feature/auth/auth.model.dart';
 
 @immutable
 abstract final class EnvConstant {
-  static AuthModel get oAuth => const AuthModel(
-        tenantId: String.fromEnvironment('TENANT_ID'),
-        clientId: String.fromEnvironment('CLIENT_ID'),
-        secret: String.fromEnvironment('SECRET'),
+  static RemoteAuthConfigModel get azureAuth => RemoteAuthConfigModel.azure(
+        tenantId: const String.fromEnvironment('TENANT_ID'),
+        clientId: const String.fromEnvironment('CLIENT_ID'),
+        redirectUrl: Uri.parse('lr.org.zeroharm://auth'),
       );
 }

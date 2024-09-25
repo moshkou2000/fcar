@@ -2,7 +2,7 @@ import 'package:fcar_lib/config/theme/color/korra_color.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
-final class ThemeColor {
+abstract final class ThemeColor {
   static const primary = KoraColor.primary;
   static const onPrimary = KoraColor.onPrimary;
   static const primaryContainer = KoraColor.primaryContainer;

@@ -16,11 +16,8 @@ class AuthProvider extends Notifier<bool> {
     return false;
   }
 
-  Future<bool> isAuthenticated() async {
-    final user = await _authRepository.getUser();
-    return user?.hasToken ?? false;
-  }
-
+  /// Call in App.init
+  ///
   static Future<void> auth({required FutureProviderRef ref}) async {
     final isAuthenticated =
         await ref.read(authProvider.notifier).isAuthenticated();
@@ -33,6 +30,11 @@ class AuthProvider extends Notifier<bool> {
     } else {
       _navigateToAuth(ref);
     }
+  }
+
+  Future<bool> isAuthenticated() async {
+    final user = await _authRepository.getAuthData();
+    return user?.hasToken ?? false;
   }
 
   static void _navigateToLanding(FutureProviderRef ref) {
